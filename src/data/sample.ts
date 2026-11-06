@@ -213,6 +213,7 @@ export const projects: Project[] = [
     summary:
       "Award-winning website for a climate and Earth-data company. Complex scientific services made clear and navigable.",
     url: "https://www.lobelia.earth",
+    image: "/work/lobelia-earth.jpg",
     featured: true,
   },
   {
@@ -224,7 +225,8 @@ export const projects: Project[] = [
     highlight: "Award-winning SaaS",
     summary:
       "Award-winning SaaS website for an AI events platform. Enterprise polish with a complex product story.",
-    url: "https://touchcast.io",
+    url: "https://touchcast.com",
+    image: "/work/touchcast.jpg",
     featured: true,
   },
   {
@@ -237,6 +239,7 @@ export const projects: Project[] = [
     summary:
       "Full e-commerce build in Webflow for a UK brand: catalogue, checkout and content designed to sell.",
     url: "https://www.mind-ninja.co.uk",
+    image: "/work/mind-ninja.jpg",
     featured: true,
   },
   {
@@ -249,6 +252,7 @@ export const projects: Project[] = [
     summary:
       "Industrial cleantech website localized in four languages. Technical depth without the clutter.",
     url: "https://emew.com",
+    image: "/work/emew.jpg",
   },
   {
     slug: "ai-institute",
@@ -260,17 +264,19 @@ export const projects: Project[] = [
     summary:
       "B2B website for an AI training provider, positioning a new category offer for enterprise buyers.",
     url: "https://www.aitraining.institute",
+    image: "/work/ai-institute.jpg",
   },
   {
-    slug: "dynamis",
-    title: "Dynamis",
-    client: "Dynamis",
-    industry: "Consumer / Games",
-    services: ["Web Design", "Localization"],
-    highlight: "3 languages",
+    slug: "calypso-commodities",
+    title: "Calypso Commodities",
+    client: "Calypso Commodities",
+    industry: "Commodities / AI",
+    services: ["Web Design", "Webflow Development"],
+    highlight: "AI trading platform",
     summary:
-      "Playful, simple website for a board game, shipped in three languages on a lean scope.",
-    url: "https://www.playdynamis.com",
+      "Dark, confident marketing site for an AI platform in LNG trading, a company quoted in the WSJ, Bloomberg and the Financial Times.",
+    url: "https://calypso-commodities.com",
+    image: "/work/calypso-commodities.jpg",
   },
 ];
 
