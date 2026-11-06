@@ -5,8 +5,8 @@ interface Props {
 }
 
 const {
-  heading = "Your website should be your best salesperson.",
-  sub = "Get a free 15-minute teardown of your current site — what's costing you conversions and exactly how to fix it.",
+  heading = "Get three fixes for your website. Free.",
+  sub = "Send us your website and your main goal. You'll get a short video with the three changes to make first — no call required, no obligation.",
 } = Astro.props;
 ---
 
@@ -15,10 +15,8 @@ const {
     <h2 class="cta-band__heading">{heading}</h2>
     <p class="lead cta-band__sub">{sub}</p>
     <div class="cta-band__actions">
-      <a href="mailto:hello@dee7studio.com?subject=Free%20Website%20Audit" class="btn btn--accent btn--lg">
-        Get Your Free Audit
-      </a>
-      <a href="/work" class="btn btn--ghost-light btn--lg">See the Results</a>
+      <a href="/contact" class="btn btn--accent btn--lg">Get a Free Website Review</a>
+      <a href="/work" class="btn btn--ghost-light btn--lg">See Our Work</a>
     </div>
   </div>
 </section>

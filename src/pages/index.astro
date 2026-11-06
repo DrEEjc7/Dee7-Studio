@@ -4,18 +4,19 @@ import CtaBand from "../components/CtaBand.astro";
 import { getProjects, getOffers } from "../lib/content";
 
 const projects = (await getProjects()).filter((p) => p.featured).slice(0, 3);
-const offers = getOffers();
+const offers = getOffers().filter((o) => o.slug !== "website-roadmap");
+const roadmap = getOffers().find((o) => o.slug === "website-roadmap");
 
 const steps = [
   {
     n: "01",
-    title: "Audit",
-    text: "We tear down your current site and show you exactly where conversions are leaking — in dollars, not opinions.",
+    title: "Understand",
+    text: "We start with your business: who your customers are, what they need to understand, and what they should do next.",
   },
   {
     n: "02",
     title: "Message",
-    text: "We interview your customers and rebuild your copy around the words they actually use to buy.",
+    text: "Copy before pixels. The structure and words come from your buyers, not from a template.",
   },
   {
     n: "03",
@@ -24,88 +25,100 @@ const steps = [
   },
   {
     n: "04",
-    title: "Ship & lift",
-    text: "Launch, measure, iterate. You see the numbers move — usually within the first three weeks.",
+    title: "Ship",
+    text: "Built in Webflow or Astro, with training so your team can update content without us.",
   },
+];
+
+const sectors = [
+  "SaaS",
+  "Healthcare",
+  "Education",
+  "Climate",
+  "E-commerce",
+  "Travel",
+  "Industrial",
+  "Agencies",
 ];
 ---
 
-<Base title="Dee7 Studio — High-Converting Websites for HealthTech, EdTech & Fintech">
+<Base title="Dee7 Studio — Websites That Explain Your Product and Win You Customers">
   <!-- Hero -->
   <section class="hero">
     <div class="container hero__inner">
-      <span class="badge badge--delivery">Design studio for B2B teams</span>
+      <span class="badge badge--delivery">Web design studio for B2B teams</span>
       <h1 class="display hero__title">
-        Websites that turn<br class="hero__br" />
-        visitors into <span class="hero__title-accent">revenue.</span>
+        Make your product<br class="hero__br" />
+        impossible to <span class="hero__title-accent">misunderstand.</span>
       </h1>
       <p class="lead hero__sub">
-        Dee7 designs high-converting landing pages and websites for HealthTech,
-        EdTech and Fintech companies. Outcome first, polish always.
+        You have a product to launch, a website that undersells you, or an idea
+        that needs direction. Dee7 plans, writes, designs and builds websites
+        that explain your offer clearly — and get visitors to act.
       </p>
       <div class="hero__actions">
-        <a href="#contact" class="btn btn--accent btn--lg">Get Your Free Audit</a>
-        <a href="/work" class="btn btn--ghost-light btn--lg">See the Results</a>
+        <a href="/contact" class="btn btn--accent btn--lg">Get a Free Website Review</a>
+        <a href="/work" class="btn btn--ghost-light btn--lg">See Our Work</a>
       </div>
 
       <dl class="hero__stats">
         <div class="hero__stat">
-          <dt>Average conversion lift</dt>
-          <dd>+38%</dd>
+          <dt>years of experience</dt>
+          <dd>10+</dd>
         </div>
         <div class="hero__stat">
-          <dt>Pipeline generated for clients</dt>
-          <dd>$2.1M+</dd>
+          <dt>projects delivered</dt>
+          <dd>2,000+</dd>
         </div>
         <div class="hero__stat">
-          <dt>Average time to first lift</dt>
-          <dd>21 days</dd>
+          <dt>Certified Partner</dt>
+          <dd>Webflow</dd>
+        </div>
+        <div class="hero__stat">
+          <dt>Certified Partner</dt>
+          <dd>Notion</dd>
         </div>
       </dl>
     </div>
   </section>
 
-  <!-- Services -->
+  <!-- Services: problem-first, no pricing -->
   <section class="section" id="services">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Services</span>
-        <h2>Three ways to work with us</h2>
+        <h2>Start with the problem you have</h2>
         <p class="lead">
-          Start with one page or hand us the whole site. Every engagement is
-          priced flat, scoped tight and measured in conversions.
+          Fixed scope, clear timelines, and a process that starts with your
+          business — not a template. Pricing is scoped to your project on a
+          short call.
         </p>
       </div>
 
-      <div class="grid grid--3 offers">
+      <div class="grid grid--3">
         {offers.map((offer) => (
-          <article class:list={["card", "offer", { "card--featured": offer.featured }]}>
-            {offer.badge && (
-              <span class:list={["badge", offer.featured ? "badge--dark" : "badge--accent", "offer__badge"]}>
-                {offer.badge}
-              </span>
-            )}
-            <h3 class="offer__name">{offer.name}</h3>
-            <p class="offer__desc">{offer.description}</p>
-            <div class="offer__price-row">
-              <span class="offer__price">{offer.price}</span>
-              {offer.cadence && <span class="offer__cadence">{offer.cadence}</span>}
-            </div>
-            <span class="badge badge--delivery offer__delivery">{offer.delivery}</span>
-            <ul class="check-list offer__includes">
-              {offer.includes.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-            <a
-              href="#contact"
-              class:list={["btn", offer.featured ? "btn--accent" : "btn--secondary", "offer__cta"]}
-            >
-              {offer.cta}
-            </a>
-          </article>
+          <a href={`/services/${offer.slug}`} class="card offer-card">
+            <span class="eyebrow offer-card__problem">{offer.problem}</span>
+            <h3 class="offer-card__name">{offer.name}</h3>
+            <p class="offer-card__desc">{offer.description}</p>
+            <span class="badge badge--delivery">{offer.timeline}</span>
+            <span class="offer-card__link">How it works →</span>
+          </a>
         ))}
       </div>
+
+      {roadmap && (
+        <a href={`/services/${roadmap.slug}`} class="roadmap-strip">
+          <div>
+            <span class="roadmap-strip__label">{roadmap.problem}</span>
+            <span class="roadmap-strip__text">
+              Start with a {roadmap.name} — {roadmap.timeline}, a plan you can
+              use with any team.
+            </span>
+          </div>
+          <span class="roadmap-strip__link">Learn more →</span>
+        </a>
+      )}
     </div>
   </section>
 
@@ -115,23 +128,27 @@ const steps = [
       <div class="section-head section-head--row">
         <div>
           <span class="eyebrow">Selected Work</span>
-          <h2>Results, not mockups</h2>
+          <h2>Built, shipped, live</h2>
         </div>
-        <a href="/work" class="btn btn--secondary">View All Case Studies</a>
+        <a href="/work" class="btn btn--secondary">View All Work</a>
       </div>
 
       <div class="grid grid--3">
         {projects.map((project) => (
-          <a href={`/work/${project.slug}`} class="card project-card">
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener"
+            class="card project-card"
+          >
             <div class="project-card__cover">
-              <span class="project-card__metric">{project.metric}</span>
-              <span class="project-card__metric-label">{project.metricLabel}</span>
+              <span class="project-card__highlight">{project.highlight}</span>
+              <span class="project-card__name">{project.title}</span>
             </div>
             <div class="project-card__body">
               <span class="badge badge--outline">{project.industry}</span>
-              <h3 class="project-card__title">{project.client}</h3>
               <p class="project-card__summary">{project.summary}</p>
-              <span class="project-card__link">Read the case study →</span>
+              <span class="project-card__link">Visit live site ↗</span>
             </div>
           </a>
         ))}
@@ -144,7 +161,11 @@ const steps = [
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Process</span>
-        <h2>From audit to lift in four steps</h2>
+        <h2>How we work</h2>
+        <p class="lead">
+          You don't need a perfect brief to start. Bring your current website,
+          a rough idea, or the problem you want to solve.
+        </p>
       </div>
       <div class="grid grid--4">
         {steps.map((step) => (
@@ -155,20 +176,14 @@ const steps = [
           </div>
         ))}
       </div>
-    </div>
-  </section>
 
-  <!-- Testimonial -->
-  <section class="section">
-    <div class="container testimonial">
-      <span class="eyebrow">What clients say</span>
-      <blockquote class="testimonial__quote">
-        “Dee7 rebuilt our landing page in a week. Demo bookings were up 38%
-        within the month — it paid for itself before the invoice was due.”
-      </blockquote>
-      <div class="testimonial__who">
-        <span class="testimonial__name">Head of Growth</span>
-        <span class="testimonial__role">Calmora Health · HealthTech</span>
+      <div class="sectors">
+        <span class="sectors__label">Experience across</span>
+        <ul class="sectors__list">
+          {sectors.map((s) => (
+            <li class="sectors__item">{s}</li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
@@ -200,7 +215,7 @@ const steps = [
   }
 
   .hero__sub {
-    max-width: 560px;
+    max-width: 600px;
   }
 
   .hero__actions {
@@ -212,7 +227,7 @@ const steps = [
 
   .hero__stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-3);
     width: 100%;
     margin: var(--space-8) 0 0;
@@ -230,15 +245,15 @@ const steps = [
   .hero__stat dd {
     margin: 0 0 4px;
     font-family: var(--font-display);
-    font-size: clamp(32px, 4vw, 48px);
+    font-size: clamp(28px, 3.5vw, 44px);
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 720px) {
     .hero__stats {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .hero__br {
@@ -259,60 +274,73 @@ const steps = [
     margin-top: var(--space-2);
   }
 
-  /* Offers */
-  .offer {
+  /* Offer cards — problem-first, no pricing */
+  .offer-card {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-    position: relative;
+    align-items: flex-start;
   }
 
-  .offer__badge {
-    position: absolute;
-    top: -12px;
-    left: var(--space-3);
+  .offer-card__problem {
+    color: var(--accent);
   }
 
-  .offer__name {
-    margin-top: var(--space-1);
+  .offer-card__name {
+    font-size: 24px;
   }
 
-  .offer__desc {
+  .offer-card__desc {
     font-size: 14px;
     color: var(--muted);
-    min-height: 44px;
-  }
-
-  .offer__price-row {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-  }
-
-  .offer__price {
-    font-family: var(--font-display);
-    font-size: 36px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-  }
-
-  .offer__cadence {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--muted);
-  }
-
-  .offer__delivery {
-    align-self: flex-start;
-  }
-
-  .offer__includes {
-    margin-block: var(--space-1);
     flex: 1;
   }
 
-  .offer__cta {
-    width: 100%;
+  .offer-card__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .offer-card:hover .offer-card__link {
+    color: var(--accent);
+  }
+
+  /* Roadmap strip */
+  .roadmap-strip {
+    margin-top: var(--space-3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    padding: var(--space-3);
+    background: var(--tint);
+    border-radius: var(--radius-lg);
+    transition: transform var(--ease);
+  }
+
+  .roadmap-strip__label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .roadmap-strip__text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .roadmap-strip__link {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
   }
 
   /* Project cards */
@@ -334,19 +362,20 @@ const steps = [
     justify-content: center;
   }
 
-  .project-card__metric {
-    font-family: var(--font-display);
-    font-size: 56px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1;
+  .project-card__highlight {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--accent);
   }
 
-  .project-card__metric-label {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--muted-on-dark);
+  .project-card__name {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
   }
 
   .project-card__body {
@@ -358,21 +387,13 @@ const steps = [
     flex: 1;
   }
 
-  .project-card__title {
-    font-size: 20px;
-  }
-
   .project-card__summary {
     font-size: 14px;
     color: var(--muted);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    flex: 1;
   }
 
   .project-card__link {
-    margin-top: auto;
     font-size: 14px;
     font-weight: 600;
     color: var(--accent);
@@ -404,39 +425,39 @@ const steps = [
     color: var(--muted-on-dark);
   }
 
-  /* Testimonial */
-  .testimonial {
+  /* Sectors */
+  .sectors {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border-on-dark);
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: baseline;
     gap: var(--space-3);
+    flex-wrap: wrap;
   }
 
-  .testimonial__quote {
+  .sectors__label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-on-dark);
+    white-space: nowrap;
+  }
+
+  .sectors__list {
+    list-style: none;
     margin: 0;
+    padding: 0;
+    display: flex;
+    gap: var(--space-2) var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .sectors__item {
     font-family: var(--font-display);
-    font-size: clamp(24px, 3vw, 36px);
+    font-size: 18px;
     font-weight: 700;
     letter-spacing: -0.01em;
-    line-height: 1.3;
-    max-width: 840px;
-    text-wrap: balance;
-  }
-
-  .testimonial__who {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .testimonial__name {
-    font-weight: 700;
-    font-size: 14px;
-  }
-
-  .testimonial__role {
-    font-size: 13px;
-    color: var(--muted);
   }
 </style>

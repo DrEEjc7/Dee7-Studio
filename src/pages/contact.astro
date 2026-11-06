@@ -1,0 +1,304 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Contact — Dee7 Studio"
+  description="Share your goals, timing and budget. Get a free website review — three fixes to make first — or a fixed quote for your project."
+>
+  <section class="contact">
+    <div class="container contact__grid">
+      <!-- Left: pitch -->
+      <div class="contact__intro">
+        <span class="eyebrow">Contact</span>
+        <h1 class="contact__title">Tell us what you're trying to do.</h1>
+        <p class="lead">
+          You don't need a perfect brief. Share your goal, timing and budget —
+          we'll reply within one business day with an honest recommendation.
+        </p>
+
+        <ul class="check-list contact__points">
+          <li>Free website review: three fixes, in a short video</li>
+          <li>Fixed quotes — you know the number before work starts</li>
+          <li>No obligation, no retainer pressure</li>
+        </ul>
+
+        <div class="contact__direct">
+          <span class="contact__direct-label">Prefer email?</span>
+          <a href="mailto:hello@dee7studio.com" class="contact__direct-link">hello@dee7studio.com</a>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <form class="card contact__form" id="lead-form">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" required placeholder="Jane Doe" />
+        </div>
+
+        <div class="field">
+          <label for="email">Work email</label>
+          <input type="email" id="email" name="email" required placeholder="jane@company.com" />
+        </div>
+
+        <div class="field">
+          <label for="website">Your website <span class="field__optional">(if you have one)</span></label>
+          <input type="url" id="website" name="website" placeholder="https://" />
+        </div>
+
+        <div class="field">
+          <label for="service">What do you need?</label>
+          <select id="service" name="service" required>
+            <option value="">Choose one…</option>
+            <option value="free-review">Free website review (3 fixes)</option>
+            <option value="landing-page-sprint">A landing page</option>
+            <option value="website-project">A full website or redesign</option>
+            <option value="monthly-partner">Ongoing design & dev partner</option>
+            <option value="website-roadmap">A plan / roadmap first</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="timing">When do you need it?</label>
+            <select id="timing" name="timing">
+              <option value="">Choose…</option>
+              <option>As soon as possible</option>
+              <option>Within 1–2 months</option>
+              <option>This quarter</option>
+              <option>Just exploring</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="budget">Budget range</label>
+            <select id="budget" name="budget">
+              <option value="">Choose…</option>
+              <option>Under $5k</option>
+              <option>$5k – $10k</option>
+              <option>$10k – $25k</option>
+              <option>$25k+</option>
+              <option>Monthly budget</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">What's the goal?</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            placeholder="E.g. we're launching a new product in January and our current site doesn't explain it…"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--accent btn--lg contact__submit">Send It</button>
+        <p class="contact__form-note">
+          Opens a pre-filled email in your mail app — nothing is stored on this
+          site.
+        </p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Pre-select service from ?service= links on offer pages.
+  const params = new URLSearchParams(window.location.search);
+  const service = params.get("service");
+  const select = document.getElementById("service") as HTMLSelectElement | null;
+  if (service && select) {
+    const match = Array.from(select.options).find((o) => o.value === service);
+    if (match) select.value = service;
+  }
+
+  // Compose a structured email from the form (no backend needed yet).
+  const form = document.getElementById("lead-form") as HTMLFormElement | null;
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const get = (k: string) => String(data.get(k) ?? "").trim();
+
+    const serviceLabels: Record<string, string> = {
+      "free-review": "Free website review",
+      "landing-page-sprint": "Landing page",
+      "website-project": "Full website / redesign",
+      "monthly-partner": "Ongoing partner",
+      "website-roadmap": "Roadmap / plan",
+      other: "Something else",
+    };
+
+    const subject = `Project enquiry — ${serviceLabels[get("service")] ?? "General"}`;
+    const body = [
+      `Name: ${get("name")}`,
+      `Email: ${get("email")}`,
+      get("website") && `Website: ${get("website")}`,
+      `Need: ${serviceLabels[get("service")] ?? get("service")}`,
+      get("timing") && `Timing: ${get("timing")}`,
+      get("budget") && `Budget: ${get("budget")}`,
+      "",
+      "Goal:",
+      get("message") || "(not filled in)",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    window.location.href = `mailto:hello@dee7studio.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+<style>
+  .contact {
+    padding-block: var(--space-section);
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .contact__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    position: sticky;
+    top: 104px;
+  }
+
+  .contact__title {
+    font-size: clamp(32px, 4vw, 48px);
+  }
+
+  .contact__points {
+    margin-top: var(--space-1);
+  }
+
+  .contact__points :global(li) {
+    font-size: 15px;
+  }
+
+  .contact__direct {
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact__direct-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .contact__direct-link {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    transition: color var(--ease);
+  }
+
+  .contact__direct-link:hover {
+    color: var(--accent);
+  }
+
+  /* Form */
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
+
+  .contact__form:hover {
+    border-color: var(--border);
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .field-row {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .field__optional {
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1.5px solid var(--border-alt);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    transition: border-color var(--ease);
+    width: 100%;
+  }
+
+  .field textarea {
+    resize: vertical;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--border-alt);
+  }
+
+  .contact__submit {
+    width: 100%;
+  }
+
+  .contact__form-note {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  @media (max-width: 860px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .contact__intro {
+      position: static;
+    }
+
+    .field-row {
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+  }
+</style>

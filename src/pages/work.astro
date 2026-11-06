@@ -8,58 +8,66 @@ const projects = await getProjects();
 const capabilities = [
   "Landing Page Design",
   "Web Design",
+  "Webflow Development",
+  "Astro Development",
   "Conversion Copywriting",
-  "CRO Audits",
+  "E-commerce",
+  "Localization",
   "Design Systems",
-  "Webflow & Astro Development",
-  "Product UI",
-  "Brand Assets",
+  "Notion Workspaces",
 ];
 ---
 
 <Base
   title="Work — Dee7 Studio"
-  description="Case studies from HealthTech, EdTech and Fintech: conversion lifts, pipeline generated and the design decisions behind them."
+  description="Live, shipped work: award-winning websites across SaaS, climate, e-commerce, education and industry. 10+ years, 2,000+ projects."
 >
   <!-- Page hero -->
   <section class="page-hero">
     <div class="container">
       <span class="eyebrow">Portfolio</span>
-      <h1 class="display page-hero__title">Proof, in numbers.</h1>
+      <h1 class="display page-hero__title">Live, not mockups.</h1>
       <p class="lead page-hero__sub">
-        Every project below shipped with a measurable goal. Here's what moved —
-        and the design decisions that moved it.
+        Every project below is shipped and online — visit them. 10+ years,
+        2,000+ projects, including award-winning work.
       </p>
     </div>
   </section>
 
-  <!-- Case studies -->
+  <!-- Projects -->
   <section class="section case-list">
     <div class="container">
-      <div class="case-rows">
-        {projects.map((project, i) => (
-          <a href={`/work/${project.slug}`} class:list={["case-row", { "case-row--flip": i % 2 === 1 }]}>
-            <div class="case-row__cover">
-              <span class="case-row__metric">{project.metric}</span>
-              <span class="case-row__metric-label">{project.metricLabel}</span>
+      <div class="grid grid--2">
+        {projects.map((project) => (
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener"
+            class="card project-tile"
+          >
+            <div class="project-tile__cover">
+              <span class="project-tile__highlight">{project.highlight}</span>
+              <span class="project-tile__name">{project.title}</span>
             </div>
-            <div class="case-row__body">
-              <div class="case-row__tags">
+            <div class="project-tile__body">
+              <div class="project-tile__tags">
                 <span class="badge badge--outline">{project.industry}</span>
-                <span class="badge badge--outline">{project.year}</span>
-              </div>
-              <h2 class="case-row__title">{project.title}</h2>
-              <p class="case-row__summary">{project.summary}</p>
-              <div class="case-row__services">
                 {project.services.map((s) => (
                   <span class="badge badge--tint">{s}</span>
                 ))}
               </div>
-              <span class="case-row__link">Read the case study →</span>
+              <p class="project-tile__summary">{project.summary}</p>
+              <span class="project-tile__link">Visit live site ↗</span>
             </div>
           </a>
         ))}
       </div>
+
+      <p class="case-note">
+        Full case studies — the problem, what changed, and the results — are
+        being written up. Want the details on a specific project?
+        <a href="/contact" class="case-note__link">Ask us</a>.
+      </p>
     </div>
   </section>
 
@@ -79,8 +87,8 @@ const capabilities = [
   </section>
 
   <CtaBand
-    heading="Want numbers like these?"
-    sub="Tell us your conversion goal. We'll tell you — free — whether your current site can hit it, and what we'd change."
+    heading="Want work like this?"
+    sub="Send us your website and your goal. We'll reply with a free review — three fixes to make first."
   />
 </Base>
 
@@ -97,112 +105,78 @@ const capabilities = [
     padding-top: 0;
   }
 
-  .case-rows {
+  .project-tile {
+    padding: 0;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
   }
 
-  .case-row {
-    display: grid;
-    grid-template-columns: 5fr 7fr;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    transition: border-color var(--ease);
-  }
-
-  .case-row:hover {
-    border-color: var(--accent);
-  }
-
-  .case-row--flip {
-    grid-template-columns: 7fr 5fr;
-  }
-
-  .case-row--flip .case-row__cover {
-    order: 2;
-  }
-
-  .case-row__cover {
+  .project-tile__cover {
     background: var(--ink);
     color: var(--ink-contrast);
+    padding: var(--space-6) var(--space-4);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: var(--space-1);
-    padding: var(--space-6);
-    min-height: 280px;
+    min-height: 220px;
+    justify-content: center;
   }
 
-  .case-row__metric {
-    font-family: var(--font-display);
-    font-size: clamp(56px, 7vw, 96px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1;
+  .project-tile__highlight {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--accent);
   }
 
-  .case-row__metric-label {
-    font-size: 15px;
-    color: var(--muted-on-dark);
+  .project-tile__name {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
   }
 
-  .case-row__body {
-    padding: var(--space-6);
+  .project-tile__body {
+    padding: var(--space-3) var(--space-4) var(--space-4);
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
     align-items: flex-start;
+    flex: 1;
   }
 
-  .case-row__tags {
-    display: flex;
-    gap: var(--space-1);
-  }
-
-  .case-row__title {
-    font-size: clamp(22px, 2.5vw, 28px);
-  }
-
-  .case-row__summary {
-    font-size: 15px;
-    color: var(--muted);
-  }
-
-  .case-row__services {
+  .project-tile__tags {
     display: flex;
     gap: var(--space-1);
     flex-wrap: wrap;
   }
 
-  .case-row__link {
-    margin-top: var(--space-1);
+  .project-tile__summary {
+    font-size: 15px;
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .project-tile__link {
     font-size: 14px;
     font-weight: 600;
     color: var(--accent);
   }
 
-  @media (max-width: 860px) {
-    .case-row,
-    .case-row--flip {
-      grid-template-columns: 1fr;
-    }
+  .case-note {
+    margin-top: var(--space-6);
+    font-size: 14px;
+    color: var(--muted);
+    max-width: none;
+    text-align: center;
+  }
 
-    .case-row--flip .case-row__cover {
-      order: 0;
-    }
-
-    .case-row__cover {
-      min-height: 200px;
-      padding: var(--space-4);
-    }
-
-    .case-row__body {
-      padding: var(--space-4);
-    }
+  .case-note__link {
+    color: var(--accent);
+    font-weight: 600;
   }
 
   .cap-list {

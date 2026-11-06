@@ -1,0 +1,275 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getOffers } from "../../lib/content";
+
+export async function getStaticPaths() {
+  return getOffers().map((offer) => ({
+    params: { slug: offer.slug },
+    props: { offer },
+  }));
+}
+
+const { offer } = Astro.props;
+---
+
+<Base title={`${offer.name} — Dee7 Studio`} description={offer.description}>
+  <article>
+    <!-- Offer hero -->
+    <header class="offer-hero">
+      <div class="container offer-hero__inner">
+        <span class="eyebrow">{offer.problem}</span>
+        <h1 class="offer-hero__title">{offer.name}</h1>
+        <p class="lead offer-hero__desc">{offer.description}</p>
+        <div class="offer-hero__meta">
+          <span class="badge badge--delivery">{offer.timeline}</span>
+        </div>
+        <div class="offer-hero__actions">
+          <a href={`/contact?service=${offer.slug}`} class="btn btn--accent btn--lg">{offer.cta}</a>
+          <a href="/work" class="btn btn--ghost-light btn--lg">See Our Work</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Who it's for + deliverables -->
+    <section class="section">
+      <div class="container offer-grid">
+        <div class="offer-block">
+          <span class="eyebrow">Who it's for</span>
+          <p class="offer-block__text">{offer.forWho}</p>
+
+          <span class="eyebrow offer-block__second-label">Investment</span>
+          <p class="offer-block__price">{offer.fromPrice}</p>
+          <p class="offer-block__price-note">
+            The exact number depends on scope. You get a fixed quote after a
+            short call — no surprises mid-project, two feedback rounds always
+            included.
+          </p>
+        </div>
+
+        <div class="offer-block card">
+          <span class="eyebrow">What you get</span>
+          <ul class="check-list offer-deliverables">
+            {offer.deliverables.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Steps -->
+    <section class="section section--dark">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">How it works</span>
+          <h2>From kickoff to live</h2>
+        </div>
+        <div class:list={["grid", offer.steps.length === 3 ? "grid--3" : "grid--4"]}>
+          {offer.steps.map((step, i) => (
+            <div class="step">
+              <span class="step__n">{String(i + 1).padStart(2, "0")}</span>
+              <h3 class="step__title">{step.title}</h3>
+              <p class="step__text">{step.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <div class="container faq">
+        <div class="section-head">
+          <span class="eyebrow">FAQ</span>
+          <h2>Good questions</h2>
+        </div>
+        <div class="faq__list">
+          {offer.faq.map((item) => (
+            <details class="faq__item">
+              <summary class="faq__q">{item.q}</summary>
+              <p class="faq__a">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--dark offer-cta">
+      <div class="container offer-cta__inner">
+        <h2 class="offer-cta__heading">Ready when you are.</h2>
+        <p class="lead">
+          Share your goals, timing and budget. We'll tell you honestly whether
+          this is the right fit — and what we'd do first.
+        </p>
+        <a href={`/contact?service=${offer.slug}`} class="btn btn--accent btn--lg">{offer.cta}</a>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .offer-hero {
+    background: var(--ink);
+    color: var(--ink-contrast);
+    padding-block: var(--space-section);
+  }
+
+  .offer-hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .offer-hero__title {
+    font-size: clamp(40px, 6vw, 72px);
+    letter-spacing: -0.025em;
+  }
+
+  .offer-hero__desc {
+    max-width: 640px;
+  }
+
+  .offer-hero__actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-top: var(--space-1);
+  }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .offer-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .offer-block__text {
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .offer-block__second-label {
+    margin-top: var(--space-4);
+  }
+
+  .offer-block__price {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .offer-block__price-note {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .offer-deliverables li {
+    font-size: 15px;
+  }
+
+  @media (max-width: 860px) {
+    .offer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Steps (shared look with home) */
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border: 1px solid var(--border-on-dark);
+    border-radius: var(--radius-lg);
+  }
+
+  .step__n {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .step__title {
+    font-size: 20px;
+  }
+
+  .step__text {
+    font-size: 14px;
+    color: var(--muted-on-dark);
+  }
+
+  /* FAQ */
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+  }
+
+  .faq__item {
+    border-top: 1px solid var(--border);
+    padding-block: var(--space-2);
+  }
+
+  .faq__item:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq__q {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    padding-block: var(--space-1);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .faq__q::after {
+    content: "+";
+    font-size: 24px;
+    color: var(--accent);
+    flex: none;
+    transition: transform var(--ease);
+  }
+
+  .faq__item[open] .faq__q::after {
+    transform: rotate(45deg);
+  }
+
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__a {
+    padding-block: var(--space-1) var(--space-2);
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 640px;
+  }
+
+  /* CTA */
+  .offer-cta__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+  }
+
+  .offer-cta__heading {
+    font-size: clamp(32px, 4.5vw, 52px);
+  }
+</style>

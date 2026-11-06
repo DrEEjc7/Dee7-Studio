@@ -1,148 +1,276 @@
 /**
- * Sample content — placeholder until Sanity is connected.
- * Shapes mirror the Sanity schema so swapping is a one-line change in content.ts.
+ * Content layer data — real studio proof and offers from the Dee7 strategy doc.
+ * Projects and offers are real; blog posts are placeholder until Sanity is wired.
  */
 import type { Project, Post, Offer } from "../lib/types";
 
 export const offers: Offer[] = [
   {
-    name: "Landing Page Design",
-    price: "$4,997",
-    delivery: "5–7 day delivery",
+    slug: "landing-page-sprint",
+    name: "Landing Page Sprint",
+    problem: "Launching something new?",
+    forWho:
+      "SaaS demos, product launches, course launches, campaigns and clinic bookings — one audience, one action.",
+    timeline: "2–3 weeks",
+    fromPrice: "From $5,000",
     description:
-      "One conversion-focused landing page, built to turn paid traffic into booked demos.",
-    includes: [
-      "Conversion copywriting included",
-      "Custom design, no templates",
-      "Built in Astro or Webflow",
-      "Mobile-first and fast by default",
-      "2 revision rounds",
+      "One page built around one audience and one action. We research your buyers, write the copy, design and build the page, connect your form or booking flow, and launch with tracking in place.",
+    deliverables: [
+      "Audience research and messaging",
+      "Conversion copywriting",
+      "Custom design — no templates",
+      "Webflow or Astro build",
+      "Form or booking connection",
+      "Analytics and launch checks",
+      "Two feedback rounds included",
     ],
-    cta: "Start Your Page",
+    steps: [
+      {
+        title: "Research",
+        text: "We dig into your audience, your offer and the pages your buyers see before yours.",
+      },
+      {
+        title: "Message",
+        text: "Copy first, design second. The page is written around the one action you need visitors to take.",
+      },
+      {
+        title: "Design & build",
+        text: "Custom design on a strict system, built fast and mobile-first.",
+      },
+      {
+        title: "Launch",
+        text: "Tracking, forms and launch checks — live in two to three weeks.",
+      },
+    ],
+    faq: [
+      {
+        q: "What if I need copy help?",
+        a: "Copywriting is included. You bring the product knowledge; we turn it into a page that sells.",
+      },
+      {
+        q: "Webflow or Astro?",
+        a: "Whichever fits your team. Webflow when marketers need to edit freely; Astro when speed and code ownership matter most.",
+      },
+      {
+        q: "What does the final price depend on?",
+        a: "Scope: research depth, integrations and animation complexity. You get a fixed quote after a short call — no surprises mid-project.",
+      },
+    ],
+    cta: "Start Your Sprint",
     featured: true,
-    badge: "Most Popular",
   },
   {
-    name: "Web Design",
-    price: "$19,997",
-    delivery: "4–6 week delivery",
+    slug: "website-project",
+    name: "Website Project",
+    problem: "Website underselling your product?",
+    forWho:
+      "B2B software companies and growing businesses that need a full launch or redesign — up to eight pages, done properly.",
+    timeline: "5–8 weeks",
+    fromPrice: "From $15,000",
     description:
-      "A full site redesign that positions you as the obvious choice in your category.",
-    includes: [
-      "Up to 10 core pages",
-      "Messaging and positioning workshop",
-      "Design system you own",
-      "CMS setup for your team",
-      "30 days of post-launch support",
+      "A complete website: planning, copy, design, build, CMS and training. We start with your business — who your customers are, what they need to understand, and what they should do next.",
+    deliverables: [
+      "Up to eight core pages",
+      "Planning and page structure",
+      "Conversion copywriting",
+      "Custom design system you own",
+      "Webflow build with CMS collection",
+      "Basic SEO and tracking setup",
+      "Team training",
+      "30 days of bug support",
     ],
-    cta: "Plan Your Redesign",
+    steps: [
+      {
+        title: "Plan",
+        text: "A workshop on your customers, your offer and your pages. Structure before pixels.",
+      },
+      {
+        title: "Message",
+        text: "Sitemap and copy built around what buyers need to understand to act.",
+      },
+      {
+        title: "Design",
+        text: "A design system plus every page, reviewed with you section by section.",
+      },
+      {
+        title: "Build & hand over",
+        text: "Webflow build, CMS, SEO basics, tracking — and training so your team can update content without us.",
+      },
+    ],
+    faq: [
+      {
+        q: "What if our scope is unclear?",
+        a: "Start with a Website Roadmap instead: a short paid discovery that gives you page structure, priorities and a build estimate — useful with any team, including ours.",
+      },
+      {
+        q: "Can you migrate our existing content?",
+        a: "Yes. Migrations are priced by content volume and redirects, quoted up front.",
+      },
+      {
+        q: "What does the final price depend on?",
+        a: "Page count, content readiness and integrations. You get a fixed quote and payment milestones after a scoping call.",
+      },
+    ],
+    cta: "Plan Your Project",
   },
   {
-    name: "In-House Design Studio",
-    price: "$4,997",
-    cadence: "/mo",
-    delivery: "Ongoing partnership",
+    slug: "monthly-partner",
+    name: "Monthly Partner",
+    problem: "Need a design team on tap?",
+    forWho:
+      "Agencies that need white-label web capacity, and companies with regular website work — without hiring in-house.",
+    timeline: "Monthly, from 20 reserved hours",
+    fromPrice: "From $3,000/mo",
     description:
-      "Your own senior design team on subscription. Unlimited requests, one at a time.",
-    includes: [
-      "Unlimited design requests",
-      "48-hour average turnaround",
-      "Landing pages, product UI, brand assets",
-      "Pause or cancel anytime",
-      "Slack access to your designer",
+      "Reserved design and Webflow capacity every month. One active task at a time, weekly updates, and work that can run under your brand if you're an agency.",
+    deliverables: [
+      "Reserved design & Webflow hours",
+      "One active task at a time",
+      "Weekly progress updates",
+      "Landing pages, site updates, new sections",
+      "White-label option for agencies",
+      "Pause or stop with notice",
     ],
-    cta: "Hire Your Studio",
-    badge: "Top Value",
+    steps: [
+      {
+        title: "Set priorities",
+        text: "We agree what matters this month and keep a shared queue.",
+      },
+      {
+        title: "Ship weekly",
+        text: "One task at a time, updated every week — no black box.",
+      },
+      {
+        title: "Review & adjust",
+        text: "A short monthly review: what shipped, what's next, what to change.",
+      },
+    ],
+    faq: [
+      {
+        q: "Who is this for?",
+        a: "Agencies that resell web work, and businesses whose site needs steady attention — new pages, campaigns, improvements.",
+      },
+      {
+        q: "What if we need more capacity?",
+        a: "Hours scale up in agreed steps. We'd rather you start small and grow than overcommit on day one.",
+      },
+      {
+        q: "Is it really white-label?",
+        a: "Yes. For agencies, the work runs under your brand, your tools and your client relationships.",
+      },
+    ],
+    cta: "Reserve Capacity",
+  },
+  {
+    slug: "website-roadmap",
+    name: "Website Roadmap",
+    problem: "Not sure where to start?",
+    forWho:
+      "Larger or unclear projects — when you need a plan and an honest estimate before committing to a build.",
+    timeline: "3–5 business days",
+    fromPrice: "From $750",
+    description:
+      "A short, paid discovery. One workshop, a review of your current website, a proposed page structure, priorities, and a build estimate you can use with any team — including ours.",
+    deliverables: [
+      "One working session",
+      "Current website review",
+      "Proposed page structure",
+      "Priorities and quick wins",
+      "Build estimate and timeline",
+    ],
+    steps: [
+      {
+        title: "Workshop",
+        text: "One session on your business, customers and goals.",
+      },
+      {
+        title: "Review",
+        text: "We audit your current site against what your buyers need.",
+      },
+      {
+        title: "Roadmap",
+        text: "Structure, priorities and an estimate — yours to use anywhere.",
+      },
+    ],
+    faq: [
+      {
+        q: "Do I have to build with you afterwards?",
+        a: "No. The roadmap is designed to be useful with any team. If we're a fit, the roadmap fee counts toward the project.",
+      },
+    ],
+    cta: "Get Your Roadmap",
   },
 ];
 
 export const projects: Project[] = [
   {
-    slug: "calmora-health",
-    title: "38% more demo bookings for a telehealth platform",
-    client: "Calmora Health",
-    industry: "HealthTech",
-    services: ["Landing Page Design", "Conversion Copy"],
-    metric: "+38%",
-    metricLabel: "demo bookings in 21 days",
+    slug: "lobelia-earth",
+    title: "Lobelia Earth",
+    client: "Lobelia Earth",
+    industry: "Climate & Earth Data",
+    services: ["Web Design", "Webflow Development"],
+    highlight: "Award winner",
     summary:
-      "Calmora's paid traffic converted at 1.1%. We rebuilt their landing page around the one question clinicians actually ask — and bookings jumped 38% in three weeks.",
-    challenge:
-      "Calmora was spending $40k/month on ads sending clinicians to a homepage built for investors. Visitors couldn't tell within 10 seconds what the product did or why it was safe to trust with patient data.",
-    approach:
-      "We interviewed 6 of their closed-won customers, pulled the exact phrases they used to describe the product, and rebuilt the page around clinical workflow outcomes. Compliance badges and security proof moved above the fold. One CTA, repeated five times.",
-    results: [
-      { value: "+38%", label: "demo bookings" },
-      { value: "2.9%", label: "conversion rate, up from 1.1%" },
-      { value: "21 days", label: "from kickoff to lift" },
-    ],
-    year: 2026,
+      "Award-winning website for a climate and Earth-data company — complex scientific services made clear and navigable.",
+    url: "https://www.lobelia.earth",
     featured: true,
   },
   {
-    slug: "ledgerpay",
-    title: "2.4× sign-up conversion for a B2B payments API",
-    client: "LedgerPay",
-    industry: "Fintech",
-    services: ["Web Design", "Design System"],
-    metric: "2.4×",
-    metricLabel: "sign-up conversion",
+    slug: "touchcast",
+    title: "Touchcast",
+    client: "Touchcast",
+    industry: "SaaS / AI",
+    services: ["Web Design", "Webflow Development"],
+    highlight: "Award-winning SaaS",
     summary:
-      "LedgerPay's site read like API documentation. We redesigned it to sell outcomes to finance leaders first and engineers second — sign-ups more than doubled.",
-    challenge:
-      "The old site led with endpoint lists and rate limits. Developers loved it; the CFOs approving the contract bounced. Sales called the website 'the thing we apologize for on demos.'",
-    approach:
-      "We split the narrative: an outcome-led story for buyers, a dedicated docs-style path for engineers. New pricing page with an interactive fee calculator. A design system in Figma and code so their team ships consistent pages without us.",
-    results: [
-      { value: "2.4×", label: "sign-up conversion" },
-      { value: "−31%", label: "bounce rate on pricing" },
-      { value: "9", label: "pages shipped by their team since" },
-    ],
-    year: 2026,
+      "Award-winning SaaS website for an AI events platform — enterprise polish with a complex product story.",
+    url: "https://touchcast.io",
     featured: true,
   },
   {
-    slug: "studyloop",
-    title: "41% lower cost per lead for an EdTech scale-up",
-    client: "StudyLoop",
-    industry: "EdTech",
-    services: ["Landing Page Design", "CRO Program"],
-    metric: "−41%",
-    metricLabel: "cost per qualified lead",
+    slug: "mind-ninja",
+    title: "Mind Ninja",
+    client: "Mind Ninja",
+    industry: "E-commerce",
+    services: ["E-commerce Design", "Webflow Development"],
+    highlight: "E-commerce",
     summary:
-      "Six landing page variants in eight weeks. The winner cut StudyLoop's cost per qualified lead by 41% — and became the template for every campaign since.",
-    challenge:
-      "StudyLoop's growth team was testing ad creative weekly but sending everything to one generic page. CPL had climbed 60% in two quarters and the board was asking questions.",
-    approach:
-      "We built a modular landing page system — one layout, swappable proof blocks per audience. District admins saw compliance and rollout stories; teachers saw time saved. Every variant shipped in under a week.",
-    results: [
-      { value: "−41%", label: "cost per qualified lead" },
-      { value: "6", label: "variants tested in 8 weeks" },
-      { value: "+19%", label: "demo show-up rate" },
-    ],
-    year: 2025,
+      "Full e-commerce build in Webflow for a UK brand — catalogue, checkout and content designed to sell.",
+    url: "https://www.mind-ninja.co.uk",
     featured: true,
   },
   {
-    slug: "nordvital",
-    title: "$860k in pipeline from a patient portal redesign",
-    client: "NordVital",
-    industry: "HealthTech",
-    services: ["Web Design", "UX Audit"],
-    metric: "$860k",
-    metricLabel: "pipeline in 90 days",
+    slug: "emew",
+    title: "Emew",
+    client: "Emew",
+    industry: "Cleantech / Industrial",
+    services: ["Web Design", "Localization"],
+    highlight: "4 languages",
     summary:
-      "NordVital's enterprise deals stalled at the demo stage — the product looked dated next to competitors. A focused redesign of their portal and site generated $860k in new pipeline in one quarter.",
-    challenge:
-      "Prospects compared NordVital side-by-side with newer competitors and the visual gap was costing deals. The product worked; it just didn't look like it belonged in the shortlist.",
-    approach:
-      "A two-week UX audit found 23 friction points. We redesigned the five screens that appear in every sales demo, then rebuilt the marketing site to match. Sales got a before/after deck for open opportunities.",
-    results: [
-      { value: "$860k", label: "new pipeline in 90 days" },
-      { value: "23", label: "friction points resolved" },
-      { value: "4 wks", label: "audit to launch" },
-    ],
-    year: 2025,
+      "Industrial cleantech website localized in four languages — technical depth without the clutter.",
+    url: "https://emew.com",
+  },
+  {
+    slug: "ai-institute",
+    title: "AI Institute",
+    client: "AI Institute",
+    industry: "B2B Training",
+    services: ["Web Design", "Webflow Development"],
+    highlight: "B2B AI training",
+    summary:
+      "B2B website for an AI training provider — positioning a new category offer for enterprise buyers.",
+    url: "https://www.aitraining.institute",
+  },
+  {
+    slug: "dynamis",
+    title: "Dynamis",
+    client: "Dynamis",
+    industry: "Consumer / Games",
+    services: ["Web Design", "Localization"],
+    highlight: "3 languages",
+    summary:
+      "Playful, simple website for a board game — shipped in three languages on a lean scope.",
+    url: "https://www.playdynamis.com",
   },
 ];
 

@@ -2,15 +2,11 @@ export interface Project {
   slug: string;
   title: string;
   client: string;
-  industry: "HealthTech" | "EdTech" | "Fintech";
+  industry: string;
   services: string[];
-  metric: string;
-  metricLabel: string;
+  highlight: string; // honest descriptor: "Award winner", "4 languages", "E-commerce" …
   summary: string;
-  challenge: string;
-  approach: string;
-  results: { value: string; label: string }[];
-  year: number;
+  url?: string; // live site
   featured?: boolean;
 }
 
@@ -26,13 +22,16 @@ export interface Post {
 }
 
 export interface Offer {
+  slug: string;
   name: string;
-  price: string;
-  cadence?: string;
-  delivery: string;
+  problem: string; // problem-first header used on the home page
+  forWho: string;
+  timeline: string;
+  fromPrice: string; // shown on the offer page only, never on home
   description: string;
-  includes: string[];
+  deliverables: string[];
+  steps: { title: string; text: string }[];
+  faq: { q: string; a: string }[];
   cta: string;
   featured?: boolean;
-  badge?: string;
 }

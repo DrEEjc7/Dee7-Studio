@@ -1,0 +1,143 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { getOffers } from "../../lib/content";
+
+const offers = getOffers();
+---
+
+<Base
+  title="Services — Dee7 Studio"
+  description="Landing Page Sprint, Website Project, Monthly Partner and Website Roadmap — fixed scope, clear timelines, priced to your project."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Services</span>
+      <h1 class="display page-hero__title">Pick your problem.</h1>
+      <p class="lead">
+        Every engagement has a fixed scope and a clear timeline. Pricing is
+        scoped to your project on a short call — you'll always know the number
+        before work starts.
+      </p>
+    </div>
+  </section>
+
+  <section class="section services-list">
+    <div class="container">
+      <div class="service-rows">
+        {offers.map((offer, i) => (
+          <a href={`/services/${offer.slug}`} class="service-row">
+            <div class="service-row__index">
+              <span>{String(i + 1).padStart(2, "0")}</span>
+            </div>
+            <div class="service-row__main">
+              <span class="eyebrow">{offer.problem}</span>
+              <h2 class="service-row__name">{offer.name}</h2>
+              <p class="service-row__desc">{offer.description}</p>
+            </div>
+            <div class="service-row__meta">
+              <span class="badge badge--delivery">{offer.timeline}</span>
+              <span class="service-row__link">Details →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Not sure which fits?"
+    sub="Send us your website and your goal. We'll reply with a free review — three fixes to make first — and an honest recommendation."
+  />
+</Base>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-section) var(--space-6);
+  }
+
+  .page-hero__title {
+    margin-block: var(--space-2);
+  }
+
+  .services-list {
+    padding-top: 0;
+  }
+
+  .service-rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-4) var(--space-2);
+    border-top: 1px solid var(--border);
+    transition: background-color var(--ease);
+  }
+
+  .service-row:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .service-row:hover {
+    background: var(--surface);
+  }
+
+  .service-row__index span {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--border-alt);
+  }
+
+  .service-row__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .service-row__name {
+    font-size: clamp(24px, 3vw, 32px);
+  }
+
+  .service-row__desc {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 560px;
+  }
+
+  .service-row__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-2);
+  }
+
+  .service-row__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  @media (max-width: 720px) {
+    .service-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+
+    .service-row__index {
+      display: none;
+    }
+
+    .service-row__meta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+</style>
