@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 const { offer } = Astro.props;
 ---
 
-<Base title={`${offer.name} — Dee7 Studio`} description={offer.description}>
+<Base title={`${offer.name} | Dee7 Studio`} description={offer.description}>
   <article>
     <!-- Offer hero -->
     <header class="offer-hero">
@@ -41,8 +41,8 @@ const { offer } = Astro.props;
           <p class="offer-block__price">{offer.fromPrice}</p>
           <p class="offer-block__price-note">
             The exact number depends on scope. You get a fixed quote after a
-            short call — no surprises mid-project, two feedback rounds always
-            included.
+            short call. No surprises mid-project, and two feedback rounds are
+            always included.
           </p>
         </div>
 
@@ -100,7 +100,7 @@ const { offer } = Astro.props;
         <h2 class="offer-cta__heading">Ready when you are.</h2>
         <p class="lead">
           Share your goals, timing and budget. We'll tell you honestly whether
-          this is the right fit — and what we'd do first.
+          this is the right fit, and what we'd do first.
         </p>
         <a href={`/contact?service=${offer.slug}`} class="btn btn--accent btn--lg">{offer.cta}</a>
       </div>

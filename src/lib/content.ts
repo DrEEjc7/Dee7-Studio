@@ -1,5 +1,5 @@
 /**
- * Content layer — the single place pages fetch data from.
+ * Content layer: the single place pages fetch data from.
  *
  * Today: serves typed content from src/data/sample.ts (projects and offers are
  * real; blog posts are placeholder). Once Sanity is connected

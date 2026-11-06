@@ -3,8 +3,8 @@ import Base from "../layouts/Base.astro";
 ---
 
 <Base
-  title="Contact — Dee7 Studio"
-  description="Share your goals, timing and budget. Get a free website review — three fixes to make first — or a fixed quote for your project."
+  title="Contact | Dee7 Studio"
+  description="Share your goals, timing and budget. Get a free website review with three fixes to make first, or a fixed quote for your project."
 >
   <section class="contact">
     <div class="container contact__grid">
@@ -13,13 +13,13 @@ import Base from "../layouts/Base.astro";
         <span class="eyebrow">Contact</span>
         <h1 class="contact__title">Tell us what you're trying to do.</h1>
         <p class="lead">
-          You don't need a perfect brief. Share your goal, timing and budget —
-          we'll reply within one business day with an honest recommendation.
+          You don't need a perfect brief. Share your goal, timing and budget.
+          We'll reply within one business day with an honest recommendation.
         </p>
 
         <ul class="check-list contact__points">
           <li>Free website review: three fixes, in a short video</li>
-          <li>Fixed quotes — you know the number before work starts</li>
+          <li>Fixed quotes: you know the number before work starts</li>
           <li>No obligation, no retainer pressure</li>
         </ul>
 
@@ -96,7 +96,7 @@ import Base from "../layouts/Base.astro";
 
         <button type="submit" class="btn btn--accent btn--lg contact__submit">Send It</button>
         <p class="contact__form-note">
-          Opens a pre-filled email in your mail app — nothing is stored on this
+          Opens a pre-filled email in your mail app. Nothing is stored on this
           site.
         </p>
       </form>
@@ -130,7 +130,7 @@ import Base from "../layouts/Base.astro";
       other: "Something else",
     };
 
-    const subject = `Project enquiry — ${serviceLabels[get("service")] ?? "General"}`;
+    const subject = `Project enquiry: ${serviceLabels[get("service")] ?? "General"}`;
     const body = [
       `Name: ${get("name")}`,
       `Email: ${get("email")}`,

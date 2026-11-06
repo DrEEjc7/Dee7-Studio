@@ -1,5 +1,5 @@
 /**
- * Content layer data — real studio proof and offers from the Dee7 strategy doc.
+ * Content layer data: real studio proof and offers from the Dee7 strategy doc.
  * Projects and offers are real; blog posts are placeholder until Sanity is wired.
  */
 import type { Project, Post, Offer } from "../lib/types";
@@ -10,7 +10,7 @@ export const offers: Offer[] = [
     name: "Landing Page Sprint",
     problem: "Launching something new?",
     forWho:
-      "SaaS demos, product launches, course launches, campaigns and clinic bookings — one audience, one action.",
+      "SaaS demos, product launches, course launches, campaigns and clinic bookings. One audience, one action.",
     timeline: "2–3 weeks",
     fromPrice: "From $5,000",
     description:
@@ -18,7 +18,7 @@ export const offers: Offer[] = [
     deliverables: [
       "Audience research and messaging",
       "Conversion copywriting",
-      "Custom design — no templates",
+      "Custom design, no templates",
       "Webflow or Astro build",
       "Form or booking connection",
       "Analytics and launch checks",
@@ -39,7 +39,7 @@ export const offers: Offer[] = [
       },
       {
         title: "Launch",
-        text: "Tracking, forms and launch checks — live in two to three weeks.",
+        text: "Tracking, forms and launch checks. Live in two to three weeks.",
       },
     ],
     faq: [
@@ -53,7 +53,7 @@ export const offers: Offer[] = [
       },
       {
         q: "What does the final price depend on?",
-        a: "Scope: research depth, integrations and animation complexity. You get a fixed quote after a short call — no surprises mid-project.",
+        a: "Scope: research depth, integrations and animation complexity. You get a fixed quote after a short call, with no surprises mid-project.",
       },
     ],
     cta: "Start Your Sprint",
@@ -64,11 +64,11 @@ export const offers: Offer[] = [
     name: "Website Project",
     problem: "Website underselling your product?",
     forWho:
-      "B2B software companies and growing businesses that need a full launch or redesign — up to eight pages, done properly.",
+      "B2B software companies and growing businesses that need a full launch or redesign. Up to eight pages, done properly.",
     timeline: "5–8 weeks",
     fromPrice: "From $15,000",
     description:
-      "A complete website: planning, copy, design, build, CMS and training. We start with your business — who your customers are, what they need to understand, and what they should do next.",
+      "A complete website: planning, copy, design, build, CMS and training. We start with your business. Who are your customers, what do they need to understand, and what should they do next?",
     deliverables: [
       "Up to eight core pages",
       "Planning and page structure",
@@ -94,13 +94,13 @@ export const offers: Offer[] = [
       },
       {
         title: "Build & hand over",
-        text: "Webflow build, CMS, SEO basics, tracking — and training so your team can update content without us.",
+        text: "Webflow build, CMS, SEO basics, tracking, and training so your team can update content without us.",
       },
     ],
     faq: [
       {
         q: "What if our scope is unclear?",
-        a: "Start with a Website Roadmap instead: a short paid discovery that gives you page structure, priorities and a build estimate — useful with any team, including ours.",
+        a: "Start with a Website Roadmap instead: a short paid discovery that gives you page structure, priorities and a build estimate. It's useful with any team, including ours.",
       },
       {
         q: "Can you migrate our existing content?",
@@ -118,7 +118,7 @@ export const offers: Offer[] = [
     name: "Monthly Partner",
     problem: "Need a design team on tap?",
     forWho:
-      "Agencies that need white-label web capacity, and companies with regular website work — without hiring in-house.",
+      "Agencies that need white-label web capacity, and companies with regular website work, without hiring in-house.",
     timeline: "Monthly, from 20 reserved hours",
     fromPrice: "From $3,000/mo",
     description:
@@ -138,7 +138,7 @@ export const offers: Offer[] = [
       },
       {
         title: "Ship weekly",
-        text: "One task at a time, updated every week — no black box.",
+        text: "One task at a time, updated every week. No black box.",
       },
       {
         title: "Review & adjust",
@@ -148,7 +148,7 @@ export const offers: Offer[] = [
     faq: [
       {
         q: "Who is this for?",
-        a: "Agencies that resell web work, and businesses whose site needs steady attention — new pages, campaigns, improvements.",
+        a: "Agencies that resell web work, and businesses whose site needs steady attention: new pages, campaigns, improvements.",
       },
       {
         q: "What if we need more capacity?",
@@ -166,11 +166,11 @@ export const offers: Offer[] = [
     name: "Website Roadmap",
     problem: "Not sure where to start?",
     forWho:
-      "Larger or unclear projects — when you need a plan and an honest estimate before committing to a build.",
+      "Larger or unclear projects, when you need a plan and an honest estimate before committing to a build.",
     timeline: "3–5 business days",
     fromPrice: "From $750",
     description:
-      "A short, paid discovery. One workshop, a review of your current website, a proposed page structure, priorities, and a build estimate you can use with any team — including ours.",
+      "A short, paid discovery. One workshop, a review of your current website, a proposed page structure, priorities, and a build estimate you can use with any team, including ours.",
     deliverables: [
       "One working session",
       "Current website review",
@@ -189,7 +189,7 @@ export const offers: Offer[] = [
       },
       {
         title: "Roadmap",
-        text: "Structure, priorities and an estimate — yours to use anywhere.",
+        text: "Structure, priorities and an estimate, yours to use anywhere.",
       },
     ],
     faq: [
@@ -211,7 +211,7 @@ export const projects: Project[] = [
     services: ["Web Design", "Webflow Development"],
     highlight: "Award winner",
     summary:
-      "Award-winning website for a climate and Earth-data company — complex scientific services made clear and navigable.",
+      "Award-winning website for a climate and Earth-data company. Complex scientific services made clear and navigable.",
     url: "https://www.lobelia.earth",
     featured: true,
   },
@@ -223,7 +223,7 @@ export const projects: Project[] = [
     services: ["Web Design", "Webflow Development"],
     highlight: "Award-winning SaaS",
     summary:
-      "Award-winning SaaS website for an AI events platform — enterprise polish with a complex product story.",
+      "Award-winning SaaS website for an AI events platform. Enterprise polish with a complex product story.",
     url: "https://touchcast.io",
     featured: true,
   },
@@ -235,7 +235,7 @@ export const projects: Project[] = [
     services: ["E-commerce Design", "Webflow Development"],
     highlight: "E-commerce",
     summary:
-      "Full e-commerce build in Webflow for a UK brand — catalogue, checkout and content designed to sell.",
+      "Full e-commerce build in Webflow for a UK brand: catalogue, checkout and content designed to sell.",
     url: "https://www.mind-ninja.co.uk",
     featured: true,
   },
@@ -247,7 +247,7 @@ export const projects: Project[] = [
     services: ["Web Design", "Localization"],
     highlight: "4 languages",
     summary:
-      "Industrial cleantech website localized in four languages — technical depth without the clutter.",
+      "Industrial cleantech website localized in four languages. Technical depth without the clutter.",
     url: "https://emew.com",
   },
   {
@@ -258,7 +258,7 @@ export const projects: Project[] = [
     services: ["Web Design", "Webflow Development"],
     highlight: "B2B AI training",
     summary:
-      "B2B website for an AI training provider — positioning a new category offer for enterprise buyers.",
+      "B2B website for an AI training provider, positioning a new category offer for enterprise buyers.",
     url: "https://www.aitraining.institute",
   },
   {
@@ -269,7 +269,7 @@ export const projects: Project[] = [
     services: ["Web Design", "Localization"],
     highlight: "3 languages",
     summary:
-      "Playful, simple website for a board game — shipped in three languages on a lean scope.",
+      "Playful, simple website for a board game, shipped in three languages on a lean scope.",
     url: "https://www.playdynamis.com",
   },
 ];
@@ -286,10 +286,10 @@ export const posts: Post[] = [
     featured: true,
     body: [
       "Most landing pages don't fail because of bad design. They fail because the visitor can't answer three questions in the first ten seconds: What is this? Is it for me? What do I do next?",
-      "We audited 50 B2B SaaS landing pages over the past year — HealthTech, EdTech, and Fintech companies spending $10k to $200k a month on paid traffic. The same seven problems appeared on 40 of them.",
+      "We audited 50 B2B SaaS landing pages over the past year: HealthTech, EdTech, and Fintech companies spending $10k to $200k a month on paid traffic. The same seven problems appeared on 40 of them.",
       "Fix number one: your headline describes your product, not your visitor's outcome. 'AI-powered patient engagement platform' tells a clinician nothing. '30% fewer no-shows in 60 days' starts a conversation.",
-      "Fix number two: your primary CTA appears once, at the bottom. High-performing pages repeat one CTA four to six times — after the hero, after proof, after pricing, and at the end. Same words every time.",
-      "The remaining five fixes — social proof placement, mobile form friction, speed, message match with ads, and the one-page-one-goal rule — follow the same logic: remove every reason to hesitate.",
+      "Fix number two: your primary CTA appears once, at the bottom. High-performing pages repeat one CTA four to six times: after the hero, after proof, after pricing, and at the end. Same words every time.",
+      "The remaining five fixes (social proof placement, mobile form friction, speed, message match with ads, and the one-page-one-goal rule) follow the same logic: remove every reason to hesitate.",
     ],
   },
   {
@@ -310,13 +310,13 @@ export const posts: Post[] = [
     slug: "pricing-pages-that-close",
     title: "Pricing pages that close: what 50 Fintech sites get wrong",
     excerpt:
-      "Your pricing page is where deals are won or silently lost. Most B2B pricing pages fail at the same three moments — anchoring, comparison, and the next step.",
+      "Your pricing page is where deals are won or silently lost. Most B2B pricing pages fail at the same three moments: anchoring, comparison, and the next step.",
     category: "Conversion",
     date: "2026-09-02",
     readingTime: "7 min read",
     body: [
       "A buyer who reaches your pricing page is closer to a deal than anyone else on your site. Yet most pricing pages get less design attention than the blog.",
-      "Mistake one: no anchor. Three tiers with no visual hierarchy forces the buyer to do the comparison work themselves. Mark the recommended plan — border, badge, one accent — and conversion on that tier typically rises 15–30%.",
+      "Mistake one: no anchor. Three tiers with no visual hierarchy forces the buyer to do the comparison work themselves. Mark the recommended plan with a border, a badge and one accent, and conversion on that tier typically rises 15–30%.",
       "Mistake two: feature lists instead of outcomes. 'Unlimited API calls' is a spec. 'Handle Black Friday volume without an upgrade call' is a reason to buy.",
       "Mistake three: a dead end. The page answers the price question and then just... stops. Every pricing page needs an explicit next step for the undecided: a calculator, an FAQ, or a 'talk to us' path with a named human.",
     ],

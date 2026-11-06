@@ -17,7 +17,7 @@ export interface Post {
   category: string;
   date: string; // ISO
   readingTime: string;
-  body: string[]; // paragraphs — swapped for Portable Text once Sanity is wired
+  body: string[]; // paragraphs; swapped for Portable Text once Sanity is wired
   featured?: boolean;
 }
 

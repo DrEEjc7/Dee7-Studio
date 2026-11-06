@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Dee7 Studio — Design System
+   Dee7 Studio Design System
    Tokens and primitives per brand guidelines.
    ========================================================================== */
 
@@ -23,7 +23,7 @@
   --font-display: "Cabinet Grotesk", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
 
-  /* Spacing — 8px grid */
+  /* Spacing: 8px grid */
   --space-1: 8px;
   --space-2: 16px;
   --space-3: 24px;

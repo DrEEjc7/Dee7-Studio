@@ -1,5 +1,5 @@
 /**
- * Sanity client — activates automatically once env vars are set.
+ * Sanity client: activates automatically once env vars are set.
  *
  * Set in .env (and in Cloudflare Workers env for production):
  *   PUBLIC_SANITY_PROJECT_ID=xxxxxxxx
