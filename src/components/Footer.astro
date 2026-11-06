@@ -1,0 +1,120 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="footer__brand-row">
+          <img src="/brand/Square_2.svg" alt="" width="36" height="36" class="footer__mark" />
+          <span class="footer__wordmark">DEE7 Studio</span>
+        </div>
+        <p class="footer__tagline">Turning visions into exceptional websites.</p>
+      </div>
+
+      <nav class="footer__cols" aria-label="Footer">
+        <div class="footer__col">
+          <span class="footer__col-title">Studio</span>
+          <a href="/work">Work</a>
+          <a href="/#services">Services</a>
+          <a href="/#process">Process</a>
+        </div>
+        <div class="footer__col">
+          <span class="footer__col-title">Resources</span>
+          <a href="/blog">Blog</a>
+          <a href="/#contact">Free Audit</a>
+        </div>
+        <div class="footer__col">
+          <span class="footer__col-title">Contact</span>
+          <a href="mailto:hello@dee7studio.com">hello@dee7studio.com</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© {year} Dee7 Studio. All rights reserved.</span>
+      <span>HealthTech · EdTech · Fintech</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: var(--ink-contrast);
+    padding-block: var(--space-8) var(--space-4);
+  }
+
+  .footer__top {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border-on-dark);
+  }
+
+  .footer__brand-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer__mark {
+    border-radius: 8px;
+  }
+
+  .footer__wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+  }
+
+  .footer__tagline {
+    margin-top: var(--space-2);
+    color: var(--muted-on-dark);
+    font-size: 14px;
+  }
+
+  .footer__cols {
+    display: flex;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .footer__col a {
+    color: var(--muted-on-dark);
+    transition: color var(--ease);
+  }
+
+  .footer__col a:hover {
+    color: var(--ink-contrast);
+  }
+
+  .footer__col-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-contrast);
+    margin-bottom: 4px;
+  }
+
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    padding-top: var(--space-4);
+    font-size: 12px;
+    color: var(--muted-on-dark);
+  }
+</style>

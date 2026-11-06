@@ -1,0 +1,194 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { getPosts } from "../../lib/content";
+
+const posts = await getPosts();
+const featured = posts.find((p) => p.featured) ?? posts[0];
+const rest = posts.filter((p) => p.slug !== featured.slug);
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+---
+
+<Base
+  title="Blog — Dee7 Studio"
+  description="Practical conversion, UX and design writing for B2B teams — no fluff, numbers included."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Blog</span>
+      <h1 class="display page-hero__title">Notes on conversion.</h1>
+      <p class="lead">
+        What we learn auditing and rebuilding B2B websites — written up so you
+        can steal it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section blog-list">
+    <div class="container">
+      <!-- Featured post -->
+      <a href={`/blog/${featured.slug}`} class="featured-post">
+        <div class="featured-post__cover">
+          <span class="badge badge--accent">Featured</span>
+          <h2 class="featured-post__title">{featured.title}</h2>
+        </div>
+        <div class="featured-post__body">
+          <div class="featured-post__meta">
+            <span class="badge badge--tint">{featured.category}</span>
+            <span class="post-meta">{formatDate(featured.date)} · {featured.readingTime}</span>
+          </div>
+          <p class="featured-post__excerpt">{featured.excerpt}</p>
+          <span class="featured-post__link">Read the article →</span>
+        </div>
+      </a>
+
+      <!-- Post grid -->
+      <div class="grid grid--3 post-grid">
+        {rest.map((post) => (
+          <a href={`/blog/${post.slug}`} class="card post-card">
+            <div class="post-card__meta">
+              <span class="badge badge--tint">{post.category}</span>
+              <span class="post-meta">{post.readingTime}</span>
+            </div>
+            <h3 class="post-card__title">{post.title}</h3>
+            <p class="post-card__excerpt">{post.excerpt}</p>
+            <span class="post-meta post-card__date">{formatDate(post.date)}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Reading is good. Lifting conversions is better."
+    sub="Get a free teardown of your site — the same analysis behind these articles, applied to your pages."
+  />
+</Base>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-section) var(--space-6);
+  }
+
+  .page-hero__title {
+    margin-block: var(--space-2);
+  }
+
+  .blog-list {
+    padding-top: 0;
+  }
+
+  .post-meta {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  /* Featured */
+  .featured-post {
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+    background: var(--surface);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: var(--space-6);
+    transition: border-color var(--ease);
+  }
+
+  .featured-post:hover {
+    border-color: var(--accent);
+  }
+
+  .featured-post__cover {
+    background: var(--ink);
+    color: var(--ink-contrast);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+
+  .featured-post__title {
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.2;
+  }
+
+  .featured-post__body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .featured-post__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .featured-post__excerpt {
+    font-size: 16px;
+    color: var(--muted);
+  }
+
+  .featured-post__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .featured-post {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-post__cover,
+    .featured-post__body {
+      padding: var(--space-4);
+    }
+  }
+
+  /* Post cards */
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+
+  .post-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .post-card__title {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .post-card__excerpt {
+    font-size: 14px;
+    color: var(--muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-card__date {
+    margin-top: auto;
+  }
+</style>

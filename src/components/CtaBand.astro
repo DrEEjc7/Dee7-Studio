@@ -1,0 +1,51 @@
+---
+interface Props {
+  heading?: string;
+  sub?: string;
+}
+
+const {
+  heading = "Your website should be your best salesperson.",
+  sub = "Get a free 15-minute teardown of your current site — what's costing you conversions and exactly how to fix it.",
+} = Astro.props;
+---
+
+<section class="section section--dark cta-band" id="contact">
+  <div class="container cta-band__inner">
+    <h2 class="cta-band__heading">{heading}</h2>
+    <p class="lead cta-band__sub">{sub}</p>
+    <div class="cta-band__actions">
+      <a href="mailto:hello@dee7studio.com?subject=Free%20Website%20Audit" class="btn btn--accent btn--lg">
+        Get Your Free Audit
+      </a>
+      <a href="/work" class="btn btn--ghost-light btn--lg">See the Results</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+  }
+
+  .cta-band__heading {
+    font-size: clamp(32px, 4.5vw, 52px);
+    max-width: 720px;
+  }
+
+  .cta-band__sub {
+    max-width: 560px;
+  }
+
+  .cta-band__actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--space-1);
+  }
+</style>

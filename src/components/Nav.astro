@@ -1,0 +1,103 @@
+---
+const links = [
+  { href: "/work", label: "Work" },
+  { href: "/#services", label: "Services" },
+  { href: "/blog", label: "Blog" },
+];
+const path = Astro.url.pathname;
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a href="/" class="nav__brand" aria-label="Dee7 Studio — home">
+      <img src="/brand/Square_2.svg" alt="" width="32" height="32" class="nav__mark" />
+      <span class="nav__wordmark">DEE7<span class="nav__wordmark-light">Studio</span></span>
+    </a>
+
+    <nav class="nav__links" aria-label="Main">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class:list={["nav__link", { "nav__link--active": path.startsWith(link.href) && link.href !== "/#services" }]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <a href="/#contact" class="btn btn--accent nav__cta">Get Your Free Audit</a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(252, 252, 249, 0.86);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    height: 72px;
+  }
+
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav__mark {
+    border-radius: 6px;
+  }
+
+  .nav__wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+  }
+
+  .nav__wordmark-light {
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .nav__links {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .nav__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    transition: color var(--ease);
+  }
+
+  .nav__link:hover,
+  .nav__link--active {
+    color: var(--ink);
+  }
+
+  .nav__cta {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  @media (max-width: 720px) {
+    .nav__links {
+      display: none;
+    }
+  }
+</style>

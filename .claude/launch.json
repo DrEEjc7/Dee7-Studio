@@ -1,0 +1,16 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dee7-dev",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PATH=/Users/antoniodemac/.nvm/versions/node/v22.23.4/bin:/usr/local/bin:/usr/bin:/bin",
+        "npm",
+        "run",
+        "dev"
+      ],
+      "port": 4321
+    }
+  ]
+}
