@@ -10,8 +10,7 @@ const path = Astro.url.pathname;
 <header class="nav">
   <div class="container nav__inner">
     <a href="/" class="nav__brand" aria-label="Dee7 Studio home">
-      <img src="/brand/Square_2.svg" alt="" width="32" height="32" class="nav__mark" />
-      <span class="nav__wordmark">DEE7<span class="nav__wordmark-light">Studio</span></span>
+      <img src="/brand/wordmark-on-light.svg" alt="Dee7 Studio" width="115" height="36" class="nav__wordmark" />
     </a>
 
     <nav class="nav__links" aria-label="Main">
@@ -51,26 +50,11 @@ const path = Astro.url.pathname;
   .nav__brand {
     display: flex;
     align-items: center;
-    gap: 12px;
-  }
-
-  .nav__mark {
-    border-radius: 6px;
   }
 
   .nav__wordmark {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: -0.01em;
-    display: flex;
-    gap: 6px;
-    align-items: baseline;
-  }
-
-  .nav__wordmark-light {
-    font-weight: 500;
-    color: var(--muted);
+    height: 36px;
+    width: auto;
   }
 
   .nav__links {
