@@ -9,8 +9,12 @@ import Base from "../layouts/Base.astro";
   <section class="contact">
     <div class="container contact__grid">
       <!-- Left: pitch -->
-      <div class="contact__intro">
+      <div class="contact__intro" data-rise>
         <span class="eyebrow">Contact</span>
+        <span class="status">
+          <span class="status__dot"></span>
+          Taking on new projects
+        </span>
         <h1 class="contact__title">Tell us what you're trying to do.</h1>
         <p class="lead">
           You don't need a perfect brief. Share your goal, timing and budget.
@@ -30,7 +34,7 @@ import Base from "../layouts/Base.astro";
       </div>
 
       <!-- Right: form -->
-      <form class="card contact__form" id="lead-form">
+      <form class="card contact__form" id="lead-form" data-rise style="--rise-delay: 90ms">
         <div class="field">
           <label for="name">Your name</label>
           <input type="text" id="name" name="name" required placeholder="Jane Doe" />

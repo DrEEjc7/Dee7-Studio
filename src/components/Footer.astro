@@ -2,8 +2,32 @@
 const year = new Date().getFullYear();
 ---
 
+<script>
+  const el = document.querySelector("[data-clock]");
+  if (el) {
+    const fmt = new Intl.DateTimeFormat("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Europe/Prague",
+    });
+    const tick = () => (el.textContent = fmt.format(new Date()));
+    tick();
+    setInterval(tick, 30_000);
+  }
+</script>
+
 <footer class="footer">
   <div class="container">
+    <div class="footer__live">
+      <span class="status footer__status">
+        <span class="status__dot"></span>
+        Taking on new projects
+      </span>
+      <span class="footer__live-item">Award-winning work, live at lobelia.earth</span>
+      <span class="footer__live-item">Certified Webflow &amp; Notion Partner</span>
+      <span class="footer__clock"><span data-clock>--:--</span> CET, studio time</span>
+    </div>
+
     <div class="footer__top">
       <div class="footer__brand">
         <div class="footer__brand-row">
@@ -43,7 +67,32 @@ const year = new Date().getFullYear();
   .footer {
     background: var(--ink);
     color: var(--ink-contrast);
-    padding-block: var(--space-8) var(--space-4);
+    padding-block: var(--space-6) var(--space-4);
+  }
+
+  .footer__live {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    padding-bottom: var(--space-4);
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border-on-dark);
+    font-size: 13px;
+  }
+
+  .footer__status {
+    color: var(--ink-contrast);
+  }
+
+  .footer__live-item {
+    color: var(--muted-on-dark);
+  }
+
+  .footer__clock {
+    margin-left: auto;
+    color: var(--muted-on-dark);
+    font-variant-numeric: tabular-nums;
   }
 
   .footer__top {

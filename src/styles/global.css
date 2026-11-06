@@ -76,8 +76,8 @@ h1, h2, h3, h4 {
   text-wrap: balance;
 }
 
-h1 { font-size: clamp(36px, 5vw, 56px); letter-spacing: -0.02em; }
-h2 { font-size: clamp(28px, 3.5vw, 40px); letter-spacing: -0.01em; }
+h1 { font-size: clamp(36px, 5vw, 60px); letter-spacing: -0.02em; }
+h2 { font-size: clamp(30px, 4.2vw, 48px); letter-spacing: -0.015em; }
 h3 { font-size: 24px; letter-spacing: -0.01em; }
 
 p {
@@ -172,8 +172,8 @@ img, svg {
 .display {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 84px);
-  line-height: 1.04;
+  font-size: clamp(44px, 7.5vw, 96px);
+  line-height: 1.02;
   letter-spacing: -0.025em;
   text-wrap: balance;
 }
@@ -339,6 +339,89 @@ img, svg {
   margin-top: 3px;
   border-radius: 50%;
   background: var(--tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23088981' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M4 8.5l2.5 2.5L12 5'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+
+/* --------------------------------------------------------------------------
+   Ink & Signal system
+   -------------------------------------------------------------------------- */
+
+/* Reveal on scroll: hidden only when JS is confirmed present */
+html.js [data-rise] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 560ms ease, transform 560ms ease;
+  transition-delay: var(--rise-delay, 0ms);
+}
+
+html.js [data-rise].is-risen {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-rise] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Live status: the signal dot */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: signal-pulse 2.4s ease-out infinite;
+}
+
+@keyframes signal-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(8, 137, 129, 0.45); }
+  70% { box-shadow: 0 0 0 10px rgba(8, 137, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(8, 137, 129, 0); }
+}
+
+/* Index numerals */
+.index-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+/* Link cue: the dot slides in on hover */
+.link-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link-cue::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  transform: translateX(-6px) scale(0.5);
+  transition: opacity var(--ease), transform var(--ease);
+}
+
+a:hover .link-cue::before,
+.card:hover .link-cue::before,
+a.link-cue:hover::before {
+  opacity: 1;
+  transform: none;
 }
 
 .skip-link {

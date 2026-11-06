@@ -61,6 +61,11 @@ const sectors = [
         <a href="/work" class="btn btn--ghost-light btn--lg">See Our Work</a>
       </div>
 
+      <span class="status hero__status">
+        <span class="status__dot"></span>
+        Taking on new projects
+      </span>
+
       <dl class="hero__stats">
         <div class="hero__stat">
           <dt>years of experience</dt>
@@ -85,7 +90,7 @@ const sectors = [
   <!-- Services: problem-first, no pricing -->
   <section class="section" id="services">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head" data-rise>
         <span class="eyebrow">Services</span>
         <h2>Start with the problem you have</h2>
         <p class="lead">
@@ -96,19 +101,25 @@ const sectors = [
       </div>
 
       <div class="grid grid--3">
-        {offers.map((offer) => (
-          <a href={`/services/${offer.slug}`} class="card offer-card">
+        {offers.map((offer, i) => (
+          <a
+            href={`/services/${offer.slug}`}
+            class="card offer-card"
+            data-rise
+            style={`--rise-delay: ${i * 90}ms`}
+          >
+            <span class="index-num">{String(i + 1).padStart(2, "0")}</span>
             <span class="eyebrow offer-card__problem">{offer.problem}</span>
             <h3 class="offer-card__name">{offer.name}</h3>
             <p class="offer-card__desc">{offer.description}</p>
             <span class="badge badge--delivery">{offer.timeline}</span>
-            <span class="offer-card__link">How it works →</span>
+            <span class="offer-card__link link-cue">How it works →</span>
           </a>
         ))}
       </div>
 
       {roadmap && (
-        <a href={`/services/${roadmap.slug}`} class="roadmap-strip">
+        <a href={`/services/${roadmap.slug}`} class="roadmap-strip" data-rise>
           <div>
             <span class="roadmap-strip__label">{roadmap.problem}</span>
             <span class="roadmap-strip__text">
@@ -125,7 +136,7 @@ const sectors = [
   <!-- Selected work -->
   <section class="section work-preview">
     <div class="container">
-      <div class="section-head section-head--row">
+      <div class="section-head section-head--row" data-rise>
         <div>
           <span class="eyebrow">Selected Work</span>
           <h2>Built, shipped, live</h2>
@@ -134,12 +145,14 @@ const sectors = [
       </div>
 
       <div class="grid grid--3">
-        {projects.map((project) => (
+        {projects.map((project, i) => (
           <a
             href={project.url}
             target="_blank"
             rel="noopener"
             class="card project-card"
+            data-rise
+            style={`--rise-delay: ${i * 90}ms`}
           >
             <div class="project-card__cover">
               <span class="project-card__highlight">{project.highlight}</span>
@@ -148,7 +161,7 @@ const sectors = [
             <div class="project-card__body">
               <span class="badge badge--outline">{project.industry}</span>
               <p class="project-card__summary">{project.summary}</p>
-              <span class="project-card__link">Visit live site ↗</span>
+              <span class="project-card__link link-cue">Visit live site ↗</span>
             </div>
           </a>
         ))}
@@ -159,7 +172,7 @@ const sectors = [
   <!-- Process -->
   <section class="section section--dark" id="process">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head" data-rise>
         <span class="eyebrow">Process</span>
         <h2>How we work</h2>
         <p class="lead">
@@ -168,8 +181,8 @@ const sectors = [
         </p>
       </div>
       <div class="grid grid--4">
-        {steps.map((step) => (
-          <div class="step">
+        {steps.map((step, i) => (
+          <div class="step" data-rise style={`--rise-delay: ${i * 90}ms`}>
             <span class="step__n">{step.n}</span>
             <h3 class="step__title">{step.title}</h3>
             <p class="step__text">{step.text}</p>
@@ -177,7 +190,7 @@ const sectors = [
         ))}
       </div>
 
-      <div class="sectors">
+      <div class="sectors" data-rise>
         <span class="sectors__label">Experience across</span>
         <ul class="sectors__list">
           {sectors.map((s) => (
@@ -223,6 +236,10 @@ const sectors = [
     gap: var(--space-2);
     flex-wrap: wrap;
     margin-top: var(--space-1);
+  }
+
+  .hero__status {
+    color: var(--muted-on-dark);
   }
 
   .hero__stats {

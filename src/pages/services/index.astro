@@ -26,9 +26,14 @@ const offers = getOffers();
     <div class="container">
       <div class="service-rows">
         {offers.map((offer, i) => (
-          <a href={`/services/${offer.slug}`} class="service-row">
+          <a
+            href={`/services/${offer.slug}`}
+            class="service-row"
+            data-rise
+            style={`--rise-delay: ${i * 70}ms`}
+          >
             <div class="service-row__index">
-              <span>{String(i + 1).padStart(2, "0")}</span>
+              <span class="index-num">{String(i + 1).padStart(2, "0")}</span>
             </div>
             <div class="service-row__main">
               <span class="eyebrow">{offer.problem}</span>
@@ -37,7 +42,7 @@ const offers = getOffers();
             </div>
             <div class="service-row__meta">
               <span class="badge badge--delivery">{offer.timeline}</span>
-              <span class="service-row__link">Details →</span>
+              <span class="service-row__link link-cue">Details →</span>
             </div>
           </a>
         ))}
@@ -87,11 +92,8 @@ const offers = getOffers();
     background: var(--surface);
   }
 
-  .service-row__index span {
-    font-family: var(--font-display);
+  .service-row__index .index-num {
     font-size: 20px;
-    font-weight: 700;
-    color: var(--border-alt);
   }
 
   .service-row__main {

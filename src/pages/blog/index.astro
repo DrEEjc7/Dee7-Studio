@@ -34,7 +34,7 @@ function formatDate(iso: string) {
   <section class="section blog-list">
     <div class="container">
       <!-- Featured post -->
-      <a href={`/blog/${featured.slug}`} class="featured-post">
+      <a href={`/blog/${featured.slug}`} class="featured-post" data-rise>
         <div class="featured-post__cover">
           <span class="badge badge--accent">Featured</span>
           <h2 class="featured-post__title">{featured.title}</h2>
@@ -51,8 +51,13 @@ function formatDate(iso: string) {
 
       <!-- Post grid -->
       <div class="grid grid--3 post-grid">
-        {rest.map((post) => (
-          <a href={`/blog/${post.slug}`} class="card post-card">
+        {rest.map((post, i) => (
+          <a
+            href={`/blog/${post.slug}`}
+            class="card post-card"
+            data-rise
+            style={`--rise-delay: ${i * 90}ms`}
+          >
             <div class="post-card__meta">
               <span class="badge badge--tint">{post.category}</span>
               <span class="post-meta">{post.readingTime}</span>

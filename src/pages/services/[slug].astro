@@ -33,7 +33,7 @@ const { offer } = Astro.props;
     <!-- Who it's for + deliverables -->
     <section class="section">
       <div class="container offer-grid">
-        <div class="offer-block">
+        <div class="offer-block" data-rise>
           <span class="eyebrow">Who it's for</span>
           <p class="offer-block__text">{offer.forWho}</p>
 
@@ -46,7 +46,7 @@ const { offer } = Astro.props;
           </p>
         </div>
 
-        <div class="offer-block card">
+        <div class="offer-block card" data-rise style="--rise-delay: 90ms">
           <span class="eyebrow">What you get</span>
           <ul class="check-list offer-deliverables">
             {offer.deliverables.map((item) => (
@@ -66,7 +66,7 @@ const { offer } = Astro.props;
         </div>
         <div class:list={["grid", offer.steps.length === 3 ? "grid--3" : "grid--4"]}>
           {offer.steps.map((step, i) => (
-            <div class="step">
+            <div class="step" data-rise style={`--rise-delay: ${i * 90}ms`}>
               <span class="step__n">{String(i + 1).padStart(2, "0")}</span>
               <h3 class="step__title">{step.title}</h3>
               <p class="step__text">{step.text}</p>
