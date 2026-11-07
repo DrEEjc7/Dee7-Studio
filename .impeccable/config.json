@@ -1,3 +1,18 @@
 {
-  "buildPath": "code"
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/pages/blog/[slug].astro"
+        ],
+        "createdAt": "2026-11-07T23:54:24.006Z",
+        "reason": "Pre-existing blockquote left-border accent (border-left: 3px solid var(--accent)), used identically across blog, case-study and other prose pages as the site's standard blockquote treatment; predates this session, not a side-tab card pattern"
+      }
+    ]
+  }
 }
