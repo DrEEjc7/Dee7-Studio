@@ -20,14 +20,6 @@ const categories = [...new Set(posts.map((p) => p.category).filter(Boolean))]
 const searchText = (p: typeof posts[number]) =>
   [p.title, p.excerpt, p.category].filter(Boolean).join(" ");
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-}
-
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -141,7 +133,7 @@ const jsonLd = [
         <div class="featured-post__body">
           <div class="featured-post__meta">
             <span class="badge badge--tint">{featured.category}</span>
-            <span class="post-meta">{formatDate(featured.date)} · {featured.readingTime}</span>
+            <span class="post-meta">{featured.readingTime}</span>
           </div>
           <p class="featured-post__excerpt">{featured.excerpt}</p>
           <span class="featured-post__link">Read the article →</span>
@@ -167,7 +159,6 @@ const jsonLd = [
             </div>
             <h3 class="post-card__title">{post.title}</h3>
             <p class="post-card__excerpt">{post.excerpt}</p>
-            <span class="post-meta post-card__date">{formatDate(post.date)}</span>
           </a>
         ))}
       </div>
@@ -685,7 +676,4 @@ const jsonLd = [
     overflow: hidden;
   }
 
-  .post-card__date {
-    margin-top: auto;
-  }
 </style>

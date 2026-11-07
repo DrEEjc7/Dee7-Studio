@@ -40,9 +40,9 @@ const { offer } = Astro.props;
           <span class="eyebrow offer-block__second-label">Investment</span>
           <p class="offer-block__price">{offer.fromPrice}</p>
           <p class="offer-block__price-note">
-            The exact number depends on scope. You get a fixed quote after a
-            short call. No surprises mid-project, and two feedback rounds are
-            always included.
+            {offer.slug === "monthly-partner"
+              ? "One flat rate, no contracts and no hourly tracking. Pause or cancel anytime; paused days wait for you."
+              : "The exact number depends on scope. You get a fixed quote after a short call. No surprises mid-project, and two feedback rounds are always included."}
           </p>
         </div>
 

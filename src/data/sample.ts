@@ -11,10 +11,10 @@ export const offers: Offer[] = [
     problem: "Launching something new?",
     forWho:
       "SaaS demos, product launches, course launches, campaigns and clinic bookings. One audience, one action.",
-    timeline: "2–3 weeks",
+    timeline: "3–7 days",
     fromPrice: "From $5,000",
     description:
-      "One page built around one audience and one action. We research your buyers, write the copy, design and build the page, connect your form or booking flow, and launch with tracking in place.",
+      "One page built around one audience and one action, live in days instead of the weeks or months a typical agency takes. We research your buyers, write the copy, design and build the page, connect your form or booking flow, and launch with tracking in place.",
     deliverables: [
       "Audience research and messaging",
       "Conversion copywriting",
@@ -39,10 +39,14 @@ export const offers: Offer[] = [
       },
       {
         title: "Launch",
-        text: "Tracking, forms and launch checks. Live in two to three weeks.",
+        text: "Tracking, forms and launch checks. Live in three to seven days.",
       },
     ],
     faq: [
+      {
+        q: "How can it be this fast?",
+        a: "One page, one audience, one action: a scope tight enough to run as a true sprint. We clear the calendar, work in daily iterations, and skip the agency overhead that stretches a single page into a multi-week project.",
+      },
       {
         q: "What if I need copy help?",
         a: "Copywriting is included. You bring the product knowledge; we turn it into a page that sells.",
@@ -65,7 +69,7 @@ export const offers: Offer[] = [
     problem: "Website underselling your product?",
     forWho:
       "B2B software companies and growing businesses that need a full launch or redesign. Up to eight pages, done properly.",
-    timeline: "5–8 weeks",
+    timeline: "4–6 weeks",
     fromPrice: "From $15,000",
     description:
       "A complete website: planning, copy, design, build, CMS and training. We start with your business. Who are your customers, what do they need to understand, and what should they do next?",
@@ -74,7 +78,8 @@ export const offers: Offer[] = [
       "Planning and page structure",
       "Conversion copywriting",
       "Custom design system you own",
-      "Webflow build with CMS collection",
+      "Webflow or Astro build with CMS",
+      "Two feedback rounds per stage",
       "Basic SEO and tracking setup",
       "Team training",
       "30 days of bug support",
@@ -90,14 +95,18 @@ export const offers: Offer[] = [
       },
       {
         title: "Design",
-        text: "A design system plus every page, reviewed with you section by section.",
+        text: "A design system plus every page, reviewed with you section by section, with two feedback rounds at every stage.",
       },
       {
         title: "Build & hand over",
-        text: "Webflow build, CMS, SEO basics, tracking, and training so your team can update content without us.",
+        text: "Webflow or Astro build, CMS, SEO basics, tracking, and training so your team can update content without us.",
       },
     ],
     faq: [
+      {
+        q: "Webflow or Astro?",
+        a: "Whichever fits your team. Webflow when marketers need to edit freely; Astro when speed and code ownership matter most. We recommend one on the scoping call.",
+      },
       {
         q: "What if our scope is unclear?",
         a: "Start with a Website Roadmap instead: a short paid discovery that gives you page structure, priorities and a build estimate. It's useful with any team, including ours.",
@@ -119,30 +128,30 @@ export const offers: Offer[] = [
     problem: "Need a design team on tap?",
     forWho:
       "Agencies that need white-label web capacity, and companies with regular website work, without hiring in-house.",
-    timeline: "Monthly, ongoing",
-    fromPrice: "From $3,000/mo",
+    timeline: "Monthly, pause anytime",
+    fromPrice: "$2,995/mo",
     description:
-      "Reserved design and Webflow capacity every month. One active task at a time, weekly updates, and work that can run under your brand if you're an agency.",
+      "A flat-rate design and development subscription. Add as many requests as you like to your queue; we work through them one at a time, with most deliverables back in 24 to 48 hours. Pause or cancel anytime.",
     deliverables: [
-      "From 20 reserved design & Webflow hours a month",
-      "One active task at a time",
-      "Weekly progress updates",
+      "Unlimited requests, one active at a time",
+      "Most deliverables in 24–48 hours",
+      "Unlimited revisions",
       "Landing pages, site updates, new sections",
       "White-label option for agencies",
-      "Pause or stop with notice",
+      "Pause or cancel anytime",
     ],
     steps: [
       {
-        title: "Set priorities",
-        text: "We agree what matters this month and keep a shared queue.",
+        title: "Request",
+        text: "Add requests to your queue: pages, sections, fixes, whole flows. As many as you like.",
       },
       {
-        title: "Ship weekly",
-        text: "One task at a time, updated every week. No black box.",
+        title: "Receive",
+        text: "We work one request at a time. Most deliverables land within 24 to 48 hours.",
       },
       {
-        title: "Review & adjust",
-        text: "A short monthly review: what shipped, what's next, what to change.",
+        title: "Revise",
+        text: "Not happy? We revise until you are, then move to the next request in the queue.",
       },
     ],
     faq: [
@@ -151,15 +160,71 @@ export const offers: Offer[] = [
         a: "Agencies that resell web work, and businesses whose site needs steady attention: new pages, campaigns, improvements.",
       },
       {
-        q: "What if we need more capacity?",
-        a: "Hours scale up in agreed steps. We'd rather you start small and grow than overcommit on day one.",
+        q: "How fast will I really get work back?",
+        a: "Most requests come back within 24 to 48 hours. Bigger pieces, like a full landing page, are split into milestones so you still see progress every day or two.",
       },
       {
         q: "Is it really white-label?",
         a: "Yes. For agencies, the work runs under your brand, your tools and your client relationships.",
       },
+      {
+        q: "What does pausing mean?",
+        a: "Billing cycles are 30 days of active service. If work slows down, pause the subscription and the remaining days wait for you. Cancel whenever you want.",
+      },
     ],
     cta: "Reserve Capacity",
+  },
+  {
+    slug: "ai-automation",
+    name: "AI Automation & Agentic Workflows",
+    problem: "Drowning in manual work?",
+    forWho:
+      "Founders and teams losing hours to repetitive work: lead handling, content operations, reporting, support triage. We build automations and AI agents that run it for you.",
+    timeline: "2–4 weeks",
+    fromPrice: "From $4,000",
+    description:
+      "Custom AI automations and agentic workflows wired into the tools you already use. We map your processes, find what can run without you, and ship agents that handle it reliably, with a human in the loop where it matters.",
+    deliverables: [
+      "Process audit and automation map",
+      "Custom AI agents and workflows",
+      "Integrations with your CRM, email, Slack and docs",
+      "Human-in-the-loop checkpoints where it matters",
+      "Documentation and team handover",
+      "30 days of monitoring and tuning",
+    ],
+    steps: [
+      {
+        title: "Map",
+        text: "We audit how work moves through your team and find what can run without you.",
+      },
+      {
+        title: "Design",
+        text: "Triggers, agents, tools, and the checkpoints where a human stays in control.",
+      },
+      {
+        title: "Build",
+        text: "We build the workflow and test it against real cases from your business.",
+      },
+      {
+        title: "Ship & tune",
+        text: "We launch it, watch it run, and tune it for 30 days.",
+      },
+    ],
+    faq: [
+      {
+        q: "What can you actually automate?",
+        a: "Lead qualification and follow-up, content pipelines, reporting, data entry between tools, support triage, internal operations. If it's repetitive and you can describe the rules, it's a candidate.",
+      },
+      {
+        q: "Which tools do you build on?",
+        a: "Whatever fits your stack: Claude and other LLM APIs, n8n or Make for orchestration, and direct integrations with your CRM, email and docs. You own everything we build.",
+      },
+      {
+        q: "What does the final price depend on?",
+        a: "The number of workflows, the integrations involved, and how much reliability tooling the process needs. You get a fixed quote after a short call.",
+      },
+    ],
+    cta: "Automate Your Ops",
   },
   {
     slug: "website-roadmap",

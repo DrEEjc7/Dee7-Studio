@@ -14,12 +14,6 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-const date = new Date(post.date).toLocaleDateString("en-US", {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-});
-
 const bodyHtml = renderPortableText(post.body);
 
 const jsonLd = {
@@ -27,8 +21,6 @@ const jsonLd = {
   "@type": "Article",
   headline: post.title,
   description: post.excerpt,
-  datePublished: post.date,
-  dateModified: post.date,
   ...(post.heroImage ? { image: post.heroImage } : {}),
   author: {
     "@type": "Organization",
@@ -56,7 +48,7 @@ const jsonLd = {
       <div class="container post-hero__inner">
         <div class="post-hero__meta">
           <span class="badge badge--tint">{post.category}</span>
-          <span class="post-hero__date">{date} · {post.readingTime}</span>
+          <span class="post-hero__date">{post.readingTime}</span>
         </div>
         <h1 class="post-hero__title">{post.title}</h1>
         <p class="lead post-hero__excerpt">{post.excerpt}</p>
