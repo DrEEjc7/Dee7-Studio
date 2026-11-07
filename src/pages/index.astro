@@ -4,8 +4,9 @@ import CtaBand from "../components/CtaBand.astro";
 import { getProjects, getOffers } from "../lib/content";
 
 const projects = (await getProjects()).filter((p) => p.featured).slice(0, 3);
-const offers = getOffers().filter((o) => o.slug !== "website-roadmap");
-const roadmap = getOffers().find((o) => o.slug === "website-roadmap");
+const allOffers = await getOffers();
+const offers = allOffers.filter((o) => o.slug !== "website-roadmap");
+const roadmap = allOffers.find((o) => o.slug === "website-roadmap");
 
 const steps = [
   {

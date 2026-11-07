@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 import { getOffers } from "../../lib/content";
 
 export async function getStaticPaths() {
-  return getOffers().map((offer) => ({
+  return (await getOffers()).map((offer) => ({
     params: { slug: offer.slug },
     props: { offer },
   }));
