@@ -152,11 +152,17 @@ const sectors = [
       </div>
 
       <div class="grid grid--3">
-        {projects.map((project, i) => (
+        {projects.map((project, i) => {
+          const caseHref =
+            Array.isArray(project.body) && project.body.length > 0
+              ? `/work/${project.slug}`
+              : undefined;
+          const external = !caseHref && Boolean(project.url);
+          return (
           <a
-            href={project.url ?? "/work"}
-            target={project.url ? "_blank" : undefined}
-            rel={project.url ? "noopener noreferrer" : undefined}
+            href={caseHref ?? project.url ?? "/work"}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
             class="card project-card"
             data-rise
             style={`--rise-delay: ${i * 90}ms`}
@@ -178,11 +184,16 @@ const sectors = [
               <h3 class="project-card__title">{project.title}</h3>
               <p class="project-card__summary">{project.summary}</p>
               <span class="project-card__link link-cue">
-                {project.url ? "Visit live site ↗" : "See all work →"}
+                {caseHref
+                  ? "Read the case study →"
+                  : project.url
+                    ? "Visit live site ↗"
+                    : "See all work →"}
               </span>
             </div>
           </a>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>

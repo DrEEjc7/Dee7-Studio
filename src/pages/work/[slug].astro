@@ -1,0 +1,221 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { getProjects } from "../../lib/content";
+import { renderPortableText } from "../../lib/portableText";
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects
+    .filter((p) => Array.isArray(p.body) && p.body.length > 0)
+    .map((project) => ({
+      params: { slug: project.slug },
+      props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+const bodyHtml = renderPortableText(project.body);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: `${project.title} case study`,
+  description: project.summary,
+  ...(project.image ? { image: project.image } : {}),
+  author: { "@type": "Organization", name: "Dee7 Studio", url: "https://dee7studio.com/" },
+  publisher: { "@type": "Organization", name: "Dee7 Studio", url: "https://dee7studio.com/" },
+  mainEntityOfPage: `https://dee7studio.com/work/${project.slug}`,
+};
+---
+
+<Base
+  title={`${project.title} Case Study | Dee7 Studio`}
+  description={project.summary}
+  image={project.image}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article>
+    <header class="case-hero">
+      <div class="container case-hero__inner">
+        <span class="eyebrow">Case study</span>
+        <h1 class="display case-hero__title">{project.title}</h1>
+        <p class="lead case-hero__sub">{project.summary}</p>
+        <div class="case-hero__meta">
+          <span class="badge badge--outline">{project.industry}</span>
+          {project.services.map((s) => (
+            <span class="badge badge--tint">{s}</span>
+          ))}
+        </div>
+        {project.url && (
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--accent"
+          >
+            Visit the live site ↗
+          </a>
+        )}
+      </div>
+    </header>
+
+    {project.image && (
+      <div class="container case-cover">
+        <div class="case-cover__plate">
+          <img
+            src={project.image}
+            alt={`${project.title} project mockup`}
+            class="case-cover__img"
+            loading="eager"
+          />
+        </div>
+      </div>
+    )}
+
+    <div class="container case-body" set:html={bodyHtml} />
+
+    <div class="container case-back">
+      <a href="/work" class="link-cue case-back__link">← All work</a>
+    </div>
+  </article>
+
+  <CtaBand
+    heading="Want results like this?"
+    sub="Send us your website and your goal. We'll reply with a free review: three fixes to make first."
+  />
+</Base>
+
+<style>
+  .case-hero {
+    padding-block: var(--space-section) var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .case-hero__inner {
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .case-hero__title {
+    margin-block: 0;
+  }
+
+  .case-hero__sub {
+    max-width: 640px;
+  }
+
+  .case-hero__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    flex-wrap: wrap;
+  }
+
+  .case-cover {
+    max-width: 960px;
+    padding-top: var(--space-6);
+  }
+
+  .case-cover__plate {
+    background: var(--ink);
+    border-radius: var(--radius-xl);
+    padding: var(--space-4);
+  }
+
+  .case-cover__img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    display: block;
+  }
+
+  .case-body {
+    max-width: 688px;
+    padding-block: var(--space-6) var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .case-body :global(p) {
+    font-size: 18px;
+    line-height: 1.75;
+  }
+
+  .case-body :global(h2) {
+    font-size: clamp(24px, 3vw, 32px);
+    margin-top: var(--space-3);
+  }
+
+  .case-body :global(h3) {
+    font-size: clamp(20px, 2.4vw, 24px);
+    margin-top: var(--space-2);
+  }
+
+  .case-body :global(ul),
+  .case-body :global(ol) {
+    margin: 0;
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .case-body :global(li) {
+    font-size: 18px;
+    line-height: 1.65;
+  }
+
+  .case-body :global(li::marker) {
+    color: var(--accent-text);
+    font-weight: 600;
+  }
+
+  .case-body :global(blockquote) {
+    margin: var(--space-2) 0;
+    padding: var(--space-3) var(--space-4);
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  .case-body :global(figure) {
+    margin: var(--space-2) 0;
+  }
+
+  .case-body :global(figure img) {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  .case-body :global(figcaption) {
+    margin-top: var(--space-1);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .case-body :global(a) {
+    color: var(--accent-text);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .case-back {
+    padding-bottom: var(--space-section);
+  }
+
+  .case-back__link {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+</style>

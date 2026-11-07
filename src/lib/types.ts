@@ -9,8 +9,9 @@ export interface Project {
   highlight: string; // honest descriptor: "Award winner", "4 languages", "E-commerce" …
   summary: string;
   url?: string; // live site
-  image?: string; // screenshot under /public/work
+  image?: string; // Sanity asset URL (or /work/* in the sample fallback)
   featured?: boolean;
+  body?: PTBlock[]; // full case study; drives the /work/<slug> page
 }
 
 export interface Post {

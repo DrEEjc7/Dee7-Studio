@@ -31,7 +31,8 @@ export const queries = {
   }`,
   projects: `*[_type == "project" && defined(slug.current)] | order(order asc) {
     "slug": slug.current, title, client, industry, services, highlight,
-    summary, url, "image": image.asset->url, featured
+    summary, url, "image": image.asset->url, featured,
+    body[]{ ..., _type == "image" => { "url": asset->url } }
   }`,
   posts: `*[_type == "post" && defined(slug.current)] {
     "slug": slug.current, title, seoTitle, excerpt, category,

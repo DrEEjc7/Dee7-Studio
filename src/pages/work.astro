@@ -40,12 +40,18 @@ const capabilities = [
     <div class="container">
       <div class="grid grid--2">
         {projects.map((project, i) => {
-          const Tag = project.url ? "a" : "article";
+          const caseHref =
+            Array.isArray(project.body) && project.body.length > 0
+              ? `/work/${project.slug}`
+              : undefined;
+          const href = caseHref ?? project.url;
+          const external = !caseHref && Boolean(project.url);
+          const Tag = href ? "a" : "article";
           return (
           <Tag
-            href={project.url}
-            target={project.url ? "_blank" : undefined}
-            rel={project.url ? "noopener noreferrer" : undefined}
+            href={href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
             class="card project-tile"
             data-rise
             style={`--rise-delay: ${(i % 2) * 90}ms`}
@@ -75,9 +81,11 @@ const capabilities = [
                 ))}
               </div>
               <p class="project-tile__summary">{project.summary}</p>
-              {project.url && (
+              {caseHref ? (
+                <span class="project-tile__link link-cue">Read the case study →</span>
+              ) : project.url ? (
                 <span class="project-tile__link link-cue">Visit live site ↗</span>
-              )}
+              ) : null}
             </div>
           </Tag>
           );
@@ -85,8 +93,8 @@ const capabilities = [
       </div>
 
       <p class="case-note">
-        Full case studies covering the problem, what changed, and the results
-        are being written up. Want the details on a specific project?
+        Most projects open a full case study: the problem, what we changed,
+        and what shipped. Want the details on something specific?
         <a href="/contact" class="case-note__link link-cue">Ask us</a>.
       </p>
     </div>
