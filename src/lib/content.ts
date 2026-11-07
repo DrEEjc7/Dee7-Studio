@@ -9,7 +9,6 @@ import type { Project, Post, Offer } from "./types";
 import { sanity, sanityEnabled, queries, blocksToParagraphs } from "./sanity";
 import {
   projects as sampleProjects,
-  posts as samplePosts,
   offers as sampleOffers,
 } from "../data/sample";
 
@@ -30,10 +29,13 @@ export async function getProjects(): Promise<Project[]> {
   });
 }
 
+/**
+ * Posts come only from Sanity. An empty CMS means an empty blog;
+ * there is deliberately no sample fallback for posts.
+ */
 export async function getPosts(): Promise<Post[]> {
-  return fetchOr(samplePosts, async () => {
+  return fetchOr([], async () => {
     const rows = await sanity!.fetch(queries.posts);
-    if (!rows.length) return samplePosts;
     return rows.map((row: Record<string, unknown>) => ({
       ...row,
       date: row.date ?? "2026-01-01",

@@ -5,7 +5,7 @@ import { getPosts } from "../../lib/content";
 
 const posts = await getPosts();
 const featured = posts.find((p) => p.featured) ?? posts[0];
-const rest = posts.filter((p) => p.slug !== featured.slug);
+const rest = featured ? posts.filter((p) => p.slug !== featured.slug) : [];
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -33,7 +33,21 @@ function formatDate(iso: string) {
 
   <section class="section blog-list">
     <div class="container">
+      {!featured && (
+        <div class="blog-empty" data-rise>
+          <span class="badge badge--tint">Coming soon</span>
+          <h2 class="blog-empty__title">First articles are in the works.</h2>
+          <p class="blog-empty__text">
+            We're writing up what we learn auditing and rebuilding B2B
+            websites. In the meantime, send us yours and get the analysis
+            applied directly to your pages.
+          </p>
+          <a href="/contact?intent=review" class="btn btn--accent">Get a Free Website Review</a>
+        </div>
+      )}
+
       <!-- Featured post -->
+      {featured && (
       <a href={`/blog/${featured.slug}`} class="featured-post" data-rise>
         <div class="featured-post__cover">
           <span class="badge badge--accent">Featured</span>
@@ -48,6 +62,7 @@ function formatDate(iso: string) {
           <span class="featured-post__link">Read the article →</span>
         </div>
       </a>
+      )}
 
       <!-- Post grid -->
       <div class="grid grid--3 post-grid">
@@ -88,6 +103,28 @@ function formatDate(iso: string) {
 
   .blog-list {
     padding-top: 0;
+  }
+
+  /* Empty state */
+  .blog-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    max-width: 640px;
+  }
+
+  .blog-empty__title {
+    font-size: clamp(24px, 3vw, 34px);
+  }
+
+  .blog-empty__text {
+    font-size: 16px;
+    color: var(--muted);
   }
 
   .post-meta {
