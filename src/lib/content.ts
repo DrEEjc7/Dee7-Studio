@@ -6,7 +6,7 @@
  * sample data in src/data/sample.ts keeps the site building.
  */
 import type { Project, Post, Offer } from "./types";
-import { sanity, sanityEnabled, queries, blocksToParagraphs } from "./sanity";
+import { sanity, sanityEnabled, queries } from "./sanity";
 import {
   projects as sampleProjects,
   offers as sampleOffers,
@@ -43,7 +43,7 @@ export async function getPosts(): Promise<Post[]> {
         typeof row.readingTime === "number"
           ? `${row.readingTime} min read`
           : row.readingTime ?? "",
-      body: blocksToParagraphs(row.body),
+      body: Array.isArray(row.body) ? row.body : [],
     })) as Post[];
   });
 }

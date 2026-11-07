@@ -1,3 +1,5 @@
+import type { PTBlock } from "./portableText";
+
 export interface Project {
   slug: string;
   title: string;
@@ -14,11 +16,13 @@ export interface Project {
 export interface Post {
   slug: string;
   title: string;
+  seoTitle?: string; // optional override for the browser tab / search results
   excerpt: string;
   category: string;
   date: string; // ISO
   readingTime: string;
-  body: string[]; // paragraphs; swapped for Portable Text once Sanity is wired
+  heroImage?: string; // Sanity asset URL
+  body: PTBlock[]; // Portable Text from Sanity
   featured?: boolean;
 }
 

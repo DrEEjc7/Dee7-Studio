@@ -34,21 +34,11 @@ export const queries = {
     summary, url, "image": image.asset->url, featured
   }`,
   posts: `*[_type == "post" && defined(slug.current)] {
-    "slug": slug.current, title, excerpt, category,
+    "slug": slug.current, title, seoTitle, excerpt, category,
     "date": coalesce(date, publishedAt),
     "readingTime": coalesce(readingTime, readTime),
-    featured, body
+    "heroImage": heroImage.asset->url,
+    featured,
+    body[]{ ..., _type == "image" => { "url": asset->url } }
   } | order(date desc)`,
 };
-
-/** Flatten simple Portable Text blocks into plain paragraphs. */
-export function blocksToParagraphs(body: unknown): string[] {
-  if (!Array.isArray(body)) return [];
-  return body
-    .map((block) =>
-      Array.isArray(block?.children)
-        ? block.children.map((c: { text?: string }) => c.text ?? "").join("")
-        : ""
-    )
-    .filter(Boolean);
-}

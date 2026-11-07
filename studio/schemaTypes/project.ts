@@ -50,6 +50,23 @@ export const project = defineType({
       rows: 3,
     }),
     defineField({
+      name: "body",
+      title: "Case study",
+      type: "array",
+      description: "Full case study content, for the project detail page",
+      of: [
+        { type: "block" },
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            { name: "alt", title: "Alt text", type: "string" },
+            { name: "caption", title: "Caption", type: "string" },
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: "url",
       title: "Live site URL",
       type: "url",

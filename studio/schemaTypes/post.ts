@@ -23,14 +23,35 @@ export const post = defineType({
       title: "Excerpt",
       type: "text",
       rows: 3,
+      description: "Short summary used on cards and as the meta description",
+    }),
+    defineField({
+      name: "seoTitle",
+      title: "SEO title",
+      type: "string",
+      description: "Optional: overrides the title in the browser tab and search results",
     }),
     defineField({
       name: "category",
       title: "Category",
       type: "string",
       options: {
-        list: ["Conversion", "UX", "Design", "Process"],
+        list: [
+          "Learn",
+          "Web Design",
+          "Top 10",
+          "Infographics",
+          "Resources",
+          "Conversion",
+          "UX",
+        ],
       },
+    }),
+    defineField({
+      name: "heroImage",
+      title: "Hero image",
+      type: "image",
+      options: { hotspot: true },
     }),
     defineField({
       name: "date",
@@ -48,7 +69,17 @@ export const post = defineType({
       name: "body",
       title: "Body",
       type: "array",
-      of: [{ type: "block" }],
+      of: [
+        { type: "block" },
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            { name: "alt", title: "Alt text", type: "string" },
+            { name: "caption", title: "Caption", type: "string" },
+          ],
+        },
+      ],
     }),
     defineField({
       name: "featured",
