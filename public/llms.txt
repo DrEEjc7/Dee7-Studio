@@ -1,0 +1,30 @@
+# Dee7 Studio
+
+> Dee7 Studio plans, writes, designs and builds websites that explain your offer clearly and get visitors to act. 10+ years, 2,000+ projects, Certified Webflow Partner and Certified Notion Partner. Based in Europe (CET), working with B2B software teams worldwide.
+
+Dee7 Studio is a web design studio that combines website planning, copywriting, design and build in one process, measured in conversions. Pricing for each offer is shown on its own services page.
+
+## Services
+
+- [Landing Page Sprint](https://dee7studio.com/services/landing-page-sprint): a focused landing page, designed and built to a fixed scope and timeline.
+- [Website Project](https://dee7studio.com/services/website-project): a full website or redesign, from strategy and copy to design and build.
+- [Monthly Partner](https://dee7studio.com/services/monthly-partner): ongoing design and development capacity at one flat monthly rate.
+- [AI Automation & Agentic Workflows](https://dee7studio.com/services/ai-automation): automations and AI workflows for repetitive business tasks.
+- [Website Roadmap](https://dee7studio.com/services/website-roadmap): a paid plan that shows what to fix on your website and in what order.
+
+## Work
+
+- [Selected work and case studies](https://dee7studio.com/work): live, shipped projects across SaaS, climate, e-commerce, education and industry.
+
+## Writing
+
+- [Blog](https://dee7studio.com/blog): practical conversion, UX and web design writing for B2B teams.
+
+## Contact
+
+- [Contact and free website review](https://dee7studio.com/contact): share your goal, timing and budget. The free website review returns three fixes to make first.
+- Email: hello@dee7studio.com
+
+## Policies
+
+- [Privacy policy](https://dee7studio.com/privacy)

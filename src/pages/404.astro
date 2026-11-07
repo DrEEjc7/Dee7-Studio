@@ -1,0 +1,46 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Page not found | Dee7 Studio"
+  description="This page does not exist. Head back to the work, services or blog."
+  noindex
+>
+  <section class="nf">
+    <div class="container nf__inner">
+      <span class="eyebrow">Error 404</span>
+      <h1 class="nf__title">This page <span class="accent-word">moved</span> or never existed.</h1>
+      <p class="lead">Pick up where you left off.</p>
+      <div class="nf__actions">
+        <a href="/" class="btn btn--accent btn--lg">Back to home</a>
+        <a href="/work" class="btn btn--secondary btn--lg">See our work</a>
+        <a href="/blog" class="btn btn--secondary btn--lg">Read the blog</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-block: var(--space-section);
+  }
+
+  .nf__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .nf__title {
+    max-width: 14ch;
+  }
+
+  .nf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-1);
+  }
+</style>

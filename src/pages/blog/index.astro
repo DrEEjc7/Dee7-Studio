@@ -20,37 +20,23 @@ const categories = [...new Set(posts.map((p) => p.category).filter(Boolean))]
 const searchText = (p: typeof posts[number]) =>
   [p.title, p.excerpt, p.category].filter(Boolean).join(" ");
 
-const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Dee7 Studio",
-    url: "https://dee7studio.com/",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: "https://dee7studio.com/blog/?q={search_term_string}",
-      },
-      "query-input": "required name=search_term_string",
-    },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    name: "Dee7 Studio Blog",
-    url: "https://dee7studio.com/blog/",
-    description:
-      "Practical conversion, UX and design writing for B2B teams. No fluff, numbers included.",
-    publisher: { "@type": "Organization", name: "Dee7 Studio", url: "https://dee7studio.com/" },
-  },
-];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "https://dee7studio.com/blog#blog",
+  name: "Dee7 Studio Blog",
+  url: "https://dee7studio.com/blog",
+  description:
+    "Practical conversion, UX and design writing for B2B teams. No fluff, numbers included.",
+  publisher: { "@id": "https://dee7studio.com/#organization" },
+};
 ---
 
 <Base
   title="Blog | Dee7 Studio"
   description="Practical conversion, UX and design writing for B2B teams. No fluff, numbers included."
   jsonLd={jsonLd}
+  breadcrumbs={[{ name: "Blog", path: "/blog" }]}
 >
   <section class="page-hero">
     <div class="container">

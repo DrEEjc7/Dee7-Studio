@@ -1,0 +1,97 @@
+---
+/**
+ * Analytics head block. Render first inside <head>.
+ *
+ * Google Consent Mode v2, "advanced" setup:
+ *  1. Consent defaults to DENIED for everyone.
+ *  2. Google Tag Manager loads on every page, whatever the visitor chooses.
+ *  3. With analytics_storage denied, the Google tag sends cookieless pings
+ *     (no cookies, no persistent ID), so every visit is still counted.
+ *  4. Accept flips analytics_storage to granted; Google then sets its cookies.
+ *
+ * The tags themselves (GA4 config, events) live in the GTM container.
+ * gtag() must push the `arguments` object, which is why it is defined here
+ * and reused by the consent banner.
+ */
+import { SITE } from "../lib/site";
+
+// Load GTM only on production builds so local dev never pollutes live data.
+const loadGtm = import.meta.env.PROD || import.meta.env.PUBLIC_ANALYTICS_DEBUG === "1";
+const gtmId = SITE.gtmId;
+---
+
+<script is:inline define:vars={{ loadGtm, gtmId }}>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () {
+    window.dataLayer.push(arguments);
+  };
+
+  // 1. Default: everything denied. security_storage is not tracking.
+  window.gtag("consent", "default", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "denied",
+    functionality_storage: "denied",
+    personalization_storage: "denied",
+    security_storage: "granted",
+  });
+  window.gtag("set", "ads_data_redaction", true);
+
+  // 2. Replay a saved choice before GTM boots, so returning visitors who
+  //    accepted are measured with cookies from their first hit.
+  try {
+    var saved = JSON.parse(localStorage.getItem("dee7-consent") || "null");
+    var fresh = saved && saved.v === 1 && Date.now() - saved.ts < 15552000000; // 180 days
+    if (fresh && saved.analytics) {
+      window.gtag("consent", "update", { analytics_storage: "granted" });
+    }
+  } catch (e) {}
+
+  // 3. Tag Manager, always.
+  if (loadGtm) {
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s);
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", gtmId);
+  }
+</script>
+
+<script>
+  // Interaction events. Pushed to the dataLayer for every visitor; GTM and
+  // Consent Mode decide what Google may store. No personal data is sent.
+  const push = (payload: Record<string, unknown>) => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push(payload);
+  };
+
+  document.addEventListener("click", (event) => {
+    const link = (event.target as Element | null)?.closest?.("a");
+    if (!link) return;
+    const href = link.getAttribute("href") ?? "";
+
+    if (href.startsWith("mailto:")) {
+      push({ event: "email_click", link_location: location.pathname });
+      return;
+    }
+
+    if (link.classList.contains("btn")) {
+      let target = href;
+      try {
+        const url = new URL(href, location.href);
+        target = url.origin === location.origin ? url.pathname + url.search : url.hostname;
+      } catch {}
+      push({
+        event: "cta_click",
+        cta_text: (link.textContent ?? "").trim().slice(0, 60),
+        cta_target: target.slice(0, 100),
+        link_location: location.pathname,
+      });
+    }
+  });
+</script>

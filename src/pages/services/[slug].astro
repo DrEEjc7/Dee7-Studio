@@ -10,9 +10,45 @@ export async function getStaticPaths() {
 }
 
 const { offer } = Astro.props;
+
+const url = `https://dee7studio.com/services/${offer.slug}`;
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: offer.name,
+    description: offer.description,
+    serviceType: offer.name,
+    url,
+    provider: { "@id": "https://dee7studio.com/#organization" },
+    areaServed: "Worldwide",
+  },
+  ...(offer.faq?.length
+    ? [
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: offer.faq.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
+        },
+      ]
+    : []),
+];
 ---
 
-<Base title={`${offer.name} | Dee7 Studio`} description={offer.description}>
+<Base
+  title={`${offer.name} | Dee7 Studio`}
+  description={offer.description}
+  jsonLd={jsonLd}
+  breadcrumbs={[
+    { name: "Services", path: "/services" },
+    { name: offer.name, path: `/services/${offer.slug}` },
+  ]}
+>
   <article>
     <!-- Offer hero -->
     <header class="offer-hero">

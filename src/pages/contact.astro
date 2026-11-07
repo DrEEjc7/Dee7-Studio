@@ -5,6 +5,7 @@ import Base from "../layouts/Base.astro";
 <Base
   title="Contact | Dee7 Studio"
   description="Share your goals, timing and budget. Get a free website review with three fixes to make first, or a fixed quote for your project."
+  breadcrumbs={[{ name: "Contact", path: "/contact" }]}
 >
   <section class="contact">
     <div class="container contact__grid">
@@ -172,6 +173,13 @@ import Base from "../layouts/Base.astro";
     ]
       .filter(Boolean)
       .join("\n");
+
+    // Analytics: count the enquiry. Only the chosen service, never personal data.
+    (window as any).dataLayer?.push({
+      event: "generate_lead",
+      lead_service: get("service") || "unspecified",
+      lead_intent: isReview ? "review" : "project",
+    });
 
     window.location.href = `mailto:hello@dee7studio.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });

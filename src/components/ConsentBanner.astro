@@ -1,0 +1,188 @@
+---
+/**
+ * Cookie consent banner. Equal-weight Accept and Decline, non-blocking, no
+ * dark patterns. Choice is stored in localStorage ("dee7-consent") for 180
+ * days. Anything with [data-consent-open] reopens it so visitors can change
+ * their mind at any time.
+ *
+ * Visitors are counted either way: see Analytics.astro.
+ */
+---
+
+<section
+  class="consent"
+  id="consent-banner"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="consent-title"
+  aria-describedby="consent-text"
+  hidden
+>
+  <h2 class="consent__title" id="consent-title">Analytics cookies?</h2>
+  <p class="consent__text" id="consent-text">
+    We use Google Analytics to learn which pages help visitors. Accept to allow
+    its cookies. Decline and we still count your visit, anonymously and without
+    cookies. See the <a href="/privacy#cookies">privacy policy</a>.
+  </p>
+  <p class="consent__state" id="consent-state" hidden></p>
+  <div class="consent__actions">
+    <button type="button" class="btn btn--accent consent__btn" data-consent="accept">Accept</button>
+    <button type="button" class="btn btn--secondary consent__btn" data-consent="decline">Decline</button>
+  </div>
+</section>
+
+<script>
+  const KEY = "dee7-consent";
+  const MAX_AGE = 180 * 24 * 60 * 60 * 1000;
+
+  const banner = document.getElementById("consent-banner") as HTMLElement | null;
+  const state = document.getElementById("consent-state") as HTMLElement | null;
+  const w = window as any;
+
+  type Saved = { v: 1; analytics: boolean; ts: number };
+
+  const read = (): Saved | null => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+      return saved && saved.v === 1 && Date.now() - saved.ts < MAX_AGE ? saved : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const save = (analytics: boolean) => {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ v: 1, analytics, ts: Date.now() }));
+    } catch {}
+  };
+
+  const show = (reopened: boolean) => {
+    if (!banner) return;
+    if (state) {
+      const current = read();
+      state.hidden = !(reopened && current);
+      if (current) {
+        state.textContent = `Right now: analytics cookies are ${current.analytics ? "on" : "off"}.`;
+      }
+    }
+    banner.hidden = false;
+    // Next frame so the transition runs.
+    requestAnimationFrame(() => banner.classList.add("consent--in"));
+    if (reopened) banner.querySelector<HTMLElement>("[data-consent]")?.focus();
+  };
+
+  const hide = () => {
+    if (!banner) return;
+    banner.classList.remove("consent--in");
+    banner.hidden = true;
+  };
+
+  const choose = (analytics: boolean) => {
+    save(analytics);
+    w.gtag?.("consent", "update", {
+      analytics_storage: analytics ? "granted" : "denied",
+    });
+    w.dataLayer?.push({ event: "consent_choice", analytics_consent: analytics ? "granted" : "denied" });
+    hide();
+  };
+
+  banner?.addEventListener("click", (event) => {
+    const btn = (event.target as Element).closest<HTMLElement>("[data-consent]");
+    if (btn) choose(btn.dataset.consent === "accept");
+  });
+
+  document.addEventListener("click", (event) => {
+    const opener = (event.target as Element).closest("[data-consent-open]");
+    if (opener) {
+      event.preventDefault();
+      show(true);
+    }
+  });
+
+  if (!read()) show(false);
+</script>
+
+<style>
+  .consent {
+    position: fixed;
+    z-index: 90;
+    left: var(--space-2);
+    bottom: var(--space-2);
+    width: min(400px, calc(100vw - 2 * var(--space-2)));
+    padding: var(--space-3);
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--border-alt);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 18px 48px rgba(25, 24, 16, 0.16), 0 2px 8px rgba(25, 24, 16, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 320ms ease, transform 320ms ease;
+  }
+
+  .consent[hidden] {
+    display: none;
+  }
+
+  .consent--in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .consent__title {
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .consent__text {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .consent__text a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .consent__text a:hover {
+    color: var(--accent-text);
+  }
+
+  .consent__state {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  .consent__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-1);
+    margin-top: 4px;
+  }
+
+  .consent__btn {
+    padding: 11px 16px;
+    font-size: 15px;
+  }
+
+  @media (max-width: 520px) {
+    .consent {
+      left: 12px;
+      bottom: 12px;
+      width: calc(100vw - 24px);
+      padding: var(--space-2);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .consent {
+      transition: none;
+    }
+  }
+</style>

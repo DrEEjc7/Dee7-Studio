@@ -16,32 +16,33 @@ const { post } = Astro.props;
 
 const bodyHtml = renderPortableText(post.body);
 
+// Google shows about 60 characters of a title. Drop the brand suffix when it would push the title past that.
+const baseTitle = post.seoTitle ?? post.title;
+const pageTitle = baseTitle.length + " | Dee7 Studio".length <= 60 ? `${baseTitle} | Dee7 Studio` : baseTitle;
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Article",
   headline: post.title,
   description: post.excerpt,
   ...(post.heroImage ? { image: post.heroImage } : {}),
-  author: {
-    "@type": "Organization",
-    name: "Dee7 Studio",
-    url: "https://dee7studio.com/",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "Dee7 Studio",
-    url: "https://dee7studio.com/",
-  },
+  ...(post.date ? { datePublished: post.date, dateModified: post.date } : {}),
+  author: { "@id": "https://dee7studio.com/#organization" },
+  publisher: { "@id": "https://dee7studio.com/#organization" },
   mainEntityOfPage: `https://dee7studio.com/blog/${post.slug}`,
 };
 ---
 
 <Base
-  title={`${post.seoTitle ?? post.title} | Dee7 Studio`}
+  title={pageTitle}
   description={post.excerpt}
   image={post.heroImage}
   ogType="article"
   jsonLd={jsonLd}
+  breadcrumbs={[
+    { name: "Blog", path: "/blog" },
+    { name: post.title, path: `/blog/${post.slug}` },
+  ]}
 >
   <article>
     <header class="post-hero">

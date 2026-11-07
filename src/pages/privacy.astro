@@ -1,0 +1,326 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../lib/site";
+
+const updated = "November 7, 2026";
+---
+
+<Base
+  title="Privacy Policy | Dee7 Studio"
+  description="What dee7studio.com collects, why, which cookies it sets, and how to change your choice at any time. Plain language, no surprises."
+  breadcrumbs={[{ name: "Privacy Policy", path: "/privacy" }]}
+>
+  <section class="legal">
+    <div class="container legal__inner">
+      <header class="legal__head" data-rise>
+        <span class="eyebrow">Privacy</span>
+        <h1 class="legal__title">Privacy policy.</h1>
+        <p class="lead">
+          Short version: we count visits to learn what helps, we keep the
+          contact form simple, and you decide about cookies. Last updated {updated}.
+        </p>
+        <nav class="legal__toc" aria-label="On this page">
+          <a href="#who">Who we are</a>
+          <a href="#collect">What we collect</a>
+          <a href="#cookies">Cookies and analytics</a>
+          <a href="#third-parties">Other services</a>
+          <a href="#rights">Your rights</a>
+        </nav>
+      </header>
+
+      <div class="legal__body">
+        <section id="who">
+          <h2>Who we are</h2>
+          <p>
+            {SITE.name} ("we") runs {SITE.url.replace("https://", "")}. For anything in this policy,
+            write to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+          </p>
+        </section>
+
+        <section id="collect">
+          <h2>What we collect</h2>
+          <h3>If you contact us</h3>
+          <p>
+            The contact form does not send anything to our servers. It opens a
+            pre-filled email in your own mail app, and nothing is stored on this
+            site. We receive only the email you choose to send. We use it to
+            reply, and keep it for as long as the conversation or a resulting
+            project needs it.
+          </p>
+          <h3>When you visit</h3>
+          <p>
+            Our host, Cloudflare, processes your IP address and basic request
+            details to deliver the pages and keep the site secure. We do not
+            use this to identify you.
+          </p>
+          <p>
+            Google Analytics counts visits and shows us which pages and calls to
+            action work. What it can store depends on your choice, explained
+            next.
+          </p>
+        </section>
+
+        <section id="cookies">
+          <h2>Cookies and analytics</h2>
+          <p>
+            We use Google Analytics 4, loaded through Google Tag Manager, under
+            Google Consent Mode. Nothing else on this site sets cookies for
+            advertising or tracking, and we do not run ads.
+          </p>
+
+          <h3>If you accept</h3>
+          <p>
+            Google Analytics sets two first-party cookies and uses them to
+            recognise a returning browser, so visits, sessions and journeys are
+            measured accurately.
+          </p>
+          <div class="legal__table-wrap">
+            <table class="legal__table">
+              <thead>
+                <tr><th>Name</th><th>Purpose</th><th>Lifetime</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>_ga</code></td><td>Tells one browser from another</td><td>2 years</td></tr>
+                <tr><td><code>_ga_{SITE.ga4Id.replace("G-", "")}</code></td><td>Keeps session state</td><td>2 years</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>If you decline</h3>
+          <p>
+            Google Analytics sets no cookies and stores no identifier in your
+            browser. We still count that the visit happened. Google Tag Manager
+            sends a small anonymous signal with the page address, page title,
+            referrer, approximate location, and browser and device type. It has
+            no persistent ID, so it cannot follow you from visit to visit. We
+            use these signals only for totals, such as how many people viewed a
+            page.
+          </p>
+
+          <h3>Your choice</h3>
+          <p>
+            We store your answer in your browser (local storage, key
+            <code>dee7-consent</code>) for 180 days, so we do not ask on every
+            page. This record is needed to respect your choice and is not used
+            for tracking. Change your mind at any time:
+          </p>
+          <p>
+            <button type="button" class="btn btn--secondary" data-consent-open>
+              Open cookie settings
+            </button>
+          </p>
+          <p>
+            Cookie settings are also in the footer of every page. You can
+            delete the cookies above in your browser at any time.
+          </p>
+
+          <h3>Legal basis</h3>
+          <p>
+            Analytics cookies rely on your consent. Anonymous visit counting
+            without cookies, hosting and security rely on our legitimate
+            interest in running and improving a business website, which has
+            minimal impact on you. Replying to your email relies on taking
+            steps at your request.
+          </p>
+        </section>
+
+        <section id="third-parties">
+          <h2>Other services this site loads</h2>
+          <p>
+            These providers receive your IP address when your browser fetches
+            their files, because that is how the web works:
+          </p>
+          <ul>
+            <li><strong>Cloudflare</strong> hosts and delivers the site.</li>
+            <li><strong>Google</strong> (Tag Manager, Analytics) as described above, and <strong>Google Fonts</strong> for the Inter and Instrument Serif typefaces.</li>
+            <li><strong>Fontshare</strong> (Indian Type Foundry) for the Clash Display typeface.</li>
+            <li><strong>Sanity</strong> serves some article and project images.</li>
+          </ul>
+          <p>
+            Some of these providers are based in the United States. They
+            transfer data under the EU-US Data Privacy Framework or Standard
+            Contractual Clauses.
+          </p>
+          <p>
+            Links to other websites, such as client sites in our portfolio, are
+            governed by their own policies.
+          </p>
+        </section>
+
+        <section id="rights">
+          <h2>Your rights</h2>
+          <p>
+            You can ask us for access to, correction of, deletion of, or a copy
+            of your personal data, and object to or restrict how we use it. You
+            can withdraw consent whenever you like using the cookie settings
+            above. Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and
+            we will answer within one month. If you are unhappy with our
+            answer, you can complain to your local data protection authority.
+          </p>
+          <p>
+            This site is not aimed at children, and we do not knowingly collect
+            their data.
+          </p>
+        </section>
+
+        <section id="changes">
+          <h2>Changes</h2>
+          <p>
+            If we change this policy, we update the date at the top. If a change
+            affects what we collect, we ask for your choice again.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    padding-block: var(--space-8) var(--space-section);
+  }
+
+  .legal__inner {
+    display: grid;
+    grid-template-columns: 4fr 7fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .legal__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    position: sticky;
+    top: 104px;
+  }
+
+  .legal__title {
+    font-size: clamp(36px, 4.4vw, 56px);
+  }
+
+  .legal__toc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+    font-size: 15px;
+  }
+
+  .legal__toc a {
+    color: var(--muted);
+    transition: color var(--ease);
+  }
+
+  .legal__toc a:hover {
+    color: var(--accent-text);
+  }
+
+  .legal__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .legal__body section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    scroll-margin-top: 104px;
+  }
+
+  .legal__body h2 {
+    font-size: clamp(26px, 3vw, 34px);
+  }
+
+  .legal__body h3 {
+    font-size: 19px;
+    margin-top: var(--space-1);
+  }
+
+  .legal__body p,
+  .legal__body li {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .legal__body ul {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 640px;
+  }
+
+  .legal__body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .legal__body p a,
+  .legal__body li a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .legal__body p a:hover {
+    color: var(--accent-text);
+  }
+
+  .legal__body code {
+    font-size: 0.9em;
+    background: var(--tint);
+    color: var(--ink);
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+  }
+
+  .legal__table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    max-width: 640px;
+  }
+
+  .legal__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+
+  .legal__table th,
+  .legal__table td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    vertical-align: top;
+  }
+
+  .legal__table th {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .legal__table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 900px) {
+    .legal__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .legal__head {
+      position: static;
+    }
+  }
+</style>

@@ -23,8 +23,8 @@ const jsonLd = {
   headline: `${project.title} case study`,
   description: project.summary,
   ...(project.image ? { image: project.image } : {}),
-  author: { "@type": "Organization", name: "Dee7 Studio", url: "https://dee7studio.com/" },
-  publisher: { "@type": "Organization", name: "Dee7 Studio", url: "https://dee7studio.com/" },
+  author: { "@id": "https://dee7studio.com/#organization" },
+  publisher: { "@id": "https://dee7studio.com/#organization" },
   mainEntityOfPage: `https://dee7studio.com/work/${project.slug}`,
 };
 ---
@@ -35,6 +35,10 @@ const jsonLd = {
   image={project.image}
   ogType="article"
   jsonLd={jsonLd}
+  breadcrumbs={[
+    { name: "Work", path: "/work" },
+    { name: project.title, path: `/work/${project.slug}` },
+  ]}
 >
   <article>
     <header class="case-hero">

@@ -59,6 +59,10 @@ const year = new Date().getFullYear();
     <div class="footer__bottom">
       <span>© {year} Dee7 Studio. All rights reserved.</span>
       <span>Certified Webflow Partner · Certified Notion Partner</span>
+      <span class="footer__legal">
+        <a href="/privacy">Privacy</a>
+        <button type="button" class="footer__link-btn" data-consent-open>Cookie settings</button>
+      </span>
     </div>
   </div>
 </footer>
@@ -152,6 +156,30 @@ const year = new Date().getFullYear();
     text-transform: uppercase;
     color: var(--ink-contrast);
     margin-bottom: 4px;
+  }
+
+  .footer__legal {
+    display: inline-flex;
+    gap: var(--space-3);
+  }
+
+  .footer__legal a,
+  .footer__link-btn {
+    color: var(--muted-on-dark);
+    transition: color var(--ease);
+  }
+
+  .footer__legal a:hover,
+  .footer__link-btn:hover {
+    color: var(--ink-contrast);
+  }
+
+  .footer__link-btn {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
   }
 
   .footer__bottom {
