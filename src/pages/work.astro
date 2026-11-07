@@ -26,10 +26,11 @@ const capabilities = [
   <section class="page-hero">
     <div class="container">
       <span class="eyebrow">Portfolio</span>
-      <h1 class="display page-hero__title">Live, not mockups.</h1>
+      <h1 class="display page-hero__title">Selected work.</h1>
       <p class="lead page-hero__sub">
-        Every project below is shipped and online. Visit them. 10+ years,
-        2,000+ projects, including award-winning work.
+        Websites, landing pages and product design for SaaS, health, education
+        and enterprise teams. 10+ years, 2,000+ projects, including
+        award-winning work. Shipped sites link out, so visit them.
       </p>
     </div>
   </section>
@@ -38,11 +39,13 @@ const capabilities = [
   <section class="section case-list">
     <div class="container">
       <div class="grid grid--2">
-        {projects.map((project, i) => (
-          <a
+        {projects.map((project, i) => {
+          const Tag = project.url ? "a" : "article";
+          return (
+          <Tag
             href={project.url}
-            target="_blank"
-            rel="noopener"
+            target={project.url ? "_blank" : undefined}
+            rel={project.url ? "noopener" : undefined}
             class="card project-tile"
             data-rise
             style={`--rise-delay: ${(i % 2) * 90}ms`}
@@ -72,10 +75,13 @@ const capabilities = [
                 ))}
               </div>
               <p class="project-tile__summary">{project.summary}</p>
-              <span class="project-tile__link link-cue">Visit live site ↗</span>
+              {project.url && (
+                <span class="project-tile__link link-cue">Visit live site ↗</span>
+              )}
             </div>
-          </a>
-        ))}
+          </Tag>
+          );
+        })}
       </div>
 
       <p class="case-note">

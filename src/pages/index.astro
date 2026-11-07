@@ -30,6 +30,24 @@ const steps = [
   },
 ];
 
+const testimonials = [
+  {
+    text: "There are designers out there (millions) but only a few truly excellent designers. Andrej is one of those few. His ideas, creativity and skills to come up with something that exceeds your expectations are simply awesome. Yes, he charges a fee well above average, but you can expect a result that justifies the premium price. Highly recommended.",
+    name: "Jonah Smith",
+    company: "Vespa",
+  },
+  {
+    text: "Andrej was very receptive to the ideas I had in my mind, which he spun into an even better result from wireframe to final site design. The project went superbly well and I'm delighted with the results. Andrej is an A+ collaborator and brilliant designer. Definitely, definitely go with him!",
+    name: "Dan Denegre",
+    company: "Space Race Studio",
+  },
+  {
+    text: "Andrej and his team were fantastic to work with. They worked through feedback very efficiently and were highly communicative throughout the entire process. Will definitely work with them in the future and would highly recommend them to anyone looking for a top-notch Webflow website.",
+    name: "Oscar Alcantara",
+    company: "EventScouts AG",
+  },
+];
+
 const sectors = [
   "SaaS",
   "Healthcare",
@@ -147,9 +165,9 @@ const sectors = [
       <div class="grid grid--3">
         {projects.map((project, i) => (
           <a
-            href={project.url}
-            target="_blank"
-            rel="noopener"
+            href={project.url ?? "/work"}
+            target={project.url ? "_blank" : undefined}
+            rel={project.url ? "noopener" : undefined}
             class="card project-card"
             data-rise
             style={`--rise-delay: ${i * 90}ms`}
@@ -170,7 +188,9 @@ const sectors = [
               <span class="project-card__highlight">{project.highlight}</span>
               <h3 class="project-card__title">{project.title}</h3>
               <p class="project-card__summary">{project.summary}</p>
-              <span class="project-card__link link-cue">Visit live site ↗</span>
+              <span class="project-card__link link-cue">
+                {project.url ? "Visit live site ↗" : "See all work →"}
+              </span>
             </div>
           </a>
         ))}
@@ -206,6 +226,27 @@ const sectors = [
             <li class="sectors__item">{s}</li>
           ))}
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-rise>
+        <span class="eyebrow">What clients say</span>
+        <h2>Word for word</h2>
+      </div>
+      <div class="grid grid--3">
+        {testimonials.map((t, i) => (
+          <figure class="card quote" data-rise style={`--rise-delay: ${i * 90}ms`}>
+            <blockquote class="quote__text">“{t.text}”</blockquote>
+            <figcaption class="quote__who">
+              <span class="quote__name">{t.name}</span>
+              <span class="quote__company">{t.company}</span>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </section>
@@ -460,6 +501,41 @@ const sectors = [
   .step__text {
     font-size: 14px;
     color: var(--muted-on-dark);
+  }
+
+  /* Testimonials */
+  .quote {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .quote__text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  .quote__who {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--border);
+  }
+
+  .quote__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .quote__company {
+    font-size: 13px;
+    color: var(--muted);
   }
 
   /* Sectors */
