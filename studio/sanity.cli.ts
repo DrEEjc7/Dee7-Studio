@@ -6,4 +6,7 @@ export default defineCliConfig({
     dataset: "production",
   },
   studioHost: "dee7-studio",
+  deployment: {
+    appId: "q5n5pb5a4puzfqhtqzx0bsa7",
+  },
 });
