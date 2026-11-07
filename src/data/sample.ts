@@ -217,19 +217,6 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "touchcast",
-    title: "Touchcast",
-    client: "Touchcast",
-    industry: "SaaS / AI",
-    services: ["Web Design", "Webflow Development"],
-    highlight: "Award-winning SaaS",
-    summary:
-      "Award-winning SaaS website for an AI events platform. Enterprise polish with a complex product story.",
-    url: "https://touchcast.com",
-    image: "/work/touchcast.jpg",
-    featured: true,
-  },
-  {
     slug: "mind-ninja",
     title: "Mind Ninja",
     client: "Mind Ninja",
@@ -277,6 +264,7 @@ export const projects: Project[] = [
       "Dark, confident marketing site for an AI platform in LNG trading, a company quoted in the WSJ, Bloomberg and the Financial Times.",
     url: "https://calypso-commodities.com",
     image: "/work/calypso-commodities.jpg",
+    featured: true,
   },
 ];
 
