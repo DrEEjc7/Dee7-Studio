@@ -64,10 +64,10 @@ const sectors = [
   <!-- Hero -->
   <section class="hero">
     <div class="container hero__inner">
-      <span class="badge badge--ghost-dark">Web design studio for B2B teams</span>
-      <h1 class="display hero__title">
-        Make your product{" "}<br class="hero__br" />impossible to{" "}
-        <span class="hero__title-accent">misunderstand.</span>
+      <h1 class="hero__title">
+        <span class="hero__line">Make your product</span>
+        <span class="hero__line">impossible to</span>
+        <span class="hero__line hero__title-accent">misunderstand.</span>
       </h1>
       <p class="lead hero__sub">
         You have a product to launch, a website that undersells you, or an idea
@@ -84,24 +84,17 @@ const sectors = [
         Taking on new projects
       </span>
 
-      <dl class="hero__stats">
-        <div class="hero__stat">
-          <dt>years of experience</dt>
-          <dd>10+</dd>
-        </div>
-        <div class="hero__stat">
-          <dt>projects delivered</dt>
-          <dd>2,000+</dd>
-        </div>
-        <div class="hero__stat">
-          <dt>Certified Partner</dt>
-          <dd>Webflow + Notion</dd>
-        </div>
-        <div class="hero__stat">
-          <dt>design work delivered for</dt>
-          <dd>AWS · Fiverr</dd>
-        </div>
-      </dl>
+      <p class="hero__meta">
+        <span>B2B web design studio</span>
+        <span class="hero__meta-dot" aria-hidden="true"></span>
+        <span>10+ years</span>
+        <span class="hero__meta-dot" aria-hidden="true"></span>
+        <span>2,000+ projects</span>
+        <span class="hero__meta-dot" aria-hidden="true"></span>
+        <span>Webflow + Notion Certified</span>
+        <span class="hero__meta-dot" aria-hidden="true"></span>
+        <span>Design work for AWS and Fiverr</span>
+      </p>
     </div>
   </section>
 
@@ -109,8 +102,7 @@ const sectors = [
   <section class="section" id="services">
     <div class="container">
       <div class="section-head" data-rise>
-        <span class="eyebrow">Services</span>
-        <h2>Start with the problem you have</h2>
+        <h2><span class="index-num section-head__num">01</span>Start with the problem you have</h2>
         <p class="lead">
           Fixed scope, clear timelines, and a process that starts with your
           business, not a template. Pricing is scoped to your project on a
@@ -155,10 +147,7 @@ const sectors = [
   <section class="section work-preview">
     <div class="container">
       <div class="section-head section-head--row" data-rise>
-        <div>
-          <span class="eyebrow">Selected Work</span>
-          <h2>Built, shipped, live</h2>
-        </div>
+        <h2><span class="index-num section-head__num">02</span>Built, shipped, live</h2>
         <a href="/work" class="btn btn--secondary">View All Work</a>
       </div>
 
@@ -202,8 +191,7 @@ const sectors = [
   <section class="section section--dark" id="process">
     <div class="container">
       <div class="section-head" data-rise>
-        <span class="eyebrow">Process</span>
-        <h2>How we work</h2>
+        <h2><span class="index-num section-head__num">03</span>How we work</h2>
         <p class="lead">
           You don't need a perfect brief to start. Bring your current website,
           a rough idea, or the problem you want to solve.
@@ -234,8 +222,7 @@ const sectors = [
   <section class="section">
     <div class="container">
       <div class="section-head" data-rise>
-        <span class="eyebrow">What clients say</span>
-        <h2>Word for word</h2>
+        <h2><span class="index-num section-head__num">04</span>Word for word</h2>
       </div>
       <div class="grid grid--3">
         {testimonials.map((t, i) => (
@@ -270,7 +257,16 @@ const sectors = [
   }
 
   .hero__title {
-    margin-top: var(--space-1);
+    margin-top: var(--space-2);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(46px, 9vw, 122px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+
+  .hero__line {
+    display: block;
   }
 
   .hero__title-accent {
@@ -293,40 +289,35 @@ const sectors = [
     color: var(--muted-on-dark);
   }
 
-  .hero__stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-3);
+  .hero__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
     width: 100%;
-    margin: var(--space-8) 0 0;
-    padding-top: var(--space-4);
+    max-width: none;
+    margin-top: var(--space-8);
+    padding-top: var(--space-3);
     border-top: 1px solid var(--border-on-dark);
-  }
-
-  .hero__stat dt {
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     color: var(--muted-on-dark);
-    order: 2;
   }
 
-  .hero__stat dd {
-    margin: 0 0 4px;
-    font-family: var(--font-display);
-    font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1;
+  .hero__meta-dot {
+    flex: none;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
   }
 
-  @media (max-width: 720px) {
-    .hero__stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .hero__br {
-      display: none;
-    }
+  /* Section head numerals */
+  .section-head__num {
+    display: block;
+    font-size: 16px;
+    margin-bottom: var(--space-1);
   }
 
   /* Section head row variant */
@@ -336,10 +327,6 @@ const sectors = [
     justify-content: space-between;
     gap: var(--space-3);
     flex-wrap: wrap;
-  }
-
-  .section-head--row h2 {
-    margin-top: var(--space-2);
   }
 
   /* Offer cards: problem-first, no pricing */

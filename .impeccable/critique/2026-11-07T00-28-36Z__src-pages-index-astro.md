@@ -10,6 +10,7 @@ target_fingerprint: "sha256:f05324efc9318a3d09e1a193808650270f47fd34b0a0100682d1
 target_path: /Users/antoniodemac/Library/CloudStorage/Dropbox/All Projects/WEB Projects/8. Websites/Dee7 Studio/src/pages/index.astro
 timestamp: 2026-11-07T00-28-36Z
 slug: src-pages-index-astro
+closed: true
 ---
 # Critique: Dee7 Studio home page (src/pages/index.astro)
 
