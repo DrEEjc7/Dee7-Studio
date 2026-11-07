@@ -98,6 +98,7 @@ const path = Astro.url.pathname;
       height: auto;
       padding-block: 12px 10px;
       row-gap: 10px;
+      column-gap: 10px;
       justify-content: space-between;
     }
 
@@ -118,6 +119,22 @@ const path = Astro.url.pathname;
 
     .nav__wordmark {
       height: 32px;
+    }
+  }
+
+  /* Below ~360px, the wordmark + "Free Website Review" pill no longer fit on
+     one row at the 720px breakpoint's sizing, which forces the CTA onto its
+     own line and gives the header 3 rows instead of 2. Trim the CTA a little
+     further so it keeps sitting beside the logo down to the narrowest common
+     phone widths. */
+  @media (max-width: 374px) {
+    .nav__cta {
+      font-size: 12px;
+      padding: 7px 10px;
+    }
+
+    .nav__wordmark {
+      height: 28px;
     }
   }
 </style>

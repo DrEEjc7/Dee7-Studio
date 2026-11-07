@@ -10,5 +10,9 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"routes": [
+		{ "pattern": "dee7studio.com", "custom_domain": true },
+		{ "pattern": "www.dee7studio.com", "custom_domain": true }
+	]
 }

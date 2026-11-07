@@ -154,6 +154,13 @@ img, svg {
 
 @media (max-width: 960px) {
   .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  /* A grid--3 with exactly 3 children doesn't divide evenly into 2 columns:
+     without this, the 3rd card sits alone with a large empty gap beside it
+     between 641px and 960px. Let it span both columns instead so the row
+     reads as intentional. Scoped to nth-child(3):last-child so it only
+     matches a true 3-item grid (e.g. the blog's post-grid, which also uses
+     .grid--3 but holds dozens of cards, is unaffected). */
+  .grid--3 > :nth-child(3):last-child { grid-column: 1 / -1; }
 }
 
 @media (max-width: 640px) {
