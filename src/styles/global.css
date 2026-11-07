@@ -25,7 +25,8 @@
   --border-on-dark: rgba(252, 252, 249, 0.14);
 
   /* Type */
-  --font-display: "Cabinet Grotesk", "Inter", system-ui, sans-serif;
+  --font-display: "Clash Display", "Inter", system-ui, sans-serif;
+  --font-accent: "Instrument Serif", Georgia, serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
 
   /* Spacing: 8px grid */
@@ -75,15 +76,25 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.1;
+  font-weight: 600;
+  line-height: 1.06;
   margin: 0;
   text-wrap: balance;
 }
 
-h1 { font-size: clamp(36px, 5vw, 60px); letter-spacing: -0.02em; }
-h2 { font-size: clamp(30px, 4.2vw, 48px); letter-spacing: -0.015em; }
+h1 { font-size: clamp(38px, 5.5vw, 68px); letter-spacing: -0.02em; }
+h2 { font-size: clamp(32px, 4.8vw, 56px); letter-spacing: -0.015em; }
 h3 { font-size: 24px; letter-spacing: -0.01em; }
+
+/* Emphasized word inside a heading: the editorial serif italic */
+.accent-word {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: 1.04em;
+  line-height: 1;
+}
 
 p {
   margin: 0;
@@ -180,10 +191,10 @@ img, svg {
 
 .display {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   font-size: clamp(44px, 7.5vw, 96px);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 

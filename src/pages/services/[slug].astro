@@ -25,7 +25,7 @@ const { offer } = Astro.props;
         </div>
         <div class="offer-hero__actions">
           <a href={`/contact?service=${offer.slug}`} class="btn btn--accent btn--lg">{offer.cta}</a>
-          <a href="/work" class="btn btn--ghost-light btn--lg">See Our Work</a>
+          <a href="/work" class="btn btn--secondary btn--lg">See Our Work</a>
         </div>
       </div>
     </header>
@@ -58,11 +58,11 @@ const { offer } = Astro.props;
     </section>
 
     <!-- Steps -->
-    <section class="section section--dark">
+    <section class="section steps-section">
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">How it works</span>
-          <h2>From kickoff to live</h2>
+          <h2>From kickoff to <span class="accent-word">live</span></h2>
         </div>
         <div class:list={["grid", offer.steps.length === 3 ? "grid--3" : "grid--4"]}>
           {offer.steps.map((step, i) => (
@@ -110,9 +110,7 @@ const { offer } = Astro.props;
 
 <style>
   .offer-hero {
-    background: var(--ink);
-    color: var(--ink-contrast);
-    padding-block: var(--space-section);
+    padding-block: var(--space-section) var(--space-6);
   }
 
   .offer-hero__inner {
@@ -129,11 +127,6 @@ const { offer } = Astro.props;
 
   .offer-hero__desc {
     max-width: 640px;
-    color: var(--muted-on-dark);
-  }
-
-  .offer-hero .eyebrow {
-    color: var(--accent-text-on-dark);
   }
 
   .offer-hero__actions {
@@ -187,21 +180,26 @@ const { offer } = Astro.props;
     }
   }
 
+  .steps-section {
+    padding-top: 0;
+  }
+
   /* Steps (shared look with home) */
   .step {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
     padding: var(--space-3);
-    border: 1px solid var(--border-on-dark);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
   }
 
   .step__n {
     font-family: var(--font-display);
     font-size: 14px;
-    font-weight: 700;
-    color: var(--accent-text-on-dark);
+    font-weight: 600;
+    color: var(--accent-text);
   }
 
   .step__title {
@@ -210,7 +208,7 @@ const { offer } = Astro.props;
 
   .step__text {
     font-size: 14px;
-    color: var(--muted-on-dark);
+    color: var(--muted);
   }
 
   /* FAQ */

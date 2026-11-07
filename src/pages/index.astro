@@ -66,8 +66,7 @@ const sectors = [
     <div class="container hero__inner">
       <h1 class="hero__title">
         <span class="hero__line">Make your product</span>
-        <span class="hero__line">impossible to</span>
-        <span class="hero__line hero__title-accent">misunderstand.</span>
+        <span class="hero__line">impossible to <span class="accent-word">misunderstand.</span></span>
       </h1>
       <p class="lead hero__sub">
         You have a product to launch, a website that undersells you, or an idea
@@ -76,7 +75,7 @@ const sectors = [
       </p>
       <div class="hero__actions">
         <a href="/contact?intent=review" class="btn btn--accent btn--lg">Get a Free Website Review</a>
-        <a href="/work" class="btn btn--ghost-light btn--lg">See Our Work</a>
+        <a href="/work" class="btn btn--secondary btn--lg">See Our Work</a>
       </div>
 
       <span class="status hero__status">
@@ -102,7 +101,7 @@ const sectors = [
   <section class="section" id="services">
     <div class="container">
       <div class="section-head" data-rise>
-        <h2><span class="index-num section-head__num">01</span>Start with the problem you have</h2>
+        <h2>Start with the <span class="accent-word">problem</span> you have</h2>
         <p class="lead">
           Fixed scope, clear timelines, and a process that starts with your
           business, not a template. Pricing is scoped to your project on a
@@ -147,7 +146,7 @@ const sectors = [
   <section class="section work-preview">
     <div class="container">
       <div class="section-head section-head--row" data-rise>
-        <h2><span class="index-num section-head__num">02</span>Built, shipped, live</h2>
+        <h2>Built, shipped, <span class="accent-word">live</span></h2>
         <a href="/work" class="btn btn--secondary">View All Work</a>
       </div>
 
@@ -188,10 +187,10 @@ const sectors = [
   </section>
 
   <!-- Process -->
-  <section class="section section--dark" id="process">
+  <section class="section" id="process">
     <div class="container">
       <div class="section-head" data-rise>
-        <h2><span class="index-num section-head__num">03</span>How we work</h2>
+        <h2>How we <span class="accent-word">work</span></h2>
         <p class="lead">
           You don't need a perfect brief to start. Bring your current website,
           a rough idea, or the problem you want to solve.
@@ -222,7 +221,7 @@ const sectors = [
   <section class="section">
     <div class="container">
       <div class="section-head" data-rise>
-        <h2><span class="index-num section-head__num">04</span>Word for word</h2>
+        <h2>Word for <span class="accent-word">word</span></h2>
       </div>
       <div class="grid grid--3">
         {testimonials.map((t, i) => (
@@ -244,9 +243,7 @@ const sectors = [
 <style>
   /* Hero */
   .hero {
-    background: var(--ink);
-    color: var(--ink-contrast);
-    padding-block: 120px var(--space-section);
+    padding-block: 120px var(--space-8);
   }
 
   .hero__inner {
@@ -259,23 +256,18 @@ const sectors = [
   .hero__title {
     margin-top: var(--space-2);
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 600;
     font-size: clamp(46px, 9vw, 122px);
     line-height: 0.98;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
   }
 
   .hero__line {
     display: block;
   }
 
-  .hero__title-accent {
-    color: var(--accent);
-  }
-
   .hero__sub {
     max-width: 600px;
-    color: var(--muted-on-dark);
   }
 
   .hero__actions {
@@ -286,7 +278,7 @@ const sectors = [
   }
 
   .hero__status {
-    color: var(--muted-on-dark);
+    color: var(--muted);
   }
 
   .hero__meta {
@@ -298,11 +290,11 @@ const sectors = [
     max-width: none;
     margin-top: var(--space-8);
     padding-top: var(--space-3);
-    border-top: 1px solid var(--border-on-dark);
+    border-top: 1px solid var(--border);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.02em;
-    color: var(--muted-on-dark);
+    color: var(--muted);
   }
 
   .hero__meta-dot {
@@ -311,13 +303,6 @@ const sectors = [
     height: 4px;
     border-radius: 50%;
     background: var(--accent);
-  }
-
-  /* Section head numerals */
-  .section-head__num {
-    display: block;
-    font-size: 16px;
-    margin-bottom: var(--space-1);
   }
 
   /* Section head row variant */
@@ -470,15 +455,16 @@ const sectors = [
     flex-direction: column;
     gap: var(--space-2);
     padding: var(--space-3);
-    border: 1px solid var(--border-on-dark);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
   }
 
   .step__n {
     font-family: var(--font-display);
     font-size: 14px;
-    font-weight: 700;
-    color: var(--accent-text-on-dark);
+    font-weight: 600;
+    color: var(--accent-text);
   }
 
   .step__title {
@@ -487,7 +473,7 @@ const sectors = [
 
   .step__text {
     font-size: 14px;
-    color: var(--muted-on-dark);
+    color: var(--muted);
   }
 
   /* Testimonials */
@@ -529,7 +515,7 @@ const sectors = [
   .sectors {
     margin-top: var(--space-6);
     padding-top: var(--space-4);
-    border-top: 1px solid var(--border-on-dark);
+    border-top: 1px solid var(--border);
     display: flex;
     align-items: baseline;
     gap: var(--space-3);
@@ -541,7 +527,7 @@ const sectors = [
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--muted-on-dark);
+    color: var(--muted);
     white-space: nowrap;
   }
 
