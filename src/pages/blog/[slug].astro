@@ -21,11 +21,35 @@ const date = new Date(post.date).toLocaleDateString("en-US", {
 });
 
 const bodyHtml = renderPortableText(post.body);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: post.title,
+  description: post.excerpt,
+  datePublished: post.date,
+  dateModified: post.date,
+  ...(post.heroImage ? { image: post.heroImage } : {}),
+  author: {
+    "@type": "Organization",
+    name: "Dee7 Studio",
+    url: "https://dee7studio.com/",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Dee7 Studio",
+    url: "https://dee7studio.com/",
+  },
+  mainEntityOfPage: `https://dee7studio.com/blog/${post.slug}`,
+};
 ---
 
 <Base
   title={`${post.seoTitle ?? post.title} | Dee7 Studio`}
   description={post.excerpt}
+  image={post.heroImage}
+  ogType="article"
+  jsonLd={jsonLd}
 >
   <article>
     <header class="post-hero">

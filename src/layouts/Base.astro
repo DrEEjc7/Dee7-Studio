@@ -6,12 +6,26 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  /** Absolute URL for og:image / twitter card */
+  image?: string;
+  /** og:type, defaults to "website"; posts pass "article" */
+  ogType?: string;
+  /** JSON-LD objects rendered into <head> */
+  jsonLd?: object | object[];
 }
 
 const {
   title,
   description = "Dee7 Studio plans, writes, designs and builds websites that explain your offer clearly. 10+ years, 2,000+ projects, Certified Webflow Partner.",
+  image,
+  ogType = "website",
+  jsonLd,
 } = Astro.props;
+
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : undefined;
+const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
 <!doctype html>
@@ -33,9 +47,18 @@ const {
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
       rel="stylesheet"
     />
+    {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:site_name" content="Dee7 Studio" />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    {image && <meta name="twitter:image" content={image} />}
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
     <script is:inline>document.documentElement.classList.add("js");</script>
   </head>
   <body>

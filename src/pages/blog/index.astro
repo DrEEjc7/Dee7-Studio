@@ -7,6 +7,19 @@ const posts = await getPosts();
 const featured = posts.find((p) => p.featured) ?? posts[0];
 const rest = featured ? posts.filter((p) => p.slug !== featured.slug) : [];
 
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+const categories = [...new Set(posts.map((p) => p.category).filter(Boolean))]
+  .sort()
+  .map((name) => ({
+    name,
+    value: slugify(name),
+    count: posts.filter((p) => p.category === name).length,
+  }));
+
+const searchText = (p: typeof posts[number]) =>
+  [p.title, p.excerpt, p.category].filter(Boolean).join(" ");
+
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
     month: "short",
@@ -14,11 +27,38 @@ function formatDate(iso: string) {
     year: "numeric",
   });
 }
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Dee7 Studio",
+    url: "https://dee7studio.com/",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://dee7studio.com/blog/?q={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Dee7 Studio Blog",
+    url: "https://dee7studio.com/blog/",
+    description:
+      "Practical conversion, UX and design writing for B2B teams. No fluff, numbers included.",
+    publisher: { "@type": "Organization", name: "Dee7 Studio", url: "https://dee7studio.com/" },
+  },
+];
 ---
 
 <Base
   title="Blog | Dee7 Studio"
   description="Practical conversion, UX and design writing for B2B teams. No fluff, numbers included."
+  jsonLd={jsonLd}
 >
   <section class="page-hero">
     <div class="container">
@@ -46,9 +86,54 @@ function formatDate(iso: string) {
         </div>
       )}
 
+      {featured && (
+        <div class="filterbar" data-filterbar data-noun-one="article" data-noun-many="articles">
+          <div class="fb-row">
+            <label class="fb-search">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input
+                type="search"
+                data-search-input
+                placeholder={`Search ${posts.length} articles…`}
+                aria-label={`Search ${posts.length} articles`}
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </label>
+            <div class="fb-dd" data-dropdown>
+              <button class="fb-dd-btn" type="button" data-dd-btn aria-expanded="false" aria-haspopup="true">
+                <span data-dd-label>Category</span>
+                <svg class="fb-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="fb-menu" data-dd-menu hidden>
+                <button class="fb-option" type="button" data-option data-value=""><span>All categories</span></button>
+                {categories.map((cat) => (
+                  <button class="fb-option" type="button" data-option data-value={cat.value} data-label={cat.name}>
+                    <span>{cat.name}</span>
+                    <span class="fb-count">{cat.count}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="fb-results">
+            <p class="fb-result-count"><span data-count>{posts.length} articles</span></p>
+            <div class="fb-pills" data-pills></div>
+            <button class="fb-clear" type="button" data-clear hidden>Clear all</button>
+          </div>
+        </div>
+      )}
+
       <!-- Featured post -->
       {featured && (
-      <a href={`/blog/${featured.slug}`} class="featured-post" data-rise>
+      <a
+        href={`/blog/${featured.slug}`}
+        class="featured-post"
+        data-rise
+        data-card
+        data-search={searchText(featured)}
+        data-f-category={slugify(featured.category ?? "")}
+      >
         <div class="featured-post__cover">
           <span class="badge badge--accent">Featured</span>
           <h2 class="featured-post__title">{featured.title}</h2>
@@ -65,13 +150,16 @@ function formatDate(iso: string) {
       )}
 
       <!-- Post grid -->
-      <div class="grid grid--3 post-grid">
+      <div class="grid grid--3 post-grid" data-grid>
         {rest.map((post, i) => (
           <a
             href={`/blog/${post.slug}`}
             class="card post-card"
             data-rise
-            style={`--rise-delay: ${i * 90}ms`}
+            data-card
+            data-search={searchText(post)}
+            data-f-category={slugify(post.category ?? "")}
+            style={`--rise-delay: ${(i % 3) * 90}ms`}
           >
             <div class="post-card__meta">
               <span class="badge badge--tint">{post.category}</span>
@@ -83,6 +171,16 @@ function formatDate(iso: string) {
           </a>
         ))}
       </div>
+
+      {featured && (
+        <div class="filter-empty" data-empty hidden>
+          <h2 class="filter-empty__title">Nothing matches that.</h2>
+          <p class="filter-empty__text">
+            Try a different word, or clear the filters to see every article.
+          </p>
+          <button class="btn btn--secondary" type="button" data-empty-clear>Clear filters</button>
+        </div>
+      )}
     </div>
   </section>
 
@@ -91,6 +189,157 @@ function formatDate(iso: string) {
     sub="Get a free teardown of your site: the same analysis behind these articles, applied to your pages."
   />
 </Base>
+
+<script>
+  const bar = document.querySelector("[data-filterbar]") as HTMLElement | null;
+  if (bar) {
+    const grid = document.querySelector("[data-grid]") as HTMLElement | null;
+    const empty = document.querySelector("[data-empty]") as HTMLElement | null;
+    const input = bar.querySelector("[data-search-input]") as HTMLInputElement;
+    const countEl = bar.querySelector("[data-count]") as HTMLElement;
+    const pills = bar.querySelector("[data-pills]") as HTMLElement;
+    const clearBtn = bar.querySelector("[data-clear]") as HTMLButtonElement;
+    const dd = bar.querySelector("[data-dropdown]") as HTMLElement | null;
+    const nounOne = bar.dataset.nounOne ?? "result";
+    const nounMany = bar.dataset.nounMany ?? "results";
+
+    const labels: Record<string, string> = {};
+    if (dd) {
+      for (const opt of dd.querySelectorAll<HTMLButtonElement>("[data-option]")) {
+        if (opt.dataset.value) labels[opt.dataset.value] = opt.dataset.label ?? opt.dataset.value;
+      }
+    }
+
+    const norm = (s: string) =>
+      s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-card]")).map((el) => ({
+      hay: norm(el.getAttribute("data-search") ?? ""),
+      cat: el.getAttribute("data-f-category") ?? "",
+      el,
+    }));
+
+    const state: { q: string; category: string | null } = { q: "", category: null };
+
+    const matches = (card: (typeof cards)[number]) => {
+      if (state.category && card.cat !== state.category) return false;
+      if (state.q) {
+        for (const term of state.q.split(/\s+/)) {
+          if (term && !card.hay.includes(term)) return false;
+        }
+      }
+      return true;
+    };
+
+    const closeMenu = () => {
+      if (!dd) return;
+      (dd.querySelector("[data-dd-menu]") as HTMLElement).hidden = true;
+      dd.querySelector("[data-dd-btn]")!.setAttribute("aria-expanded", "false");
+    };
+
+    function apply(updateUrl = true) {
+      const active = Boolean(state.q) || Boolean(state.category);
+      let shown = 0;
+      for (const card of cards) {
+        const ok = matches(card);
+        card.el.toggleAttribute("hidden", !ok);
+        if (ok) shown++;
+      }
+      countEl.textContent = `${shown} ${shown === 1 ? nounOne : nounMany}`;
+      if (empty) empty.hidden = shown !== 0;
+      if (grid) grid.hidden = shown === 0;
+
+      if (dd) {
+        const btn = dd.querySelector("[data-dd-btn]") as HTMLElement;
+        (dd.querySelector("[data-dd-label]") as HTMLElement).textContent = state.category
+          ? labels[state.category]
+          : "Category";
+        btn.classList.toggle("is-active", Boolean(state.category));
+        for (const opt of dd.querySelectorAll<HTMLButtonElement>("[data-option]")) {
+          opt.classList.toggle("is-selected", (opt.dataset.value || null) === state.category);
+        }
+      }
+
+      pills.textContent = "";
+      if (state.category) {
+        const pill = document.createElement("button");
+        pill.type = "button";
+        pill.className = "fb-pill";
+        pill.setAttribute("aria-label", `Remove filter ${labels[state.category]}`);
+        pill.append(document.createTextNode(labels[state.category]));
+        const x = document.createElement("span");
+        x.className = "fb-pill-x";
+        x.setAttribute("aria-hidden", "true");
+        x.textContent = "×";
+        pill.append(x);
+        pill.addEventListener("click", () => {
+          state.category = null;
+          apply();
+        });
+        pills.append(pill);
+      }
+      clearBtn.hidden = !active;
+
+      if (updateUrl) {
+        const params = new URLSearchParams();
+        if (state.q) params.set("q", state.q);
+        if (state.category) params.set("category", state.category);
+        const qs = params.toString();
+        history.replaceState(null, "", qs ? `?${qs}` : location.pathname);
+      }
+    }
+
+    if (dd) {
+      const btn = dd.querySelector("[data-dd-btn]") as HTMLElement;
+      const menu = dd.querySelector("[data-dd-menu]") as HTMLElement;
+      btn.addEventListener("click", () => {
+        const wasHidden = menu.hidden;
+        closeMenu();
+        menu.hidden = !wasHidden;
+        btn.setAttribute("aria-expanded", String(wasHidden));
+      });
+      for (const opt of dd.querySelectorAll<HTMLButtonElement>("[data-option]")) {
+        opt.addEventListener("click", () => {
+          state.category = opt.dataset.value || null;
+          closeMenu();
+          apply();
+        });
+      }
+    }
+
+    document.addEventListener("click", (e) => {
+      if (e.target instanceof Node && !bar.contains(e.target)) closeMenu();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    const clearAll = () => {
+      state.q = "";
+      input.value = "";
+      state.category = null;
+      apply();
+    };
+    clearBtn.addEventListener("click", clearAll);
+    document.querySelector("[data-empty-clear]")?.addEventListener("click", clearAll);
+
+    input.addEventListener("focus", closeMenu);
+    input.addEventListener("input", () => {
+      state.q = norm(input.value.trim());
+      apply();
+    });
+
+    const params = new URLSearchParams(location.search);
+    const q = params.get("q");
+    if (q) {
+      input.value = q;
+      state.q = norm(q.trim());
+    }
+    const cat = params.get("category");
+    if (cat && labels[cat]) state.category = cat;
+    apply(false);
+  }
+</script>
 
 <style>
   .page-hero {
@@ -105,7 +354,13 @@ function formatDate(iso: string) {
     padding-top: 0;
   }
 
-  /* Empty state */
+  /* Filtered-out cards: beat the flex/grid display on .card / .featured-post */
+  [data-card][hidden],
+  [data-grid][hidden] {
+    display: none !important;
+  }
+
+  /* Empty state (no posts at all) */
   .blog-empty {
     display: flex;
     flex-direction: column;
@@ -124,6 +379,204 @@ function formatDate(iso: string) {
 
   .blog-empty__text {
     font-size: 16px;
+    color: var(--muted);
+  }
+
+  /* Filter bar */
+  .filterbar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .fb-row {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .fb-search {
+    flex: 1 1 260px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0 16px;
+    height: 48px;
+    color: var(--muted);
+    transition: border-color var(--ease), box-shadow var(--ease);
+  }
+
+  .fb-search:focus-within {
+    border-color: var(--ink);
+    box-shadow: 0 0 0 3px var(--accent);
+    color: var(--ink);
+  }
+
+  .fb-search input {
+    min-width: 0;
+    flex: 1;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    outline: none;
+    height: 100%;
+  }
+
+  .fb-search input::placeholder {
+    color: var(--muted);
+  }
+
+  .fb-dd {
+    position: relative;
+  }
+
+  .fb-dd-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 18px;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color var(--ease);
+  }
+
+  .fb-dd-btn:hover,
+  .fb-dd-btn.is-active {
+    border-color: var(--ink);
+  }
+
+  .fb-chevron {
+    color: var(--muted);
+  }
+
+  .fb-menu[hidden] {
+    display: none;
+  }
+
+  .fb-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 30;
+    min-width: 220px;
+    background: var(--surface);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-md);
+    box-shadow: 0 12px 32px rgb(25 24 16 / 0.12);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fb-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    width: 100%;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    border-radius: var(--radius-sm);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .fb-option:hover {
+    background: var(--bone-dark, rgb(25 24 16 / 0.05));
+  }
+
+  .fb-option.is-selected {
+    background: var(--accent);
+  }
+
+  .fb-count {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .fb-results {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .fb-result-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .fb-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--accent);
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .fb-pill-x {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .fb-clear {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-text);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Filter empty state */
+  .filter-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-xl);
+    max-width: 560px;
+  }
+
+  .filter-empty__title {
+    font-size: clamp(22px, 2.6vw, 30px);
+  }
+
+  .filter-empty__text {
+    font-size: 15px;
     color: var(--muted);
   }
 
@@ -214,6 +667,8 @@ function formatDate(iso: string) {
     display: flex;
     align-items: center;
     gap: var(--space-2);
+    width: 100%;
+    justify-content: space-between;
   }
 
   .post-card__title {
