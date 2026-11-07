@@ -207,10 +207,44 @@ const jsonLd = {
   }
 
   .case-body :global(a) {
-    color: var(--accent-text);
-    font-weight: 600;
+    color: inherit;
     text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+    text-decoration-skip-ink: none;
+    transition: text-decoration-color var(--ease);
+  }
+
+  .case-body :global(a:hover) {
+    text-decoration-color: var(--accent-text);
+  }
+
+  .case-body :global(a.figure-link) {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .case-body :global(a.figure-link img) {
+    transition: border-color var(--ease);
+  }
+
+  .case-body :global(a.figure-link:hover img) {
+    border-color: var(--accent-text);
+  }
+
+  .case-body :global(a.figure-link figcaption) {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    text-decoration-skip-ink: none;
+    transition: text-decoration-color var(--ease);
+  }
+
+  .case-body :global(a.figure-link:hover figcaption) {
+    text-decoration-color: var(--accent-text);
   }
 
   .case-back {

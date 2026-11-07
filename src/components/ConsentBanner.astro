@@ -146,11 +146,15 @@
   .consent__text a {
     color: var(--ink);
     text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+    text-decoration-skip-ink: none;
+    transition: text-decoration-color var(--ease);
   }
 
   .consent__text a:hover {
-    color: var(--accent-text);
+    text-decoration-color: var(--accent-text);
   }
 
   .consent__state {

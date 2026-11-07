@@ -264,11 +264,16 @@ const updated = "November 7, 2026";
   .legal__body li a {
     color: var(--ink);
     text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+    text-decoration-skip-ink: none;
+    transition: text-decoration-color var(--ease);
   }
 
-  .legal__body p a:hover {
-    color: var(--accent-text);
+  .legal__body p a:hover,
+  .legal__body li a:hover {
+    text-decoration-color: var(--accent-text);
   }
 
   .legal__body code {

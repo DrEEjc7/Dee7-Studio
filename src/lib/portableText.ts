@@ -2,7 +2,9 @@
  * Minimal Portable Text -> HTML renderer for the blocks this site stores:
  * styles (normal, h2-h4, blockquote), bullet/number lists, decorators
  * (strong, em, underline, code, strike-through), link annotations, and
- * image blocks whose asset URL was resolved in GROQ as `url`.
+ * image blocks whose asset URL was resolved in GROQ as `url`. An image block
+ * may also carry an optional `href`, which wraps the image and its caption
+ * in a link (e.g. a screenshot of a tool, linking to that tool's site).
  */
 
 interface PTSpan {
@@ -29,6 +31,13 @@ export interface PTBlock {
   url?: string;
   alt?: string;
   caption?: string;
+  href?: string; // optional: makes the image/caption link out (e.g. to the tool it's a screenshot of)
+}
+
+/** External links (not this site) open in a new tab. */
+function linkAttrs(href: string): string {
+  const external = /^https?:\/\//.test(href) && !href.includes("dee7studio.com");
+  return external ? ' target="_blank" rel="noopener noreferrer"' : "";
 }
 
 function escapeHtml(s: string): string {
@@ -57,9 +66,7 @@ function renderSpan(span: PTSpan, markDefs: PTMarkDef[]): string {
     }
     const def = markDefs.find((d) => d._key === mark);
     if (def?._type === "link" && def.href) {
-      const external = /^https?:\/\//.test(def.href) && !def.href.includes("dee7studio.com");
-      const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : "";
-      html = `<a href="${escapeHtml(def.href)}"${attrs}>${html}</a>`;
+      html = `<a href="${escapeHtml(def.href)}"${linkAttrs(def.href)}>${html}</a>`;
     }
   }
   return html;
@@ -90,7 +97,12 @@ function renderImage(block: PTBlock): string {
   const caption = block.caption
     ? `<figcaption>${escapeHtml(block.caption)}</figcaption>`
     : "";
-  return `<figure><img src="${escapeHtml(block.url)}" alt="${alt}" loading="lazy" />${caption}</figure>`;
+  const img = `<img src="${escapeHtml(block.url)}" alt="${alt}" loading="lazy" />`;
+
+  if (block.href) {
+    return `<figure><a href="${escapeHtml(block.href)}"${linkAttrs(block.href)} class="figure-link">${img}${caption}</a></figure>`;
+  }
+  return `<figure>${img}${caption}</figure>`;
 }
 
 export function renderPortableText(blocks: PTBlock[] | undefined): string {

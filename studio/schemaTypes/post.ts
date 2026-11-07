@@ -77,6 +77,12 @@ export const post = defineType({
           fields: [
             { name: "alt", title: "Alt text", type: "string" },
             { name: "caption", title: "Caption", type: "string" },
+            {
+              name: "href",
+              title: "Link URL",
+              type: "url",
+              description: "Optional: makes the image and caption link out, e.g. to the tool or site it's a screenshot of.",
+            },
           ],
         },
       ],
