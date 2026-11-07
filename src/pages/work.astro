@@ -45,7 +45,7 @@ const capabilities = [
           <Tag
             href={project.url}
             target={project.url ? "_blank" : undefined}
-            rel={project.url ? "noopener" : undefined}
+            rel={project.url ? "noopener noreferrer" : undefined}
             class="card project-tile"
             data-rise
             style={`--rise-delay: ${(i % 2) * 90}ms`}
@@ -166,7 +166,11 @@ const capabilities = [
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-text-on-dark);
+  }
+
+  .project-tile__cover .index-num {
+    color: var(--accent-text-on-dark);
   }
 
   .project-tile__name {
@@ -202,7 +206,7 @@ const capabilities = [
   .project-tile__link {
     font-size: 14px;
     font-weight: 600;
-    color: var(--accent);
+    color: var(--accent-text);
   }
 
   .case-note {
@@ -214,7 +218,7 @@ const capabilities = [
   }
 
   .case-note__link {
-    color: var(--accent);
+    color: var(--accent-text);
     font-weight: 600;
   }
 

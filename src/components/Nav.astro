@@ -24,7 +24,7 @@ const path = Astro.url.pathname;
       ))}
     </nav>
 
-    <a href="/contact" class="btn btn--accent nav__cta">Get a Free Review</a>
+    <a href="/contact?intent=review" class="btn btn--accent nav__cta">Free Website Review</a>
   </div>
 </header>
 
@@ -93,8 +93,31 @@ const path = Astro.url.pathname;
   }
 
   @media (max-width: 720px) {
+    .nav__inner {
+      flex-wrap: wrap;
+      height: auto;
+      padding-block: 12px 10px;
+      row-gap: 10px;
+      justify-content: space-between;
+    }
+
     .nav__links {
-      display: none;
+      order: 3;
+      width: 100%;
+      gap: var(--space-3);
+    }
+
+    .nav__link--active::after {
+      bottom: -6px;
+    }
+
+    .nav__cta {
+      font-size: 13px;
+      padding: 8px 14px;
+    }
+
+    .nav__wordmark {
+      height: 32px;
     }
   }
 </style>

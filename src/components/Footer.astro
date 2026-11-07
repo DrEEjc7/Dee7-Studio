@@ -33,7 +33,7 @@ const year = new Date().getFullYear();
         <div class="footer__brand-row">
           <img src="/brand/wordmark-on-dark.svg" alt="Dee7 Studio" width="144" height="45" class="footer__wordmark" />
         </div>
-        <p class="footer__tagline">Turning visions into exceptional websites.</p>
+        <p class="footer__tagline">Websites that explain your offer and get visitors to act.</p>
       </div>
 
       <nav class="footer__cols" aria-label="Footer">
@@ -46,7 +46,7 @@ const year = new Date().getFullYear();
         <div class="footer__col">
           <span class="footer__col-title">Resources</span>
           <a href="/blog">Blog</a>
-          <a href="/contact">Free Website Review</a>
+          <a href="/contact?intent=review">Free Website Review</a>
         </div>
         <div class="footer__col">
           <span class="footer__col-title">Contact</span>
@@ -68,6 +68,7 @@ const year = new Date().getFullYear();
     background: var(--ink);
     color: var(--ink-contrast);
     padding-block: var(--space-6) var(--space-4);
+    border-top: 1px solid var(--border-on-dark);
   }
 
   .footer__live {

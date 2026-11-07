@@ -119,12 +119,12 @@ export const offers: Offer[] = [
     problem: "Need a design team on tap?",
     forWho:
       "Agencies that need white-label web capacity, and companies with regular website work, without hiring in-house.",
-    timeline: "Monthly, from 20 reserved hours",
+    timeline: "Monthly, ongoing",
     fromPrice: "From $3,000/mo",
     description:
       "Reserved design and Webflow capacity every month. One active task at a time, weekly updates, and work that can run under your brand if you're an agency.",
     deliverables: [
-      "Reserved design & Webflow hours",
+      "From 20 reserved design & Webflow hours a month",
       "One active task at a time",
       "Weekly progress updates",
       "Landing pages, site updates, new sections",

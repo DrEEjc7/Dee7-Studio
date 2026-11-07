@@ -7,6 +7,11 @@
   /* Color */
   --ink: #111827;
   --accent: #088981;
+  /* AA-safe accent variants: small text on light, small text on ink, button fill under white text */
+  --accent-text: #067068;
+  --accent-text-on-dark: #19A89D;
+  --accent-fill: #077772;
+  --accent-fill-hover: #056A63;
   --bg: #FCFCF9;
   --surface: #FFFFFF;
   --tint: #D1FAE5;
@@ -155,7 +160,11 @@ img, svg {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
+}
+
+.section--dark .eyebrow {
+  color: var(--accent-text-on-dark);
 }
 
 .lead {
@@ -213,12 +222,12 @@ img, svg {
 }
 
 .btn--accent {
-  background: var(--accent);
+  background: var(--accent-fill);
   color: #fff;
 }
 
 .btn--accent:hover {
-  background: #0A9E95;
+  background: var(--accent-fill-hover);
 }
 
 .btn--secondary {
@@ -228,8 +237,8 @@ img, svg {
 }
 
 .btn--secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--accent-text);
+  color: var(--accent-text);
 }
 
 .btn--ghost-light {
@@ -280,8 +289,13 @@ img, svg {
 }
 
 .badge--delivery {
-  border: 1.5px solid var(--accent);
-  color: var(--accent);
+  border: 1.5px solid var(--accent-text);
+  color: var(--accent-text);
+}
+
+.badge--ghost-dark {
+  border: 1px solid var(--border-on-dark);
+  color: var(--muted-on-dark);
 }
 
 .badge--tint {
@@ -395,7 +409,23 @@ html.js [data-rise].is-risen {
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.06em;
-  color: var(--accent);
+  color: var(--accent-text);
+}
+
+.section--dark .index-num {
+  color: var(--accent-text-on-dark);
+}
+
+/* Keyboard focus */
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+}
+
+.section--dark :focus-visible,
+.hero :focus-visible,
+.footer :focus-visible {
+  outline-color: var(--accent-text-on-dark);
 }
 
 /* Link cue: the dot slides in on hover */

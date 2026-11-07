@@ -51,13 +51,15 @@ const {
         const io = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
-              if (entry.isIntersecting) {
+              // Reveal when entering, and also when already scrolled past
+              // (fast scrolls and restored scroll positions).
+              if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
                 entry.target.classList.add("is-risen");
                 io.unobserve(entry.target);
               }
             }
           },
-          { threshold: 0.12 }
+          { threshold: 0.05, rootMargin: "0px 0px 160px 0px" }
         );
         els.forEach((el) => io.observe(el));
       } else {

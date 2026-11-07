@@ -32,7 +32,7 @@ const steps = [
 
 const testimonials = [
   {
-    text: "There are designers out there (millions) but only a few truly excellent designers. Andrej is one of those few. His ideas, creativity and skills to come up with something that exceeds your expectations are simply awesome. Yes, he charges a fee well above average, but you can expect a result that justifies the premium price. Highly recommended.",
+    text: "There are designers out there (millions) but only a few truly excellent designers. Andrej is one of those few. … Yes, he charges a fee well above average, but you can expect a result that justifies the premium price. Highly recommended.",
     name: "Jonah Smith",
     company: "Vespa",
   },
@@ -64,10 +64,10 @@ const sectors = [
   <!-- Hero -->
   <section class="hero">
     <div class="container hero__inner">
-      <span class="badge badge--delivery">Web design studio for B2B teams</span>
+      <span class="badge badge--ghost-dark">Web design studio for B2B teams</span>
       <h1 class="display hero__title">
-        Make your product<br class="hero__br" />
-        impossible to <span class="hero__title-accent">misunderstand.</span>
+        Make your product{" "}<br class="hero__br" />impossible to{" "}
+        <span class="hero__title-accent">misunderstand.</span>
       </h1>
       <p class="lead hero__sub">
         You have a product to launch, a website that undersells you, or an idea
@@ -75,7 +75,7 @@ const sectors = [
         that explain your offer clearly, and get visitors to act.
       </p>
       <div class="hero__actions">
-        <a href="/contact" class="btn btn--accent btn--lg">Get a Free Website Review</a>
+        <a href="/contact?intent=review" class="btn btn--accent btn--lg">Get a Free Website Review</a>
         <a href="/work" class="btn btn--ghost-light btn--lg">See Our Work</a>
       </div>
 
@@ -95,11 +95,11 @@ const sectors = [
         </div>
         <div class="hero__stat">
           <dt>Certified Partner</dt>
-          <dd>Webflow</dd>
+          <dd>Webflow + Notion</dd>
         </div>
         <div class="hero__stat">
-          <dt>Certified Partner</dt>
-          <dd>Notion</dd>
+          <dt>design work delivered for</dt>
+          <dd>AWS · Fiverr</dd>
         </div>
       </dl>
     </div>
@@ -167,7 +167,7 @@ const sectors = [
           <a
             href={project.url ?? "/work"}
             target={project.url ? "_blank" : undefined}
-            rel={project.url ? "noopener" : undefined}
+            rel={project.url ? "noopener noreferrer" : undefined}
             class="card project-card"
             data-rise
             style={`--rise-delay: ${i * 90}ms`}
@@ -279,6 +279,7 @@ const sectors = [
 
   .hero__sub {
     max-width: 600px;
+    color: var(--muted-on-dark);
   }
 
   .hero__actions {
@@ -384,7 +385,6 @@ const sectors = [
     padding: var(--space-3);
     background: var(--tint);
     border-radius: var(--radius-lg);
-    transition: transform var(--ease);
   }
 
   .roadmap-strip__label {
@@ -393,7 +393,7 @@ const sectors = [
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-text);
     margin-bottom: 4px;
   }
 
@@ -440,7 +440,7 @@ const sectors = [
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-text);
   }
 
   .project-card__title {
@@ -474,7 +474,7 @@ const sectors = [
   .project-card__link {
     font-size: 14px;
     font-weight: 600;
-    color: var(--accent);
+    color: var(--accent-text);
   }
 
   /* Process steps */
@@ -491,7 +491,7 @@ const sectors = [
     font-family: var(--font-display);
     font-size: 14px;
     font-weight: 700;
-    color: var(--accent);
+    color: var(--accent-text-on-dark);
   }
 
   .step__title {

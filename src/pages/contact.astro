@@ -10,13 +10,13 @@ import Base from "../layouts/Base.astro";
     <div class="container contact__grid">
       <!-- Left: pitch -->
       <div class="contact__intro" data-rise>
-        <span class="eyebrow">Contact</span>
+        <span class="eyebrow" id="contact-eyebrow">Contact</span>
         <span class="status">
           <span class="status__dot"></span>
           Taking on new projects
         </span>
-        <h1 class="contact__title">Tell us what you're trying to do.</h1>
-        <p class="lead">
+        <h1 class="contact__title" id="contact-title">Tell us what you're trying to do.</h1>
+        <p class="lead" id="contact-lead">
           You don't need a perfect brief. Share your goal, timing and budget.
           We'll reply within one business day with an honest recommendation.
         </p>
@@ -63,7 +63,7 @@ import Base from "../layouts/Base.astro";
           </select>
         </div>
 
-        <div class="field-row">
+        <div class="field-row" id="qualify-row">
           <div class="field">
             <label for="timing">When do you need it?</label>
             <select id="timing" name="timing">
@@ -98,7 +98,7 @@ import Base from "../layouts/Base.astro";
             placeholder="E.g. we're launching a new product in January and our current site doesn't explain it…"></textarea>
         </div>
 
-        <button type="submit" class="btn btn--accent btn--lg contact__submit">Send It</button>
+        <button type="submit" class="btn btn--accent btn--lg contact__submit" id="contact-submit">Send It</button>
         <p class="contact__form-note">
           Opens a pre-filled email in your mail app. Nothing is stored on this
           site.
@@ -116,6 +116,29 @@ import Base from "../layouts/Base.astro";
   if (service && select) {
     const match = Array.from(select.options).find((o) => o.value === service);
     if (match) select.value = service;
+  }
+
+  // Free-review intent: echo the promise, drop the qualification fields.
+  const isReview = params.get("intent") === "review" || service === "free-review";
+  if (isReview) {
+    if (select) select.value = "free-review";
+    const set = (id: string, text: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+    set("contact-eyebrow", "Free Website Review");
+    set("contact-title", "Your three fixes, coming up.");
+    set(
+      "contact-lead",
+      "Drop your website and your main goal. You'll get a short video with the three changes to make first. Free, no obligation, no call required."
+    );
+    set("contact-submit", "Get My Free Review");
+    document.getElementById("qualify-row")?.setAttribute("hidden", "");
+    const message = document.getElementById("message");
+    message?.setAttribute(
+      "placeholder",
+      "E.g. we want more demo bookings from the homepage…"
+    );
   }
 
   // Compose a structured email from the form (no backend needed yet).
@@ -236,6 +259,10 @@ import Base from "../layouts/Base.astro";
   .field-row {
     display: flex;
     gap: var(--space-2);
+  }
+
+  .field-row[hidden] {
+    display: none;
   }
 
   .field label {
