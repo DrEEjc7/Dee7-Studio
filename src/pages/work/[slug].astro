@@ -1,7 +1,9 @@
 ---
 import Base from "../../layouts/Base.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import AvifPicture from "../../components/AvifPicture.astro";
 import { getProjects } from "../../lib/content";
+import { fallback, socialImage } from "../../lib/images";
 import { renderPortableText } from "../../lib/portableText";
 
 export async function getStaticPaths() {
@@ -22,7 +24,7 @@ const jsonLd = {
   "@type": "Article",
   headline: `${project.title} case study`,
   description: project.summary,
-  ...(project.image ? { image: project.image } : {}),
+  ...(project.image ? { image: socialImage(project.image) } : {}),
   author: { "@id": "https://dee7studio.com/#organization" },
   publisher: { "@id": "https://dee7studio.com/#organization" },
   mainEntityOfPage: `https://dee7studio.com/work/${project.slug}`,
@@ -32,7 +34,7 @@ const jsonLd = {
 <Base
   title={`${project.title} Case Study | Dee7 Studio`}
   description={project.summary}
-  image={project.image}
+  image={socialImage(project.image)}
   ogType="article"
   jsonLd={jsonLd}
   breadcrumbs={[
@@ -68,12 +70,15 @@ const jsonLd = {
     {project.image && (
       <div class="container case-cover">
         <div class="case-cover__plate">
-          <img
-            src={project.image}
-            alt={`${project.title} project mockup`}
-            class="case-cover__img"
-            loading="eager"
-          />
+          <AvifPicture src={project.image} sizes="(max-width: 960px) calc(100vw - 112px), 896px">
+            <img
+              src={fallback(project.image, 1600)}
+              alt={`${project.title} project mockup`}
+              class="case-cover__img"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </AvifPicture>
         </div>
       </div>
     )}
@@ -87,7 +92,7 @@ const jsonLd = {
 
   <CtaBand
     heading="Want results like this?"
-    sub="Send us your website and your goal. We'll reply with a free review: three fixes to make first."
+    sub="Tell us what you're building and what it needs to do. We'll reply within one business day with an honest recommendation."
   />
 </Base>
 

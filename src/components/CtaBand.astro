@@ -1,12 +1,28 @@
 ---
+import { SITE } from "../lib/site";
+
+/**
+ * Closing call to action. Two variants, so the ask matches what the visitor
+ * was just doing:
+ *  - "talk"   (default): ready to discuss. Book a call, or send a message.
+ *             The free review stays as a quiet third option.
+ *  - "review": still researching (blog readers). Lead with the free review,
+ *             keep the call as the alternative.
+ */
 interface Props {
   heading?: string;
   sub?: string;
+  variant?: "talk" | "review";
 }
 
 const {
-  heading = "Get three fixes for your website. Free.",
-  sub = "Send us your website and your main goal. You'll get a short video with the three changes to make first. No call required, no obligation.",
+  variant = "talk",
+  heading = variant === "review"
+    ? "Want this applied to your site?"
+    : "Have a project in mind? Let's talk.",
+  sub = variant === "review"
+    ? "Send us your website and your main goal. You'll get a short video with the three changes to make first. No call required, no obligation."
+    : "Tell us what you're trying to do. We'll reply within one business day with an honest recommendation, and a fixed quote when it fits.",
 } = Astro.props;
 ---
 
@@ -15,9 +31,23 @@ const {
     <h2 class="cta-band__heading">{heading}</h2>
     <p class="lead cta-band__sub">{sub}</p>
     <div class="cta-band__actions">
-      <a href="/contact?intent=review" class="btn btn--accent btn--lg">Get a Free Website Review</a>
-      <a href="/work" class="btn btn--ghost-light btn--lg">See Our Work</a>
+      {variant === "review" ? (
+        <>
+          <a href="/contact?intent=review" class="btn btn--accent btn--lg">Get a Free Website Review</a>
+          <a href={SITE.bookingUrl} class="btn btn--ghost-light btn--lg" target="_blank" rel="noopener">Book a Call</a>
+        </>
+      ) : (
+        <>
+          <a href={SITE.bookingUrl} class="btn btn--accent btn--lg" target="_blank" rel="noopener">Book a Call</a>
+          <a href="/contact" class="btn btn--ghost-light btn--lg">Send a Message</a>
+        </>
+      )}
     </div>
+    {variant === "talk" && (
+      <p class="cta-band__alt">
+        Not ready to talk? <a href="/contact?intent=review">Get a free website review</a>
+      </p>
+    )}
   </div>
 </section>
 
@@ -45,5 +75,19 @@ const {
     flex-wrap: wrap;
     justify-content: center;
     margin-top: var(--space-1);
+  }
+
+  .cta-band__alt {
+    font-size: 15px;
+    opacity: 0.8;
+  }
+
+  .cta-band__alt a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cta-band__alt a:hover {
+    opacity: 1;
   }
 </style>

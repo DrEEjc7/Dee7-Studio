@@ -6,6 +6,7 @@
  * may also carry an optional `href`, which wraps the image and its caption
  * in a link (e.g. a screenshot of a tool, linking to that tool's site).
  */
+import { avif, fallback } from "./images";
 
 interface PTSpan {
   _type: "span";
@@ -97,12 +98,17 @@ function renderImage(block: PTBlock): string {
   const caption = block.caption
     ? `<figcaption>${escapeHtml(block.caption)}</figcaption>`
     : "";
-  const img = `<img src="${escapeHtml(block.url)}" alt="${alt}" loading="lazy" />`;
+  const a = avif(block.url, "(max-width: 688px) 100vw, 640px");
+  const source = a
+    ? `<source type="image/avif" srcset="${escapeHtml(a.srcset)}" sizes="${escapeHtml(a.sizes)}" />`
+    : "";
+  const img = `<img src="${escapeHtml(fallback(block.url, 1200))}" alt="${alt}" loading="lazy" decoding="async" />`;
+  const picture = `<picture>${source}${img}</picture>`;
 
   if (block.href) {
-    return `<figure><a href="${escapeHtml(block.href)}"${linkAttrs(block.href)} class="figure-link">${img}${caption}</a></figure>`;
+    return `<figure><a href="${escapeHtml(block.href)}"${linkAttrs(block.href)} class="figure-link">${picture}${caption}</a></figure>`;
   }
-  return `<figure>${img}${caption}</figure>`;
+  return `<figure>${picture}${caption}</figure>`;
 }
 
 export function renderPortableText(blocks: PTBlock[] | undefined): string {

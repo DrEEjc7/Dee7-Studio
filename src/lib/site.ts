@@ -6,6 +6,8 @@ export const SITE = {
   name: "Dee7 Studio",
   url: "https://dee7studio.com",
   email: "hello@dee7studio.com",
+  /** Call booking page (TidyCal). Opens in a new tab wherever it is linked. */
+  bookingUrl: "https://tidycal.com/team/dee7studio/meeting",
   tagline: "Websites that explain your offer and get visitors to act.",
   description:
     "Dee7 Studio plans, writes, designs and builds websites that explain your offer clearly. 10+ years, 2,000+ projects, Certified Webflow Partner.",

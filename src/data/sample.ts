@@ -316,7 +316,7 @@ export const projects: Project[] = [
     summary:
       "Award-winning website for a climate and Earth-data company. Complex scientific services made clear and navigable.",
     url: "https://www.lobelia.earth",
-    image: "/work/lobelia-earth.jpg",
+    image: "/work/lobelia-earth.avif",
   },
   {
     slug: "im360",
@@ -372,7 +372,7 @@ export const projects: Project[] = [
     summary:
       "Branding, UX/UI and development for an educational course teaching entrepreneurs to build online service businesses.",
     url: "https://go.dropservicing.com",
-    image: "/work/dropservicing.webp",
+    image: "/work/dropservicing.avif",
   },
   {
     slug: "mind-ninja",
@@ -384,7 +384,7 @@ export const projects: Project[] = [
     summary:
       "Full migration from SquareSpace to Webflow with eight custom-designed pages and digital product integration.",
     url: "https://www.mind-ninja.co.uk",
-    image: "/work/mind-ninja.webp",
+    image: "/work/mind-ninja.avif",
   },
   {
     slug: "ai-institute",
@@ -408,6 +408,6 @@ export const projects: Project[] = [
     summary:
       "Dark, confident marketing site for an AI platform in LNG trading, a company quoted in the WSJ, Bloomberg and the Financial Times.",
     url: "https://calypso-commodities.com",
-    image: "/work/calypso-commodities.jpg",
+    image: "/work/calypso-commodities.avif",
   },
 ];

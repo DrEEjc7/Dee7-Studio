@@ -111,6 +111,11 @@ img, svg {
   max-width: 100%;
 }
 
+/* <picture> wrappers (AVIF sources) must not affect layout */
+picture {
+  display: contents;
+}
+
 ::selection {
   background: var(--tint);
   color: var(--ink);

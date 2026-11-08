@@ -27,3 +27,11 @@ pnpm-debug.log*
 # Playwright CLI output (may contain credentials)
 .playwright-cli/
 studio/.sanity/
+
+# generated image pipeline output
+public/img/
+src/data/images.generated.json
+.cache/
+
+# local secrets for wrangler/astro dev
+.dev.vars

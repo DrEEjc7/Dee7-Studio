@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { getOffers } from "../../lib/content";
+import { SITE } from "../../lib/site";
 
 export async function getStaticPaths() {
   return (await getOffers()).map((offer) => ({
@@ -61,7 +62,7 @@ const jsonLd = [
         </div>
         <div class="offer-hero__actions">
           <a href={`/contact?service=${offer.slug}`} class="btn btn--accent btn--lg">{offer.cta}</a>
-          <a href="/work" class="btn btn--secondary btn--lg">See Our Work</a>
+          <a href={SITE.bookingUrl} class="btn btn--secondary btn--lg" target="_blank" rel="noopener">Book a Call</a>
         </div>
       </div>
     </header>
@@ -138,7 +139,10 @@ const jsonLd = [
           Share your goals, timing and budget. We'll tell you honestly whether
           this is the right fit, and what we'd do first.
         </p>
-        <a href={`/contact?service=${offer.slug}`} class="btn btn--accent btn--lg">{offer.cta}</a>
+        <div class="offer-cta__actions">
+          <a href={`/contact?service=${offer.slug}`} class="btn btn--accent btn--lg">{offer.cta}</a>
+          <a href={SITE.bookingUrl} class="btn btn--ghost-light btn--lg" target="_blank" rel="noopener">Book a Call</a>
+        </div>
       </div>
     </section>
   </article>
@@ -306,6 +310,13 @@ const jsonLd = [
     align-items: center;
     text-align: center;
     gap: var(--space-3);
+  }
+
+  .offer-cta__actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .offer-cta__heading {

@@ -1,7 +1,10 @@
 ---
 import Base from "../layouts/Base.astro";
 import CtaBand from "../components/CtaBand.astro";
+import AvifPicture from "../components/AvifPicture.astro";
 import { getProjects, getOffers } from "../lib/content";
+import { fallback } from "../lib/images";
+import { SITE } from "../lib/site";
 
 const projects = (await getProjects()).filter((p) => p.featured).slice(0, 3);
 const allOffers = await getOffers();
@@ -75,8 +78,8 @@ const sectors = [
         that explain your offer clearly, and get visitors to act.
       </p>
       <div class="hero__actions">
-        <a href="/contact?intent=review" class="btn btn--accent btn--lg">Get a Free Website Review</a>
-        <a href="/work" class="btn btn--secondary btn--lg">See Our Work</a>
+        <a href={SITE.bookingUrl} class="btn btn--accent btn--lg" target="_blank" rel="noopener">Book a Call</a>
+        <a href="/contact?intent=review" class="btn btn--secondary btn--lg">Get a Free Website Review</a>
       </div>
 
       <span class="status hero__status">
@@ -169,12 +172,15 @@ const sectors = [
           >
             <div class="project-card__cover">
               {project.image ? (
-                <img
-                  src={project.image}
-                  alt={`Screenshot of the ${project.title} website`}
-                  loading="lazy"
-                  class="project-card__shot"
-                />
+                <AvifPicture src={project.image} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) 50vw, 400px">
+                  <img
+                    src={fallback(project.image, 800)}
+                    alt={`Screenshot of the ${project.title} website`}
+                    loading="lazy"
+                    decoding="async"
+                    class="project-card__shot"
+                  />
+                </AvifPicture>
               ) : (
                 <span class="project-card__name">{project.title}</span>
               )}

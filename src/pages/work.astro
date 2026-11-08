@@ -1,7 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
 import CtaBand from "../components/CtaBand.astro";
+import AvifPicture from "../components/AvifPicture.astro";
 import { getProjects } from "../lib/content";
+import { fallback } from "../lib/images";
 
 const projects = await getProjects();
 
@@ -63,12 +65,15 @@ const capabilities = [
                 <span class="project-tile__highlight">{project.highlight}</span>
               </div>
               {project.image ? (
-                <img
-                  src={project.image}
-                  alt={`Screenshot of the ${project.title} website`}
-                  loading="lazy"
-                  class="project-tile__shot"
-                />
+                <AvifPicture src={project.image} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) 50vw, 400px">
+                  <img
+                    src={fallback(project.image, 800)}
+                    alt={`Screenshot of the ${project.title} website`}
+                    loading="lazy"
+                    decoding="async"
+                    class="project-tile__shot"
+                  />
+                </AvifPicture>
               ) : (
                 <span class="project-tile__name">{project.title}</span>
               )}
@@ -118,7 +123,7 @@ const capabilities = [
 
   <CtaBand
     heading="Want work like this?"
-    sub="Send us your website and your goal. We'll reply with a free review: three fixes to make first."
+    sub="Tell us what you're building and what it needs to do. We'll reply within one business day with an honest recommendation."
   />
 </Base>
 

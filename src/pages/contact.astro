@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import { SITE } from "../lib/site";
 ---
 
 <Base
@@ -29,7 +30,9 @@ import Base from "../layouts/Base.astro";
         </ul>
 
         <div class="contact__direct">
-          <span class="contact__direct-label">Prefer email?</span>
+          <span class="contact__direct-label">Prefer to talk?</span>
+          <a href={SITE.bookingUrl} class="btn btn--secondary contact__book" target="_blank" rel="noopener">Book a call</a>
+          <span class="contact__direct-label contact__direct-label--gap">Or email us</span>
           <a href="mailto:hello@dee7studio.com" class="contact__direct-link">hello@dee7studio.com</a>
         </div>
       </div>
@@ -100,10 +103,17 @@ import Base from "../layouts/Base.astro";
             placeholder="E.g. we're launching a new product in January and our current site doesn't explain it…"></textarea>
         </div>
 
+        <!-- Honeypot: hidden from people, tempting to bots -->
+        <div class="contact__hp" aria-hidden="true">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+        </div>
+
         <button type="submit" class="btn btn--accent btn--lg contact__submit" id="contact-submit">Send It</button>
+        <p class="contact__status" id="contact-status" role="status" aria-live="polite" hidden></p>
         <p class="contact__form-note">
-          Opens a pre-filled email in your mail app. Nothing is stored on this
-          site.
+          We reply within one business day. Your details are used only to
+          answer you.
         </p>
       </form>
     </div>
@@ -156,6 +166,7 @@ import Base from "../layouts/Base.astro";
       "website-project": "Full website / redesign",
       "monthly-partner": "Ongoing partner",
       "website-roadmap": "Roadmap / plan",
+      "ai-automation": "AI automation",
       other: "Something else",
     };
 
@@ -174,14 +185,60 @@ import Base from "../layouts/Base.astro";
       .filter(Boolean)
       .join("\n");
 
-    // Analytics: count the enquiry. Only the chosen service, never personal data.
-    (window as any).dataLayer?.push({
-      event: "generate_lead",
-      lead_service: get("service") || "unspecified",
-      lead_intent: isReview ? "review" : "project",
-    });
+    const track = (delivery: string) =>
+      // Only the chosen service, never personal data.
+      (window as any).dataLayer?.push({
+        event: "generate_lead",
+        lead_service: get("service") || "unspecified",
+        lead_intent: isReview ? "review" : "project",
+        lead_delivery: delivery,
+      });
 
-    window.location.href = `mailto:hello@dee7studio.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const openMailto = () => {
+      track("mailto");
+      window.location.href = `mailto:hello@dee7studio.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    };
+
+    const submit = document.getElementById("contact-submit") as HTMLButtonElement;
+    const status = document.getElementById("contact-status") as HTMLElement;
+    const label = submit.textContent;
+    submit.disabled = true;
+    submit.textContent = "Sending…";
+    status.hidden = true;
+
+    fetch("/api/lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: get("name"),
+        email: get("email"),
+        website: get("website"),
+        service: serviceLabels[get("service")] ?? get("service"),
+        timing: get("timing"),
+        budget: get("budget"),
+        message: get("message"),
+        company: get("company"),
+        intent: isReview ? "review" : "project",
+        page: location.pathname + location.search,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(String(res.status));
+        track("api");
+        form.reset();
+        form.querySelectorAll(".field").forEach((el) => el.setAttribute("hidden", ""));
+        submit.hidden = true;
+        status.textContent = "Thanks, we have it. We'll reply within one business day.";
+        status.hidden = false;
+      })
+      .catch(() => {
+        // Backend problem: never lose the lead. Fall back to the email draft.
+        submit.disabled = false;
+        submit.textContent = label;
+        status.textContent = "We couldn't send that directly, so we're opening an email draft instead.";
+        status.hidden = false;
+        openMailto();
+      });
   });
 </script>
 
@@ -232,6 +289,14 @@ import Base from "../layouts/Base.astro";
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
+  }
+
+  .contact__book {
+    align-self: flex-start;
+  }
+
+  .contact__direct-label--gap {
+    margin-top: var(--space-2);
   }
 
   .contact__direct-link {
@@ -318,6 +383,25 @@ import Base from "../layouts/Base.astro";
 
   .contact__submit {
     width: 100%;
+  }
+
+  .contact__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .contact__status {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--accent-text);
+    text-align: center;
+  }
+
+  .contact__status[hidden] {
+    display: none;
   }
 
   .contact__form-note {

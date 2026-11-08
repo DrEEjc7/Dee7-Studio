@@ -1,7 +1,9 @@
 ---
 import Base from "../../layouts/Base.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import AvifPicture from "../../components/AvifPicture.astro";
 import { getPosts } from "../../lib/content";
+import { fallback, socialImage } from "../../lib/images";
 import { renderPortableText } from "../../lib/portableText";
 
 export async function getStaticPaths() {
@@ -25,7 +27,7 @@ const jsonLd = {
   "@type": "Article",
   headline: post.title,
   description: post.excerpt,
-  ...(post.heroImage ? { image: post.heroImage } : {}),
+  ...(post.heroImage ? { image: socialImage(post.heroImage) } : {}),
   ...(post.date ? { datePublished: post.date, dateModified: post.date } : {}),
   author: { "@id": "https://dee7studio.com/#organization" },
   publisher: { "@id": "https://dee7studio.com/#organization" },
@@ -36,7 +38,7 @@ const jsonLd = {
 <Base
   title={pageTitle}
   description={post.excerpt}
-  image={post.heroImage}
+  image={socialImage(post.heroImage)}
   ogType="article"
   jsonLd={jsonLd}
   breadcrumbs={[
@@ -58,12 +60,15 @@ const jsonLd = {
 
     {post.heroImage && (
       <div class="container post-cover">
-        <img
-          src={post.heroImage}
-          alt={`Cover image for ${post.title}`}
-          class="post-cover__img"
-          loading="eager"
-        />
+        <AvifPicture src={post.heroImage} sizes="(max-width: 800px) 100vw, 752px">
+          <img
+            src={fallback(post.heroImage, 1600)}
+            alt={`Cover image for ${post.title}`}
+            class="post-cover__img"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </AvifPicture>
       </div>
     )}
 
@@ -71,6 +76,7 @@ const jsonLd = {
   </article>
 
   <CtaBand
+    variant="review"
     heading="Want this applied to your site?"
     sub="Get a free teardown. We'll point at the exact sections costing you conversions."
   />

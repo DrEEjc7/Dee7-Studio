@@ -1,4 +1,5 @@
 ---
+import { SITE } from "../lib/site";
 const year = new Date().getFullYear();
 ---
 
@@ -51,6 +52,7 @@ const year = new Date().getFullYear();
         <div class="footer__col">
           <span class="footer__col-title">Contact</span>
           <a href="/contact">Start a project</a>
+          <a href={SITE.bookingUrl} target="_blank" rel="noopener">Book a call</a>
           <a href="mailto:hello@dee7studio.com">hello@dee7studio.com</a>
         </div>
       </nav>

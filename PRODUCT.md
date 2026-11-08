@@ -50,7 +50,7 @@ Acquisition is referrals, partner relationships, and targeted outreach, not cold
 1. Proof over claims: real projects, real quotes, real certifications; nothing invented.
 2. The offer is the problem solved; price comes after fit, on offer pages and in the form.
 3. One signal at a time: green means the action to take; everything else is ink.
-4. Low-friction first step: the free website review outranks "book a call" for cold visitors.
+4. Match the ask to intent: visitors ready to talk get "Book a call" (TidyCal) or a message; visitors still researching (blog readers) get the free website review. The nav button is the neutral "Let's Talk" to /contact.
 5. The site must be scannable in 30 seconds by a referred prospect.
 
 ## Accessibility & Inclusion

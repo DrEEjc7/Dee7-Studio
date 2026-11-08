@@ -24,7 +24,7 @@ const path = Astro.url.pathname;
       ))}
     </nav>
 
-    <a href="/contact?intent=review" class="btn btn--accent nav__cta">Free Website Review</a>
+    <a href="/contact" class="btn btn--accent nav__cta">Let's Talk</a>
   </div>
 </header>
 
@@ -122,11 +122,8 @@ const path = Astro.url.pathname;
     }
   }
 
-  /* Below ~360px, the wordmark + "Free Website Review" pill no longer fit on
-     one row at the 720px breakpoint's sizing, which forces the CTA onto its
-     own line and gives the header 3 rows instead of 2. Trim the CTA a little
-     further so it keeps sitting beside the logo down to the narrowest common
-     phone widths. */
+  /* Below ~360px, trim the CTA pill a little further so it keeps sitting
+     beside the logo down to the narrowest common phone widths. */
   @media (max-width: 374px) {
     .nav__cta {
       font-size: 12px;
