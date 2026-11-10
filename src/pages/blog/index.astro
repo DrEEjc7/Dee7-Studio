@@ -334,7 +334,8 @@ const jsonLd = {
 
   /* Filtered-out cards: beat the flex/grid display on .card / .featured-post */
   [data-card][hidden],
-  [data-grid][hidden] {
+  [data-grid][hidden],
+  .filter-empty[hidden] {
     display: none !important;
   }
 
@@ -540,13 +541,15 @@ const jsonLd = {
   .filter-empty {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: var(--space-2);
-    padding: var(--space-6);
+    padding: var(--space-7, 80px) var(--space-4);
     background: var(--surface);
     border: 1px dashed var(--border);
     border-radius: var(--radius-xl);
-    max-width: 560px;
+    width: 100%;
+    margin-top: var(--space-4);
   }
 
   .filter-empty__title {

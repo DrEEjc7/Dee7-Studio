@@ -8,13 +8,30 @@ import { renderPortableText } from "../../lib/portableText";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  return posts.map((post) => {
+    const others = posts.filter((p) => p.slug !== post.slug);
+    const related = [
+      ...others.filter((p) => p.category === post.category),
+      ...others.filter((p) => p.category !== post.category),
+    ]
+      .slice(0, 3)
+      .map(({ slug, title, excerpt, category, readingTime }) => ({
+        slug,
+        title,
+        excerpt,
+        category,
+        readingTime,
+      }));
+    return { params: { slug: post.slug }, props: { post, related } };
+  });
 }
 
-const { post } = Astro.props;
+const { post, related } = Astro.props;
+
+const categorySlug = (post.category ?? "")
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/^-|-$/g, "");
 
 const bodyHtml = renderPortableText(post.body);
 
@@ -49,8 +66,12 @@ const jsonLd = {
   <article>
     <header class="post-hero">
       <div class="container post-hero__inner">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/blog" class="crumbs__link">Blog</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span>
+          <a href={`/blog?category=${categorySlug}`} class="crumbs__link">{post.category}</a>
+        </nav>
         <div class="post-hero__meta">
-          <span class="badge badge--tint">{post.category}</span>
           <span class="post-hero__date">{post.readingTime}</span>
         </div>
         <h1 class="post-hero__title">{post.title}</h1>
@@ -73,6 +94,34 @@ const jsonLd = {
     )}
 
     <div class="container post-body" set:html={bodyHtml} />
+
+    <div class="container post-after">
+      <a href="/blog" class="post-back">← All articles</a>
+    </div>
+
+    {related.length > 0 && (
+      <section class="related">
+        <div class="container">
+          <div class="related__head">
+            <span class="eyebrow">Keep reading</span>
+            <h2 class="related__title">Related articles</h2>
+          </div>
+          <div class="grid grid--3">
+            {related.map((r) => (
+              <a href={`/blog/${r.slug}`} class="card related-card">
+                <div class="related-card__meta">
+                  <span class="badge badge--tint">{r.category}</span>
+                  <span class="related-card__time">{r.readingTime}</span>
+                </div>
+                <h3 class="related-card__title">{r.title}</h3>
+                <p class="related-card__excerpt">{r.excerpt}</p>
+                <span class="related-card__link link-cue">Read the article →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
   </article>
 
   <CtaBand
@@ -94,6 +143,28 @@ const jsonLd = {
     flex-direction: column;
     gap: var(--space-3);
     align-items: flex-start;
+  }
+
+  .crumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .crumbs__link {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--ease);
+  }
+
+  .crumbs__link:hover {
+    color: var(--accent-text);
+  }
+
+  .crumbs__sep {
+    color: var(--border);
   }
 
   .post-hero__meta {
@@ -125,10 +196,86 @@ const jsonLd = {
 
   .post-body {
     max-width: 688px;
-    padding-block: var(--space-6) var(--space-section);
+    padding-block: var(--space-6) var(--space-5);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
+  }
+
+  .post-after {
+    max-width: 688px;
+    padding-bottom: var(--space-6);
+  }
+
+  .post-back {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent-text);
+    text-decoration: none;
+  }
+
+  .post-back:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Related articles */
+  .related {
+    border-top: 1px solid var(--border);
+    padding-block: var(--space-6) var(--space-section);
+  }
+
+  .related__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+  }
+
+  .related__title {
+    font-size: clamp(24px, 3vw, 32px);
+  }
+
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+
+  .related-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: var(--space-2);
+  }
+
+  .related-card__time {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .related-card__title {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .related-card__excerpt {
+    font-size: 14px;
+    color: var(--muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .related-card__link {
+    margin-top: auto;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-text);
   }
 
   .post-body :global(p) {
