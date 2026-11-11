@@ -37,13 +37,13 @@ export const post = defineType({
       type: "string",
       options: {
         list: [
-          "Learn",
           "Web Design",
-          "Top 10",
-          "Infographics",
-          "Resources",
           "Conversion",
-          "UX",
+          "Infographics",
+          "Branding",
+          "Tools & Platforms",
+          "Business & Process",
+          "Top 10 Lists",
         ],
       },
     }),
